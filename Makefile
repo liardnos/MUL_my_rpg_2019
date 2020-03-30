@@ -11,8 +11,7 @@ SRCT 	=		./tests/
 
 NAME	=		a.out
 
-FLAGS	=		-L./lib/my -lmy -I./include/
-#-l csfml-graphics -l m
+FLAGS	=		-L./lib/my -lmy -I./include/ -l csfml-graphics -l m
 #-fno-diagnostics-show-labels -fno-diagnostics-show-labels fdiagnostics-generate-patch -Wall -Wextra
 #fsyntaxe-only
 TFLAG 	= 		-lcriterion --coverage -fprofile-arcs
