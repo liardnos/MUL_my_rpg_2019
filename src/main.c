@@ -10,9 +10,11 @@
 #include <stdio.h>
 #include "my.h"
 #include "particle.h"
+#include "rpg.h"
 
 int main(int ac, char **av)
 {
+    printf("%i %i\n", TORCH, ARROW);
     sfVideoMode mode = {1024, 1024, 32};
     sfTexture *texture = sfTexture_create(mode.width, mode.height);
     sfRenderWindow *window = sfRenderWindow_create(mode, "hi", sfClose, 0);
