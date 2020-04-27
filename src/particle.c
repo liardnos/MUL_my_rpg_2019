@@ -8,6 +8,7 @@
 #include <SFML/Graphics.h>
 #include "my.h"
 #include "particle.h"
+#include "rpg.h"
 
 lld_t *particle_array()
 {
@@ -16,7 +17,7 @@ lld_t *particle_array()
 
 void particle_add(lld_t *p_lld, particle_t *p)
 {
-    lld_insert(p_lld, p_lld->data, p);
+    lld_insert(p_lld, (u64)p_lld->data, p);
 }
 
 void particles_draw(sfRenderWindow *win, lld_t *p_lld)
@@ -34,7 +35,7 @@ void particles_draw(sfRenderWindow *win, lld_t *p_lld)
         p->a += p->va;
         if (p->life == 0){
             mov = mov->prev ? mov->prev : p_lld;
-            lld_pop(p_lld, i);
+            free(lld_pop(p_lld, i));
             i--;
         }
         p->life--;

@@ -5,7 +5,8 @@
 ## makefile for bistro-matic
 ##
 
-SRC		=		src/*.c
+SRC		=		src/*.c \
+				src/generator/*.c \
 
 SRCT 	=		./tests/
 
@@ -25,7 +26,7 @@ all:
 	gcc -o $(NAME) $(SRC) $(FLAGS)
 
 allO4:
-	make -C ./lib/my buildO6
+	make -C ./lib/my buildO4
 	gcc -o $(NAME) $(SRC) $(FLAGS) -Ofast
 
 run: all
