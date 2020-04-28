@@ -32,12 +32,15 @@ typedef struct animator
     float dtime;
 } animator_t;
 
+
+sfVector2f alloc_vector2f(float x, float y);
+pos_t *malloc_pos(float x, float y, float a);
+
 animator_t *animator_init();
 int animator_setpos(animator_t *anim, pos_t *coor);
 int animator_addmenber(animator_t *anim, pos_t *pos, sfSprite *sprite);
 
-pos_t *malloc_pos(float x, float y, float a);
-sfVector2f malloc_vector2f(float x, float y);
 int animator_draw(sfRenderWindow *window, animator_t *anim);
 int animator_animate(animator_t *anim);
 int animator_goto(animator_t *anim, ...);
+void animator_free(animator_t *anim);

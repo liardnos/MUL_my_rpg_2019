@@ -9,7 +9,9 @@ SRC		=		src/*.c \
 				src/free/*.c	\
 				src/init/*.c	\
 				src/scene/*.c	\
-				src/btn/*.c
+				src/btn/*.c \
+				src/animator/*.c \
+				src/generator/*.c \
 
 SRCT 	=		./tests/
 

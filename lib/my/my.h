@@ -98,6 +98,8 @@ typedef struct btr
     unsigned char branches;// nb of branches
 } btr_t;
 
+typedef long unsigned int u64;
+
 btr_t *btr_init(unsigned char size, int (*cmp)(void *));
 #endif
 

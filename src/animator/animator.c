@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <math.h>
+#include <stdio.h>
 #include "animator.h"
 #include "my.h"
 
@@ -32,13 +33,11 @@ int animator_addmenber(animator_t *anim, pos_t *pos, sfSprite *sprite)
     member_t *member = malloc(sizeof(member_t));
     pos_t *pos2 = malloc(sizeof(pos_t));
     pos_t *pos3 = malloc(sizeof(pos_t));
-
-    pos2->x = pos->x;
-    pos2->y = pos->y;
-    pos2->a = pos->a;
-    pos3->x = pos->x;
-    pos3->y = pos->y;
-    pos3->a = pos->a;
+    if (!pos2 || !pos3)
+        return (0);
+    
+    pos2->x = pos->x, pos2->y = pos->y, pos2->a = pos->a;
+    pos3->x = pos->x, pos3->y = pos->y, pos3->a = pos->a;
     if (!member)
         return (0);
     member->ag = 0;
@@ -68,13 +67,13 @@ pos_t *malloc_pos(float x, float y, float a)
     return (pos);
 }
 
-sfVector2f malloc_vector2f(float x, float y)
+sfVector2f alloc_vector2f(float x, float y)
 {
-    sfVector2f *vec = malloc(sizeof(sfVector2f));
+    static sfVector2f vec;
 
-    vec->x = x;
-    vec->y = y;
-    return (*vec);
+    vec.x = x;
+    vec.y = y;
+    return (vec);
 }
 
 int animator_draw(sfRenderWindow *window, animator_t *anim)
@@ -90,16 +89,20 @@ int animator_draw(sfRenderWindow *window, animator_t *anim)
     }
 }
 
-/*
-typedef struct member
+void animator_free(animator_t *anim)
 {
-    sfSprite *sprite;
-    pos_t *pos;
-    pos_t *pos2;
-    float as;
-    float ag;
-} member_t;
-*/
+    for (lld_t *mv = anim->member->next; mv; mv = mv->next){
+        member_t *member = mv->data;
+        free(member->pos);
+        free(member->pos2);
+        free(member->pos3);
+        sfSprite_destroy(member->sprite);
+        free(member);
+    }
+    lld_free(anim->member);
+    free(anim->pos);
+    free(anim);
+}
 
 int animator_animate(animator_t *anim)
 {
@@ -107,18 +110,21 @@ int animator_animate(animator_t *anim)
         member_t *mbr = mv->data;
         float v = anim->dtime * mbr->ag;
         if (anim->time/2 >   anim->dtime)
-            mbr->pos->a = mbr->pos3->a + v*anim->dtime/2;
+            mbr->pos->a = mbr->pos3->a + v * anim->dtime/2;
         else
-            mbr->pos->a = mbr->pos3->a + v*anim->dtime/2 - pow((anim->dtime - anim->time/2), 2) * mbr->ag;
+            mbr->pos->a = mbr->pos3->a + v * anim->dtime/2 -
+            pow((anim->dtime - anim->time/2), 2) * mbr->ag;
     }
-    if (anim->time > anim->dtime)
+    if (anim->time > anim->dtime){
         anim->dtime++;
+        return (1);
+    }
+    return (0);
 }
 
 int animator_goto(animator_t *anim, ...)
 {
     va_list va;
-    printf("animate\n");
 
     va_start(va, anim);
     anim->time = va_arg(va, double);
@@ -129,6 +135,5 @@ int animator_goto(animator_t *anim, ...)
         mbr->pos2->a = va_arg(va, double);
         float d = mbr->pos->a - mbr->pos2->a;
         mbr->ag = -d/pow(anim->time/2, 2);
-        printf("ag %f, d %f, t %f\n", mbr->ag, d, anim->time);
     }
 }
