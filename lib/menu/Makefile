@@ -1,0 +1,41 @@
+##
+## EPITECH PROJECT, 2019
+## Makefile
+## File description:
+## My makefile
+##
+
+all:	build
+allO4: 	buildO4
+
+build:
+		gcc -c *.c -Wall -Wextra
+		ar rc libmenu.a *.o
+		cp libmenu.a ../
+		cp menu.h ../../include/
+		rm -f *.o
+
+buildO4:
+	gcc -g -c *.c -Wall -Wextra -Ofast
+	ar rc libmenu.a *.o
+	cp libmenu.a ../
+	cp menu.h ../../include/
+	rm -f *.o
+
+clean:
+		rm -f *.o
+
+fclean:
+		rm -f *.o
+		rm -f libmenu.a
+		rm -f ../libmenu.a
+		rm -f ../../include/menu.h
+
+re: clean all
+
+valgrind: fclean
+	gcc -g -c *.c -Wall -Wextra
+	ar rc libmenu.a *.o
+	cp libmenu.a ../
+	cp menu.h ../../include/
+	rm -f *.o
