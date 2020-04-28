@@ -7,9 +7,14 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <math.h>
 #include "../rpg.h"
+#include "my.h"
+#include "generator.h"
 
+
+//id color solide
 const block_t blocks[8][1] = {
     {0, {0x6A, 0x0D, 0xAD, 255}, 0},
     {1, {136, 140, 141, 255}, 1},   //stone
@@ -28,6 +33,8 @@ float lerp(float a, float b, float w) {
 float ***grid_grad(int x, int y)
 {
     float ***grad = malloc(sizeof(float *) * (x+1));
+
+    srand(0);
     for (int i = 0; i < x; i++){
         grad[i] = malloc(sizeof(float *) * (y+1));
         int ii = 0;
@@ -72,25 +79,6 @@ float perlin(float x, float y)
     return value;
 }
 
-/*float **create_mesh(int x1, int y1, int x2, int y2, int d)
-{
-    float **mesh = malloc(sizeof(float *) * (x+1));
-    int i = 0;
-    for (; i < x; i++){
-        mesh[i] = malloc(sizeof(float) * (y+1));
-        int ii = 0;
-        for (; ii < y; ii++){
-            mesh[i][ii] = x / 2 - ii*2;
-            for (int d_nb = 0; d_nb < d; d_nb++)
-                mesh[i][ii] += perlin((float)i/(1.1*pow(2, d_nb)), (float)ii/(1.1*pow(2, d_nb)))*pow(2, d_nb);
-            mesh[i][ii] -= 0;
-        }
-        mesh[i][ii] = 0;
-    }
-    mesh[i] = 0;
-    return (mesh);
-}*/
-
 block_t *calc_block(float height)
 {
     height += 50;
@@ -107,10 +95,13 @@ block_t *calc_block(float height)
 
 block_t **generate_line(int x, int d)
 {
-    block_t **line = malloc(sizeof(block_t *) * (MAP_Y + 1));
-    line[MAP_Y] = 0;
+    block_t **line = malloc(sizeof(block_t *) * (MAP_Y + 2));
+    line++;
     float line_f[MAP_Y];
     int y = 0;
+
+    line[MAP_Y] = 0;
+    line[-1] = 0;
     for (; y < MAP_Y; y++){
         line_f[y] = (20 - y*2);
         for (int d_nb = 0; d_nb < d; d_nb++)
@@ -120,4 +111,48 @@ block_t **generate_line(int x, int d)
     for (y = 0; y < MAP_Y; y++)
         line[y] = calc_block(line_f[y]);
     return (line);
+}
+
+map_t *generate_map()
+{
+    map_t *map = malloc(sizeof(map_t));
+
+    map->map = lld_init();
+    map->size_l = 0;
+    lld_insert(map->map, 0, generate_line(0, 6));
+    return (map);
+}
+
+lld_t *generate_getcolum(map_t *map, int x)
+{
+    static int here_p = 0;
+    static lld_t *here = 0; !here ? here = map->map->next : 0;
+
+    while (x != here_p){
+        if (x > here_p){
+            here_p++;
+            printf("here %i %i\n", here_p, here);
+            here->next == 0 ? lld_insert(map->map, map->map->data, generate_line(6, here_p)) : 0;
+            here = here->next;
+        } else {
+            here_p--;
+            here->prev == 0 ? lld_insert(map->map, 0, generate_line(6, here_p)) : 0;
+            here = here->prev;
+        }
+    }
+    return (here->data);
+}
+
+
+block_t ***generator_getmap(map_t *map, sfIntRect *rect)
+{
+    block_t ***block = malloc(sizeof(block_t **) * (rect->width+2));
+
+    block++;
+    block[-1] = 0;
+    block[rect->width] = 0;
+    for (int i = 0; i < rect->width; i++){
+        block[i] = generate_getcolum(map, rect->left+i)+rect->top;
+    }
+    return (block);
 }

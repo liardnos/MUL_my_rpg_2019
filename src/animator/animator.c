@@ -30,22 +30,20 @@ animator_t *animator_init()
 
 int animator_addmenber(animator_t *anim, pos_t *pos, sfSprite *sprite)
 {
-    member_t *member = malloc(sizeof(member_t));
-    pos_t *pos2 = malloc(sizeof(pos_t));
-    pos_t *pos3 = malloc(sizeof(pos_t));
-    if (!pos2 || !pos3)
+    member_t *m = malloc(sizeof(member_t));
+
+    m->pos2 = malloc(sizeof(pos_t));
+    m->pos3 = malloc(sizeof(pos_t));
+    if (!m->pos2 || !m->pos3)
         return (0);
-    
-    pos2->x = pos->x, pos2->y = pos->y, pos2->a = pos->a;
-    pos3->x = pos->x, pos3->y = pos->y, pos3->a = pos->a;
-    if (!member)
+    m->pos2->x = pos->x, m->pos2->y = pos->y, m->pos2->a = pos->a;
+    m->pos3->x = pos->x, m->pos3->y = pos->y, m->pos3->a = pos->a;
+    if (!m)
         return (0);
-    member->ag = 0;
-    member->pos = pos;
-    member->pos2 = pos2;
-    member->pos3 = pos3;
-    member->sprite = sprite;
-    lld_insert(anim->member, (u64)anim->member->data, member);
+    m->ag = 0;
+    m->pos = pos;
+    m->sprite = sprite;
+    lld_insert(anim->member, (u64)anim->member->data, m);
     return (1);
 }
 
