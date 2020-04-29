@@ -126,7 +126,7 @@ map_t *generate_map()
     return (map);
 }
 
-lld_t *generate_getcolum(map_t *map, int x)
+block **generate_getcolum(map_t *map, int x)
 {
     static int here_p = 0;
     static lld_t *here = 0; !here ? here = map->map->next : 0;
