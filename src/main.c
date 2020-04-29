@@ -15,6 +15,11 @@
 
 int main(int ac, char **av)
 {
+    return (launch_game());
+}
+/*
+int main(int ac, char **av)
+{
     sfVideoMode mode = {1024, 1024, 32};
     sfRenderWindow *window = sfRenderWindow_create(mode, "hi", sfClose, 0);
     sfRenderWindow_setFramerateLimit(window, 60);
@@ -76,7 +81,7 @@ int main(int ac, char **av)
         }
         animator_goto(me, 15.0, -45.0, 45.0, -10.0, 0.0, -45.0, 45.0);
     }
-    */
+    
 
     animator_free(me);
     //sfRenderWindow_destroy(window);
@@ -119,4 +124,4 @@ int main(int ac, char **av)
         sfRenderWindow_display(window);
     }
     return (0);
-}
+}*/

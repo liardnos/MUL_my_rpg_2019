@@ -14,16 +14,11 @@
 #include <stdlib.h>
 #include "my.h"
 
-
-
-
 typedef struct texture
 {
     sfTexture *tex;
     sfSprite *sprite;
 }texture_t;
-
-
 
 #define E 2.71828182846
 #define PI 3.14159265359
@@ -44,7 +39,7 @@ typedef struct map
 
 
 block_t **generate_line(int x, int d);
-lld_t *generate_getcolum(map_t *map, int x);
+block_t **generate_getcolum(map_t *map, int x);
 map_t *generate_map();
 block_t ***generator_getmap(map_t *map, sfIntRect *rect);
 
@@ -246,8 +241,8 @@ typedef struct game
     lld_t *entities;
     lld_t *items;
     map_t *map;
-    texture_t *itemstexture;
-    texture_t *blocks;
+    texture_t *it;
+    texture_t *bl;
 } game_t;
 
 /* -- Include CSFML -- */
@@ -324,6 +319,7 @@ void scene_manager(win_t *win, button_t **buttons, int *returned);
 void draw_home(win_t *win);
 void btn_quit(win_t *win);
 void btn_play(win_t *win);
+void draw_game(win_t *win);
 
 #define GRAVITY 9.8
 
