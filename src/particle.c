@@ -9,6 +9,7 @@
 #include "my.h"
 #include "particle.h"
 #include "rpg.h"
+#include <stdlib.h>
 
 lld_t *particle_array()
 {

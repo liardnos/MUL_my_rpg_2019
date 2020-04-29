@@ -6,7 +6,7 @@
 */
 
 #include "my.h"
-#include "menu.h"
+#include "rpg.h"
 
 void **init_buttons(void **buttons)
 {

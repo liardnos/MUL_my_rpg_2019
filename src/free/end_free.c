@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include "menu.h"
+#include "rpg.h"
 
 void end_free(win_t *win, button_t **buttons)
 {

@@ -6,7 +6,7 @@
 */
 
 #include "menu.h"
-#include "rph.h"
+#include "rpg.h"
 
 void btn_quit(win_t *win)
 {

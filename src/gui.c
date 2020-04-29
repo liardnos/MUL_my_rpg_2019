@@ -5,7 +5,7 @@
 ** GUI funcs
 */
 
-#include "menu.h"
+#include "rpg.h"
 
 void replace_mouse(win_t *win)
 {

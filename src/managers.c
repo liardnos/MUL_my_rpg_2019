@@ -5,8 +5,8 @@
 ** Managers of draw & event
 */
 
-#include "menu.h"
 #include "my.h"
+#include "rpg.h"
 
 void event_manager(win_t *win, button_t **buttons, sfEvent event, int *returned)
 {

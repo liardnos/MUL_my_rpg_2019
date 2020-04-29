@@ -10,8 +10,8 @@
 #include <stdarg.h>
 #include <math.h>
 #include <stdio.h>
-#include "animator.h"
 #include "my.h"
+#include "rpg.h"
 
 animator_t *animator_init()
 {

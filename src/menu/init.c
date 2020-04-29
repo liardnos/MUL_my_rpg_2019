@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "menu.h"
+#include "rpg.h"
 
 int init_mouse(win_t *win)
 {

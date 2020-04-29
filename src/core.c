@@ -6,8 +6,8 @@
 */
 
 #include <stdlib.h>
-#include "menu.h"
 #include "my.h"
+#include "rpg.h"
 
 int check_assets()
 {

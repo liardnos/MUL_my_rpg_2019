@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "menu.h"
+#include "rpg.h"
 
 void **add_to_array(void **buttons, button_t *new)
 {

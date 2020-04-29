@@ -5,7 +5,7 @@
 ** Home scene
 */
 
-#include "menu.h"
+#include "rpg.h"
 
 void draw_home(win_t *win)
 {

@@ -9,13 +9,12 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <math.h>
-#include "../rpg.h"
+#include "rpg.h"
 #include "my.h"
-#include "generator.h"
 
 
 //id color solide
-const block_t blocks[8][1] = {
+const block_t blockss[8][1] = {
     {0, {0x6A, 0x0D, 0xAD, 255}, 0},
     {1, {136, 140, 141, 255}, 1},   //stone
     {2, {101, 53, 20, 255}, 1},     //dirt
@@ -35,7 +34,6 @@ float ***grid_grad(int x, int y)
     float ***grad = malloc(sizeof(float *) * (x+1));
 
     srand(0);
-    printf("grid grad\n");
     for (int i = 0; i < x; i++){
         grad[i] = malloc(sizeof(float *) * (y+1));
         int ii = 0;
@@ -85,13 +83,13 @@ block_t *calc_block(float height)
 {
     height += 50;
     block_t *a = 0;
-    height > 0 ? a = blocks[3] : 0;
-    height <= 0 && height >= -20  ? a = blocks[2] : 0;
-    height < -20 ? a = blocks[1] : 0;
+    height > 0 ? a = blockss[3] : 0;
+    height <= 0 && height >= -20  ? a = blockss[2] : 0;
+    height < -20 ? a = blockss[1] : 0;
     srand(height*100);
-    (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blocks[4] : 0;
-    ((u64)a->type == 1 && (rand() % 50) == 0) ? a = blocks[5] : 0;
-    ((u64)a->type == 1 && (rand() % 100) == 0) ? a = blocks[6] : 0;
+    (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blockss[4] : 0;
+    ((u64)a->type == 1 && (rand() % 50) == 0) ? a = blockss[5] : 0;
+    ((u64)a->type == 1 && (rand() % 100) == 0) ? a = blockss[6] : 0;
     return (a);
 }
 
@@ -102,10 +100,7 @@ block_t **generate_line(int x, int d)
     float line_f[MAP_Y];
     int y = 0;
 
-    printf("here_p %i\n", x);
-
     x < 0 ? x = 1.1*pow(2, d)-x : 0;
-
     line[MAP_Y] = 0;
     line[-1] = 0;
     for (; y < MAP_Y; y++){
@@ -123,6 +118,8 @@ map_t *generate_map()
 {
     map_t *map = malloc(sizeof(map_t));
 
+    if (!map)
+        return (0);
     map->map = lld_init();
     map->size_l = 0;
     lld_insert(map->map, 0, generate_line(0, 6));
@@ -152,6 +149,8 @@ block_t ***generator_getmap(map_t *map, sfIntRect *rect)
 {
     block_t ***block = malloc(sizeof(block_t **) * (rect->width+2));
 
+    if (!block)
+        return (0);
     block++;
     block[-1] = 0;
     block[rect->width] = 0;

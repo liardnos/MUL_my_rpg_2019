@@ -5,7 +5,7 @@
 ** Buttons events
 */
 
-#include "menu.h"
+#include "rpg.h"
 
 void button_click(win_t *win, button_t **buttons)
 {

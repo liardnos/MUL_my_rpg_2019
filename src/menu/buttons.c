@@ -5,7 +5,7 @@
 ** All buttons func of menu lib
 */
 
-#include "menu.h"
+#include "rpg.h"
 
 void draw_buttons(win_t *win, button_t **buttons)
 {
