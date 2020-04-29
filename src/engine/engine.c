@@ -55,22 +55,28 @@ int engine_entities(game_t *game)
             entity->y = (int)entity->y + 1;
         }
         free(block);
-        entity->life--;
-        if (entity->life <= 0){
-            mv->next->prev = mv->prev;
-            mv = mv->next;
-            free(mv->prev->next);
-            mv->prev->next = mv;
-        }
     }
 }
 
 int engine_items(game_t *game)
 {
-    lld_t *lld_items = game->items;
+    lld_t *lld = game->entities;
+    int i = 0;
 
-    for (lld_t *mv = lld_items->next; mv; mv = mv->next){
-
+    for (lld_t *mv = lld_items->next; mv; mv = mv->next, i++){
+        entities *item = mv->data;
+        engine_g(&item->x, &item->y, &item->vx, &item->vy)
+        sfIntRect rect = {item->y, item->x, 1, 1};
+        block_t ***block = generator_getmap(game->map, rect);
+        if (block[0][0]->solid == 1){
+            item->vy = 0;
+            item->vx *= 0.9;
+            item->y = (int)item->y + 1;
+        }
+        free(block);
+        item->life--;
+        if (item->life <= 0)
+            lld_pop(lld, i), i--;
     }
 }
 
