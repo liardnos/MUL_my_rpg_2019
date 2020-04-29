@@ -140,4 +140,43 @@ typedef struct ply_s
     sfT
 }ply_t;
 
+typedef unsigned long int u64;
+
+#define E 2.71828182846
+#define PI 3.14159265359
+
+typedef struct player
+{
+    float x;
+    float y;
+    animator_t *anim;
+} player_t;
+
+typedef struct entity
+{
+    float x;
+    float y;
+    int hp;
+} entity_t;
+
+typedef struct item
+{
+    float x;
+    float y;
+    int type;
+    int
+} item_t;
+
+//items & blocks
+
+typedef struct game
+{
+    player_t *players;
+    lld_t *entities;
+    lld_t *items;
+    map_t *map;
+    texture_t *items;
+    texture_t *blocks;
+} game_t;
+
 #endif
