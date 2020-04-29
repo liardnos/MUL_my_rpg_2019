@@ -25,6 +25,7 @@ void main_loop(int *returned, win_t *win, button_t **buttons)
         while (sfRenderWindow_pollEvent(win->win, &event)) {
             event_manager(win, buttons, event, returned);
         }
+        win->game ? engine(win->game) : 0;
         scene_manager(win, buttons, returned);
         sfRenderWindow_display(win->win);
     }

@@ -24,7 +24,7 @@ void btn_play(win_t *win)
     win->game->it = malloc(sizeof(texture_t));
     cpy = win->game;
     cpy->map = generate_map();
-    cpy->players = 0;
+    cpy->players = lld_init();
     cpy->entities = lld_init();
     cpy->items = lld_init();
     cpy->bl->tex = sfTexture_createFromFile("assets/tilesx64.png", 0);

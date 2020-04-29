@@ -13,6 +13,7 @@ SRC		=		src/*.c \
 				src/animator/*.c \
 				src/generator/*.c \
 				src/menu/*.c \
+				src/engine/*.c \
 
 SRCT 	=		./tests/
 
