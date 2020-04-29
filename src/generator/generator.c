@@ -35,6 +35,7 @@ float ***grid_grad(int x, int y)
     float ***grad = malloc(sizeof(float *) * (x+1));
 
     srand(0);
+    printf("grid grad\n");
     for (int i = 0; i < x; i++){
         grad[i] = malloc(sizeof(float *) * (y+1));
         int ii = 0;
@@ -52,10 +53,12 @@ float ***grid_grad(int x, int y)
 float dotGridGradient(int ix, int iy, float x, float y)
 {
     static float ***grad = 0;
+
     if (!grad)
         grad = grid_grad(128, 128);
     float dx = x - (float)ix;
     float dy = y - (float)iy;
+
     return (dx*grad[iy%128][ix%128][0] + dy*grad[iy%128][ix%128][1]);
 }
 
@@ -68,7 +71,6 @@ float perlin(float x, float y)
     float sx = x - (float)x0;
     float sy = y - (float)y0;
     float n0, n1, ix0, ix1, value;
-
     n0 = dotGridGradient(x0, y0, x, y);
     n1 = dotGridGradient(x1, y0, x, y);
     ix0 = lerp(n0, n1, sx);
@@ -88,8 +90,8 @@ block_t *calc_block(float height)
     height < -20 ? a = blocks[1] : 0;
     srand(height*100);
     (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blocks[4] : 0;
-    ((u64)a->type == 1 && (rand() % 100) == 0) ? a = blocks[5] : 0;
-    ((u64)a->type == 1 && (rand() % 200) == 0) ? a = blocks[6] : 0;
+    ((u64)a->type == 1 && (rand() % 50) == 0) ? a = blocks[5] : 0;
+    ((u64)a->type == 1 && (rand() % 100) == 0) ? a = blocks[6] : 0;
     return (a);
 }
 
@@ -99,6 +101,10 @@ block_t **generate_line(int x, int d)
     line++;
     float line_f[MAP_Y];
     int y = 0;
+
+    printf("here_p %i\n", x);
+
+    x < 0 ? x = 1.1*pow(2, d)-x : 0;
 
     line[MAP_Y] = 0;
     line[-1] = 0;
@@ -131,18 +137,16 @@ lld_t *generate_getcolum(map_t *map, int x)
     while (x != here_p){
         if (x > here_p){
             here_p++;
-            printf("here %i %i\n", here_p, here);
-            here->next == 0 ? lld_insert(map->map, map->map->data, generate_line(6, here_p)) : 0;
+            here->next == 0 ? lld_insert(map->map, map->map->data, generate_line(here_p, 6)) : 0;
             here = here->next;
         } else {
             here_p--;
-            here->prev == 0 ? lld_insert(map->map, 0, generate_line(6, here_p)) : 0;
+            here->prev == 0 ? lld_insert(map->map, 0, generate_line(here_p, 6)) : 0;
             here = here->prev;
         }
     }
     return (here->data);
 }
-
 
 block_t ***generator_getmap(map_t *map, sfIntRect *rect)
 {
