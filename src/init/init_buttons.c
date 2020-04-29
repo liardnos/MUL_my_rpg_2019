@@ -8,11 +8,6 @@
 #include "my.h"
 #include "menu.h"
 
-void btn_play(win_t *win)
-{
-    printf("Hello\n");
-}
-
 void **init_buttons(void **buttons)
 {
     char *path;

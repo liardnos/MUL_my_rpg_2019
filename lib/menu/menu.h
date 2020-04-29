@@ -5,6 +5,8 @@
 ** header for menu
 */
 
+#ifndef _menu_h_
+#define _menu_h_
 /* -- Include CSFML -- */
 
 #include <SFML/Window.h>
@@ -38,6 +40,8 @@ typedef struct config
     int difficulty;
 }config_t;
 
+#include "../my/rpg.h"
+
 typedef struct win
 {
     int x;
@@ -47,6 +51,7 @@ typedef struct win
     texture_t *click;
     texture_t *logo;
     config_t *config;
+    game_t *game;
     int menu;
     sfVideoMode mode;
 }win_t;
@@ -87,3 +92,5 @@ void event_manager(win_t *win, button_t **button, sfEvent event, int *returned);
 void scene_manager(win_t *win, button_t **buttons, int *returned);
 void draw_home(win_t *win);
 void btn_quit(win_t *win);
+void btn_play(win_t *win);
+#endif

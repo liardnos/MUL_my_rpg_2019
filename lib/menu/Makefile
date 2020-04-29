@@ -9,7 +9,7 @@ all:	build
 allO4: 	buildO4
 
 build:
-		gcc -c *.c -Wall -Wextra
+		gcc -c *.c
 		ar rc libmenu.a *.o
 		cp libmenu.a ../
 		cp menu.h ../../include/
