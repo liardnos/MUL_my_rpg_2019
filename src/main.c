@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "my.h"
-#include "particle.h"
 #include "rpg.h"
 
 int main(int ac, char **av)
@@ -81,7 +80,7 @@ int main(int ac, char **av)
         }
         animator_goto(me, 15.0, -45.0, 45.0, -10.0, 0.0, -45.0, 45.0);
     }
-    
+
 
     animator_free(me);
     //sfRenderWindow_destroy(window);

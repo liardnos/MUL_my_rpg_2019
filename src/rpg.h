@@ -325,4 +325,8 @@ void draw_game(win_t *win);
 
 int engine(game_t *game);
 
+int player_add_player(game_t *game);
+animator_t *init_player_animator();
+int flr(float x);
+
 #endif

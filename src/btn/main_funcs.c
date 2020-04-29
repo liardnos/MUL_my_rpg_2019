@@ -31,6 +31,7 @@ void btn_play(win_t *win)
     cpy->it->tex = sfTexture_createFromFile("assets/itemsx64.png", 0);
     cpy->bl->sprite = sfSprite_create();
     cpy->it->sprite = sfSprite_create();
+    player_add_player(cpy);
     sfSprite_setTexture(cpy->bl->sprite, cpy->bl->tex, sfTrue);
     sfSprite_setTexture(cpy->it->sprite, cpy->it->tex, sfTrue);
     win->menu = 3;

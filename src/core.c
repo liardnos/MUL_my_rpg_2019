@@ -25,9 +25,9 @@ void main_loop(int *returned, win_t *win, button_t **buttons)
         while (sfRenderWindow_pollEvent(win->win, &event)) {
             event_manager(win, buttons, event, returned);
         }
-        win->game ? engine(win->game) : 0;
         scene_manager(win, buttons, returned);
         sfRenderWindow_display(win->win);
+        win->game ? engine(win->game) : 0;
     }
 }
 
@@ -41,6 +41,7 @@ int launch_game(void)
     if (!check_assets() || !(win = create_window(&returned, "Raftminec")) ||
     !(buttons = init_buttons(buttons)))
         return (84);
+    win->game = 0; 
     srand((unsigned int)(unsigned long int) &seed);
     change_icon(win->win);
     sfWindow_setFramerateLimit((sfWindow *) win->win, 60);

@@ -104,7 +104,7 @@ block_t **generate_line(int x, int d)
     line[MAP_Y] = 0;
     line[-1] = 0;
     for (; y < MAP_Y; y++){
-        line_f[y] = (20 - y*2);
+        line_f[y] = (80 - y*2);
         for (int d_nb = 0; d_nb < d; d_nb++)
             line_f[y] += perlin((float)x/(1.1*pow(2, d_nb)), (float)y/(1.1*pow(2, d_nb)))*pow(2, d_nb);
     }
