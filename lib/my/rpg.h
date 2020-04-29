@@ -8,6 +8,10 @@
 #ifndef rpg_h
 #define rpg_h
 
+#include <SFML/Graphics.h>
+#include "menu.h"
+#include "my.h"
+
 typedef enum
 {
     APPLE = 0,
@@ -131,31 +135,87 @@ typedef enum
     SEED_3 = 59
 }blocks;
 
-typedef struct ply_s
+typedef unsigned long int u64;
+
+typedef struct pos
 {
-    int life;
-    int skin;
-    int moving;
-    sfVector2f pos;
-    sfT
-}ply_t;
+    float x;
+    float y;
+    float a;
+} pos_t;
+
+typedef struct member
+{
+    sfSprite *sprite;
+    pos_t *pos;
+    pos_t *pos2;
+    pos_t *pos3;
+    float ag;
+} member_t;
+
+typedef struct animator
+{
+    lld_t *member;
+    pos_t *pos;
+    float time;
+    float dtime;
+} animator_t;
+
+
+sfVector2f alloc_vector2f(float x, float y);
+pos_t *malloc_pos(float x, float y, float a);
+
+animator_t *animator_init();
+int animator_setpos(animator_t *anim, pos_t *coor);
+int animator_addmenber(animator_t *anim, pos_t *pos, sfSprite *sprite);
+
+int animator_draw(sfRenderWindow *window, animator_t *anim);
+int animator_animate(animator_t *anim);
+int animator_goto(animator_t *anim, ...);
+void animator_free(animator_t *anim);
 
 typedef unsigned long int u64;
 
 #define E 2.71828182846
 #define PI 3.14159265359
+#define MAP_Y 256
+
+typedef struct block {
+    int type;
+    sfColor color;
+    char solid;
+} block_t;
+
+typedef struct map
+{
+    lld_t *map;
+    int size_l;
+    int size_r;
+} map_t;
+
+
+block_t **generate_line(int x, int d);
+lld_t *generate_getcolum(map_t *map, int x);
+map_t *generate_map();
+block_t ***generator_getmap(map_t *map, sfIntRect *rect);
+
 
 typedef struct player
 {
     float x;
     float y;
+    float vx;
+    float vy;
     animator_t *anim;
+    int hp;
 } player_t;
 
 typedef struct entity
 {
     float x;
     float y;
+    float vx;
+    float vy;
     int hp;
 } entity_t;
 
@@ -163,20 +223,27 @@ typedef struct item
 {
     float x;
     float y;
+    float vx;
+    float vy;
     int type;
-    int
+    int life;
 } item_t;
 
 //items & blocks
 
 typedef struct game
 {
-    player_t *players;
+    lld_t *players;
     lld_t *entities;
     lld_t *items;
     map_t *map;
-    texture_t *items;
+    texture_t *itemstexture;
     texture_t *blocks;
 } game_t;
+
+//engine
+#define GRAVITY 9.8
+
+int engine(game_t *game);
 
 #endif
