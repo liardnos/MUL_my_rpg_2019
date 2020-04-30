@@ -35,10 +35,7 @@ int give_inv(int **inventory, int type, int item, int nb)
 
     if (nb > 64 || nb < 0 || type > 2 || type < 1)
         return (0);
-    type == 1 ? to_add += 10000 : 0;
-    type == 2 ? to_add += 20000 : 0;
-    to_add += item * 100;
-    to_add += nb;
+    to_add = type * 10000 + item * 100 + nb;
     for (int y = 0; inventory[y]; y++)
         for (int x = 0; x < 9; x++) {
             if (!inventory[y][x]) {
@@ -56,7 +53,7 @@ void remove_it(int *in_inv, int *to_rm)
         *to_rm -= (*to_rm) % 100;
     } else {
         *to_rm -= (*in_inv) % 100;
-        *in_inv -= (*in_inv) % 100;
+        *in_inv = 0;
     }
 }
 
@@ -67,10 +64,7 @@ int take_inv(int **inv, int type, int item, int nb)
 
     if (nb > 64 || nb < 0 || type < 1 || type > 2)
         return (0);
-    type == 1 ? to_rm += 10000 : 0;
-    type == 2 ? to_rm += 20000 : 0;
-    to_rm += item * 100;
-    to_rm += nb;
+    to_rm = type * 10000 + item * 100 + nb;
     if (!available(inv, to_rm))
         return (0);
     for (int y = 0; inv[y]; y++)
