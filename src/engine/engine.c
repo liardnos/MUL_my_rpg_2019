@@ -131,6 +131,8 @@ int engine_create_item(game_t *game, float x, float y, ...)
         return (0);
     item->x = x;
     item->y = y;
+    item->vx = 0;
+    item->vy = 0;
     va_start(va, y);
     item->type = va_arg(va, int);
     item->item = va_arg(va, int);
