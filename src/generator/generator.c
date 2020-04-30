@@ -12,7 +12,7 @@
 #include "rpg.h"
 #include "my.h"
 
-
+//FIXME
 //id color solide
 const block_t blockss[8][1] = {
     {-1, {0x6A, 0x0D, 0xAD, 255}, 0},

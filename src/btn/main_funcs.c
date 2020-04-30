@@ -34,7 +34,7 @@ void btn_play(win_t *win)
     player_add_player(cpy);
     player_t *p = cpy->players->next->data;
     p->inventory = init_inventory();
-    static item_t item = {0, 0, 0, 0, 0, 0, 100000, 1};
+    static item_t item = {0, 0, 0, 0, 1, 0, 100000, 1};
     lld_insert(cpy->items, 0, &item);
     sfSprite_setTexture(cpy->bl->sprite, cpy->bl->tex, sfTrue);
     sfSprite_setTexture(cpy->it->sprite, cpy->it->tex, sfTrue);

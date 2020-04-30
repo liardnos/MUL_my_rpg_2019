@@ -101,5 +101,5 @@ void draw_game(win_t *win)
     animate_player(win);
     item_t *item = win->game->items->next->data;
     printf("item %f %f\n", item->x, item->y);
-    printf("item %f %f\n", player->x, player->y);
+    printf("play %f %f\n", player->x, player->y);
 }

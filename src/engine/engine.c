@@ -12,6 +12,7 @@
 #include "my.h"
 #include "rpg.h"
 
+//FIXME
 
 int flr(float x)
 {
@@ -32,6 +33,7 @@ void engine_get_items(game_t *game, player_t *player)
 {
     lld_t *lld = game->items;
     int i = 0;
+
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
         item_t *item = mv->data;
         if (fabsf(item->x - player->x) + fabs(item->y - player->y) < 2)
@@ -89,17 +91,13 @@ int engine_items(game_t *game)
 {
     lld_t *lld = game->items;
     int i = 0;
-    printf("item\n");
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
-        printf("item2\n");
         item_t *item = mv->data;
-        sfIntRect rect = {item->y, item->x, 1, 1};
+        sfIntRect rect = {item->x, item->y+1, 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
-
         (flr(item->y + item->vy/60.0) > flr(item->y)) && (block[0][0]->solid) ?
         item->vy = 0, item->y = flr(item->y)+0.99 : 0;
-
         free(block-1);
         item->life--;
         if (item->life <= 0)
