@@ -6,9 +6,75 @@
 */
 
 #include "rpg.h"
+#include <math.h>
 
 #define JUMP_HIGHT 2.5
 #define JUMP_SPEED pow(JUMP_HIGHT*2*GRAVITY, 0.5)
+
+#define ANIM_JUMP 110.0, -45.0, h_head, 0.0, 45.0, -110.0
+#define ANIM_WALK1 45.0, -45.0, h_head, 0.0, 45.0, -45.0
+#define ANIM_WALK2 -45.0, 45.0, h_head, 0.0, -45.0, 45.0
+#define ANIM_STAND 0.0, 0.0, h_head, 0.0, 0.0, 0.0
+
+const block_t blockss[8][1];
+
+float find_angle(float *p1, float *p2)
+{
+    float x = p2[0] - p1[0];
+    float y = p2[1] - p1[1];
+    float d = pow(pow(x, 2)+pow(y, 2), 0.5);
+
+    if (d == 0)
+        return (0);
+    float a = acos(x/d);
+    y < 0 ? a *= -1 : 0;
+    return (a);
+}
+
+float player_head(win_t *win, player_t *player)
+{
+    sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
+    member_t *member = player->anim->member->next->next->next->data;
+
+    vec.x -= 1920/2, vec.y -= 1080/2;
+    float d = pow(pow(vec.x, 2)+pow(vec.y, 2), 0.5);
+    float head_angle = 0;
+    printf("head %u %u\n", vec.x, vec.y);
+    if (d != 0)
+        head_angle = acos((float)vec.y / (float)d);
+    vec.x > 0 ? head_angle *= -1 : 0;
+    sfVector2f vec1 = {-0.5, 0.5};
+    sfVector2f vec2 = {0.5, 0.5};
+    if (head_angle < 0)
+        head_angle -= PI, sfSprite_setScale(member->sprite, vec1);
+    else
+        sfSprite_setScale(member->sprite, vec2);
+    return (head_angle/PI*180-90);
+}
+
+void animate_player(win_t *win)
+{
+    player_t *player = win->game->players->next->data;
+    static int animation = 0;
+    float h_head = player_head(win, player);
+    printf("head %f\n", h_head);
+
+    if (!animator_animate(player->anim)){
+        if (player->floor && fabsf(player->vx) > 1)
+            animation ^= 1, animation ? animator_goto(player->anim, 15.0,
+            ANIM_WALK1) : animator_goto(player->anim, 15.0, ANIM_WALK2);
+        else if (player->floor)
+            animator_goto(player->anim, 5.0, ANIM_STAND);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyRight))
+        player->vx = 6.0;
+    else if (sfKeyboard_isKeyPressed(sfKeyLeft))
+        player->vx = -6.0;
+    if (sfKeyboard_isKeyPressed(sfKeyUp) && player->floor)
+        player->vy = -JUMP_SPEED, animator_goto(player->anim, 15.0, ANIM_JUMP);
+    animator_setpos(player->anim, malloc_pos(1920/2, 1080/2, 0));
+    animator_draw(win->win, player->anim);
+}
 
 void draw_game(win_t *win)
 {
@@ -34,27 +100,7 @@ void draw_game(win_t *win)
         pos.x += 64;
         pos.y = (flr(player->y)-player->y-1)*64;
     }
-    static animation = 0;
-    if (!animator_animate(player->anim)){
-        animation ^= 1;
-        animation ? animator_goto(player->anim, 30.0, 45.0, -45.0, 10.0, 0.0, 45.0, -45.0) : animator_goto(player->anim, 15.0, -45.0, 45.0, -10.0, 0.0, -45.0, 45.0);
-    }
-
-    if (sfKeyboard_isKeyPressed(sfKeyRight))
-        player->vx = 6.0;
-    else if (sfKeyboard_isKeyPressed(sfKeyLeft))
-        player->vx = -6.0;
-    if (sfKeyboard_isKeyPressed(sfKeyUp) && player->floor)
-        player->vy = -JUMP_SPEED, printf("up\n");
-    printf("FRAME\n");
-    animator_setpos(player->anim, malloc_pos(1920/2, 1080/2, 0));
-    animator_draw(win->win, player->anim);
-    sfCircleShape *cir = sfCircleShape_create();
-    pos.x = 1920/2, pos.y = 1080/2;
-    sfCircleShape_setPosition(cir, pos);
-    pos.x = 10, pos.y = 10;
-    sfCircleShape_setOrigin(cir, pos);
-    sfCircleShape_setFillColor(cir, sfRed);
-    sfCircleShape_setRadius(cir, 10);
-    sfRenderWindow_drawCircleShape(win->win, cir, 0);
+    to_draw[10][8] = blockss[1];
+    free(to_draw-1);
+    animate_player(win);
 }

@@ -213,6 +213,7 @@ typedef struct player
     char floor;
     animator_t *anim;
     int hp;
+    int **inventory;
 } player_t;
 
 typedef struct entity
@@ -221,6 +222,8 @@ typedef struct entity
     float y;
     float vx;
     float vy;
+    char floor;
+    animator_t *anim;
     int hp;
 } entity_t;
 
@@ -231,7 +234,9 @@ typedef struct item
     float vx;
     float vy;
     int type;
+    int item;
     int life;
+    int stack;
 } item_t;
 
 //items & blocks
