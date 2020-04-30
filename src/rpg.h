@@ -338,6 +338,7 @@ int **init_inventory();
 void free_inventory(int **inventory);
 int take_inv(int **inv, int type, int item, int nb);
 int give_inv(int **inventory, int type, int item, int nb);
+void draw_inv(win_t *win);
 #define GRAVITY 10
 
 int engine(game_t *game);

@@ -5,24 +5,16 @@
 ** Inventory Init & Free
 */
 
-/*
-Armour
-*
-*
-*
-Tools
-0
-*/
 #include <stdlib.h>
 
 int **init_inventory()
 {
     int **inv;
 
-    inv = malloc(sizeof(int **) * 6);
+    inv = malloc(sizeof(int *) * 6);
     if (!inv || !(inv[0] = malloc(sizeof(int) * 5)))
         return (0);
-    inv[4] = 0;
+    inv[5] = 0;
     inv[0][4] = 0;
     inv++;
     for (int x = 0; x < 4; x++) {

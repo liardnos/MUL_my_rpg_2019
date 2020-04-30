@@ -6,6 +6,7 @@
 */
 
 // Item T|ID|QT 111
+// Blocks = 1 & Items = 2
 
 int same(int first, int second)
 {
