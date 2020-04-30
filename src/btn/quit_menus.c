@@ -15,6 +15,7 @@ void btn_return(win_t *win)
 
 void btn_quit_game(win_t *win)
 {
+    save_game(win->game);
     free_game(win);
     btn_quit(win);
 }

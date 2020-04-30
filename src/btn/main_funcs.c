@@ -19,21 +19,26 @@ void btn_play(win_t *win)
 {
     game_t *cpy;
 
-    win->game = malloc(sizeof(game_t));
-    win->game->bl = malloc(sizeof(texture_t));
-    win->game->it = malloc(sizeof(texture_t));
+    win->game = load_game();
+    if (!win->game){
+        win->game = malloc(sizeof(game_t));
+        cpy = win->game;
+        cpy->map = generate_map();
+        cpy->players = lld_init();
+        player_add_player(cpy);
+        player_t *p = cpy->players->next->data;
+        p->inventory = init_inventory();
+    }
     cpy = win->game;
-    cpy->map = generate_map();
-    cpy->players = lld_init();
     cpy->entities = lld_init();
     cpy->items = lld_init();
-    cpy->bl->tex = sfTexture_createFromFile("assets/tilesx64.png", 0);
+    cpy->bl = malloc(sizeof(texture_t));
+    cpy->it = malloc(sizeof(texture_t));
     cpy->it->tex = sfTexture_createFromFile("assets/itemsx64.png", 0);
-    cpy->bl->sprite = sfSprite_create();
+    cpy->bl->tex = sfTexture_createFromFile("assets/tilesx64.png", 0);
     cpy->it->sprite = sfSprite_create();
-    player_add_player(cpy);
-    p->inventory = init_inventory();
-    sfSprite_setTexture(cpy->bl->sprite, cpy->bl->tex, sfTrue);
+    cpy->bl->sprite = sfSprite_create();
     sfSprite_setTexture(cpy->it->sprite, cpy->it->tex, sfTrue);
+    sfSprite_setTexture(cpy->bl->sprite, cpy->bl->tex, sfTrue);
     win->menu = 3;
 }

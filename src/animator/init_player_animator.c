@@ -7,6 +7,8 @@
 
 #include "rpg.h"
 
+//FIXME
+
 animator_t *init_player_animator()
 {
     sfTexture *t_head = sfTexture_createFromFile("assets/Characters/Player male/male_head.png", 0);

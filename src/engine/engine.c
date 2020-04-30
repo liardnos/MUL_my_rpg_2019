@@ -39,10 +39,10 @@ void engine_get_items(game_t *game, player_t *player)
         item_t *item = mv->data;
         if (fabsf(item->x - player->x) + fabs(item->y - player->y) < 2)
             if (give_inv(player->inventory, item->type, item->item, item->stack))
-                lld_insert(lld_sup, 0, (void *)i);
+                lld_insert(lld_sup, 0, (void *)(u64)i);
     }
     while (lld_sup->data)
-        free(lld_pop(lld, lld_pop(lld_sup, 0)));
+        free(lld_pop(lld, (u64)lld_pop(lld_sup, 0)));
     lld_free(lld_sup);
 }
 
@@ -106,11 +106,11 @@ int engine_items(game_t *game)
         free(block-1);
         item->life--;
         if (item->life <= 0)
-            lld_insert(lld_sup, 0, (void *)i);
+            lld_insert(lld_sup, 0, (void *)(u64)i);
         engine_g(&(item->x), &(item->y), &(item->vx), &(item->vy));
     }
     while (lld_sup->data)
-        free(lld_pop(lld, lld_pop(lld_sup, 0)));
+        free(lld_pop(lld, (u64)lld_pop(lld_sup, 0)));
     lld_free(lld_sup);
 }
 
