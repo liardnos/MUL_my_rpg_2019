@@ -12,6 +12,8 @@ void event_manager(win_t *win, button_t **buttons, sfEvent event, int *returned)
 {
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(win->win);
+    if (sfKeyboard_isKeyPressed(sfKeyEscape) && win->menu == 3)
+        win->menu = 4;
     button_event(win, buttons, event);
 }
 

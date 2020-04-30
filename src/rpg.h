@@ -319,7 +319,14 @@ void scene_manager(win_t *win, button_t **buttons, int *returned);
 void draw_home(win_t *win);
 void btn_quit(win_t *win);
 void btn_play(win_t *win);
+void btn_opt(win_t *win);
+void btn_back(win_t *win);
+void btn_help(win_t *win);
+void btn_resume(win_t *win);
+void btn_return(win_t *win);
+void btn_quit_game(win_t *win);
 void draw_game(win_t *win);
+void free_game(win_t *win);
 
 #define GRAVITY 9.8
 
