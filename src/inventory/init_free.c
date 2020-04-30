@@ -27,7 +27,8 @@ int **init_inventory()
     inv++;
     for (int x = 0; x < 4; x++) {
         inv[x] = malloc(sizeof(int) * 10);
-        inv[x][9] = 0;
+        for (int i = 0; i < 10; i++)
+            inv[x][i] = 0;
     }
     return (inv);
 }

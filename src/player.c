@@ -10,6 +10,7 @@
 int player_add_player(game_t *game)
 {
     player_t *player = malloc(sizeof(player_t));
+    
     if (!player)
         return (0);
     player->x = 10+1/3;
