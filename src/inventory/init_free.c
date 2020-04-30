@@ -15,6 +15,7 @@ int **init_inventory()
     if (!inv || !(inv[0] = malloc(sizeof(int) * 5)))
         return (0);
     inv[5] = 0;
+    for (int i = 0; i < 5; inv[0][i] = 0, i++);
     inv[0][4] = 0;
     inv++;
     for (int x = 0; x < 4; x++) {

@@ -64,11 +64,11 @@ void animate_player(win_t *win)
         else if (player->floor)
             animator_goto(player->anim, 5.0, ANIM_STAND);
     }
-    if (sfKeyboard_isKeyPressed(sfKeyRight))
+    if (sfKeyboard_isKeyPressed(sfKeyD))
         player->vx = 6.0;
-    else if (sfKeyboard_isKeyPressed(sfKeyLeft))
+    else if (sfKeyboard_isKeyPressed(sfKeyQ))
         player->vx = -6.0;
-    if (sfKeyboard_isKeyPressed(sfKeyUp) && player->floor)
+    if (sfKeyboard_isKeyPressed(sfKeyZ) && player->floor)
         player->vy = -JUMP_SPEED, animator_goto(player->anim, 15.0, ANIM_JUMP);
     animator_draw(win->win, player->anim);
 }
@@ -97,6 +97,7 @@ void draw_game(win_t *win)
         pos.x += 64;
         pos.y = (flr(player->y)-player->y-1)*64;
     }
+    to_draw[10][10] = blockss[1];
     free(to_draw-1);
     animate_player(win);
 }

@@ -16,15 +16,15 @@
 #include "my.h"
 
 //FIXME
-//id color solide
+//id color solide pos
 const block_t blockss[8][1] = {
-    {-1, {0x6A, 0x0D, 0xAD, 255}, 0},
-    {STONE, {136, 140, 141, 255}, 1},   //stone
-    {DIRT, {101, 53, 20, 255}, 1},     //dirt
-    {-1, {135, 206, 235, 255}, 0},    //air
-    {ORE_COAL, {50, 50, 50, 255}, 1}, //coal
-    {ORE_IRON, {132, 125, 115, 255}, 1}, //iron
-    {ORE_DIAMOND, {185, 242, 255, 255}, 1}, //diamond
+    {-1, {0x6A, 0x0D, 0xAD, 255}, 0, 0},
+    {STONE, {136, 140, 141, 255}, 1, 1},   //stone
+    {DIRT, {101, 53, 20, 255}, 1, 2},     //dirt
+    {-1, {135, 206, 235, 255}, 0, 3},    //air
+    {ORE_COAL, {50, 50, 50, 255}, 1, 4}, //coal
+    {ORE_IRON, {132, 125, 115, 255}, 1, 5}, //iron
+    {ORE_DIAMOND, {185, 242, 255, 255}, 1, 6}, //diamond
     {0}
 };
 
@@ -130,19 +130,19 @@ map_t *generate_map()
     return (map);
 }
 
-block_t **generate_getcolum(map_t *map, int x)
+block_t **generate_getcolum(map_t *m, int x)
 {
     static int here_p = 0;
-    static lld_t *here = 0; !here ? here = map->map->next : 0;
+    static lld_t *here = 0; !here ? here = m->map->next, here_p = -m->size_l : 0;
 
     while (x != here_p){
         if (x > here_p){
             here_p++;
-            here->next == 0 ? lld_insert(map->map, (u64)map->map->data, generate_line(here_p, 6)) : 0;
+            here->next == 0 ? lld_insert(m->map, (u64)m->map->data, generate_line(here_p, 6)), m->size_r++ : 0;
             here = here->next;
         } else {
             here_p--;
-            here->prev == 0 ? lld_insert(map->map, 0, generate_line(here_p, 6)) : 0;
+            here->prev == 0 ? lld_insert(m->map, 0, generate_line(here_p, 6)), m->size_l++ : 0;
             here = here->prev;
         }
     }
@@ -168,8 +168,25 @@ block_t ***generator_getmap(map_t *map, sfIntRect *rect)
 
 map_t *load_map()
 {
+    map_t *map = malloc(sizeof(map_t));
     int fd = open("save/map", O_RDONLY);
-
+    if (fd < 0) return (0);
+    map->map = lld_init();
+    read(fd, &map->size_l, sizeof(int));
+    read(fd, &map->size_r, sizeof(int));
+    int buf[256];
+    for (int i = -map->size_l; i < map->size_r; i++){
+        block_t **block = malloc(sizeof(block_t *)*256);
+        read(fd, buf, sizeof(int)*256);
+        for (int j = 0; j < 256; j++){
+            block[j] = blockss[buf[j]];
+        }
+        printf("line %i\n", i);
+        lld_insert(map->map, (u64)map->map->data, block);
+    }
+    close(fd);
+    printf("load map\n");
+    return (map);
 }
 
 player_t *load_player()
@@ -182,49 +199,71 @@ player_t *load_player()
     read(fd, &p->vx, sizeof(float));
     read(fd, &p->vy, sizeof(float));
     read(fd, &p->hp, sizeof(int));
-    read(fd, &p->inventory[0], sizeof(int)*4);
-    read(fd, &p->inventory[1], sizeof(int)*9);
-    read(fd, &p->inventory[2], sizeof(int)*9);
-    read(fd, &p->inventory[3], sizeof(int)*9);
-    read(fd, &p->inventory[4], sizeof(int)*9);
+    p->inventory = init_inventory();
+    read(fd, p->inventory[-1], sizeof(int)*4);
+    read(fd, p->inventory[0], sizeof(int)*9);
+    read(fd, p->inventory[1], sizeof(int)*9);
+    read(fd, p->inventory[2], sizeof(int)*9);
+    read(fd, p->inventory[3], sizeof(int)*9);
+    close(fd);
+    printf("load player\n");
     return (p);
 }
 
 game_t *load_game()
 {
-    return (0);
     game_t *game = malloc(sizeof(game_t));
-
+    if (!game) return (0);
+    game->players = lld_init();
+    game->entities = lld_init();
+    game->items = lld_init();
+    player_t *player = load_player();
+    if (!player) return (0);
+    lld_insert(game->players, 0, player);
+    game->map = load_map();
+    if (!game->map) return (0);
+    printf("load completed %i %i\n", game->map->size_l, game->map->size_r);
     return (game);
 }
 
 int save_map(map_t *map)
 {
     int fd = open("save/map", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
+
+    if (fd < 0) return (0);
     write(fd, &map->size_l, sizeof(int));
     write(fd, &map->size_r, sizeof(int));
+    for (lld_t *mv = map->map->next; mv; mv = mv->next){
+        block_t **block = mv->data;
+        for (int i = 0; i < 256; i++){
+            write(fd, &block[i]->id, sizeof(int));
+        }
+    }
     close(fd);
+    printf("map saved\n");
 }
 
 int save_player(player_t *p)
 {
     int fd = open("save/player", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
+    if (fd < 0) return (0);
     write(fd, &p->x, sizeof(float));
     write(fd, &p->y, sizeof(float));
     write(fd, &p->vx, sizeof(float));
     write(fd, &p->vy, sizeof(float));
     write(fd, &p->hp, sizeof(int));
-    write(fd, &p->inventory[0], sizeof(int)*4);
-    write(fd, &p->inventory[1], sizeof(int)*9);
-    write(fd, &p->inventory[2], sizeof(int)*9);
-    write(fd, &p->inventory[3], sizeof(int)*9);
-    write(fd, &p->inventory[4], sizeof(int)*9);
+    write(fd, p->inventory[-1], sizeof(int)*4);
+    write(fd, p->inventory[0], sizeof(int)*9);
+    write(fd, p->inventory[1], sizeof(int)*9);
+    write(fd, p->inventory[2], sizeof(int)*9);
+    write(fd, p->inventory[3], sizeof(int)*9);
     close(fd);
+    printf("player saved\n");
 }
 
 int save_game(game_t *game)
 {
-    return (0);
     save_map(game->map);
     save_player(game->players->next->data);
+    return (1);
 }

@@ -28,6 +28,7 @@ typedef struct block {
     int type;
     sfColor color;
     char solid;
+    int id;
 } block_t;
 
 typedef struct map

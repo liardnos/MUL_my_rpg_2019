@@ -30,6 +30,8 @@ void btn_play(win_t *win)
         p->inventory = init_inventory();
     }
     cpy = win->game;
+    player_t *p = cpy->players->next->data;
+    p->anim = init_player_animator();
     cpy->entities = lld_init();
     cpy->items = lld_init();
     cpy->bl = malloc(sizeof(texture_t));
