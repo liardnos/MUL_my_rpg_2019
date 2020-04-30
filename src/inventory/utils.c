@@ -37,6 +37,7 @@ int give_inv(int **inventory, int type, int item, int nb)
     if (nb > 64 || nb < 0 || type > 2 || type < 1)
         return (0);
     to_add = type * 10000 + item * 100 + nb;
+    printf("Adding %i\n", to_add);
     for (int y = 0; inventory[y]; y++)
         for (int x = 0; x < 9; x++) {
             if (!inventory[y][x]) {

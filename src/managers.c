@@ -15,7 +15,6 @@ void event_manager(win_t *win, button_t **buttons, sfEvent event, int *returned)
     sfKeyboard_isKeyPressed(sfKeyI) && win->menu == 3 ? win->menu = 5 : 0;
     sfKeyboard_isKeyPressed(sfKeyEscape) && win->menu == 3 ? win->menu = 4 : 0;
     sfKeyboard_isKeyPressed(sfKeyEscape) && win->menu == 5 ? win->menu = 3 : 0;
-    printf("menu %i\n", win->menu);
     button_event(win, buttons, event);
 }
 
