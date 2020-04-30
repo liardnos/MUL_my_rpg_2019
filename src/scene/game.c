@@ -36,7 +36,7 @@ float player_head(win_t *win, player_t *player)
     sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
     member_t *member = player->anim->member->next->next->next->data;
 
-    vec.x -= 1920/2, vec.y -= 1080/2;
+    vec.x -= player->anim->pos->x, vec.y -= player->anim->pos->y;
     float d = pow(pow(vec.x, 2)+pow(vec.y, 2), 0.5);
     float head_angle = 0;
     if (d != 0)
@@ -70,7 +70,6 @@ void animate_player(win_t *win)
         player->vx = -6.0;
     if (sfKeyboard_isKeyPressed(sfKeyUp) && player->floor)
         player->vy = -JUMP_SPEED, animator_goto(player->anim, 15.0, ANIM_JUMP);
-    animator_setpos(player->anim, malloc_pos(1920/2, 1080/2, 0));
     animator_draw(win->win, player->anim);
 }
 
