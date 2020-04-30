@@ -126,8 +126,7 @@ int engine_create_item(game_t *game, float x, float y, ...)
 {
     va_list va;
     item_t *item = malloc(sizeof(item_t));
-
-    if (item == 0)
+    if (!item)
         return (0);
     item->x = x;
     item->y = y;

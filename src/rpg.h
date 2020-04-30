@@ -349,5 +349,6 @@ int flr(float x);
 
 game_t *load_game();
 int save_game(game_t *game);
+int engine_create_item(game_t *game, float x, float y, ...);
 
 #endif

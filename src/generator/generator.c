@@ -175,32 +175,56 @@ map_t *load_map()
 player_t *load_player()
 {
     int fd = open("save/player", O_RDONLY);
-
+    if (fd < 0) return (0);
+    player_t *p = malloc(sizeof(player_t));
+    read(fd, &p->x, sizeof(float));
+    read(fd, &p->y, sizeof(float));
+    read(fd, &p->vx, sizeof(float));
+    read(fd, &p->vy, sizeof(float));
+    read(fd, &p->hp, sizeof(int));
+    read(fd, &p->inventory[0], sizeof(int)*4);
+    read(fd, &p->inventory[1], sizeof(int)*9);
+    read(fd, &p->inventory[2], sizeof(int)*9);
+    read(fd, &p->inventory[3], sizeof(int)*9);
+    read(fd, &p->inventory[4], sizeof(int)*9);
+    return (p);
 }
 
 game_t *load_game()
 {
     return (0);
+    game_t *game = malloc(sizeof(game_t));
+
+    return (game);
 }
 
 int save_map(map_t *map)
 {
     int fd = open("save/map", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
-    write(fd, &map->size_l, 4);
-    write(fd, &map->size_r, 4);
+    write(fd, &map->size_l, sizeof(int));
+    write(fd, &map->size_r, sizeof(int));
     close(fd);
 }
 
-int save_player(map_t *map)
+int save_player(player_t *p)
 {
     int fd = open("save/player", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
-
+    write(fd, &p->x, sizeof(float));
+    write(fd, &p->y, sizeof(float));
+    write(fd, &p->vx, sizeof(float));
+    write(fd, &p->vy, sizeof(float));
+    write(fd, &p->hp, sizeof(int));
+    write(fd, &p->inventory[0], sizeof(int)*4);
+    write(fd, &p->inventory[1], sizeof(int)*9);
+    write(fd, &p->inventory[2], sizeof(int)*9);
+    write(fd, &p->inventory[3], sizeof(int)*9);
+    write(fd, &p->inventory[4], sizeof(int)*9);
     close(fd);
 }
 
 int save_game(game_t *game)
 {
+    return (0);
     save_map(game->map);
     save_player(game->players->next->data);
-    return (0);
 }
