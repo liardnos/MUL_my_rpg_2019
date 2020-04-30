@@ -20,7 +20,7 @@ void free_game(win_t *win)
         sfSprite_destroy(cpy->bl->sprite);
         free(cpy->bl);
         free(cpy->it);
-        lld_free(cpy->map);
+        lld_free(cpy->map->map);
         lld_free(cpy->players);
         lld_free(cpy->entities);
         lld_free(cpy->items);
