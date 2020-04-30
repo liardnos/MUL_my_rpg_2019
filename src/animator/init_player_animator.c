@@ -19,6 +19,13 @@ animator_t *init_player_animator()
     sfSprite *s_arm_r = sfSprite_create();
     sfSprite *s_leg_l = sfSprite_create();
     sfSprite *s_leg_r = sfSprite_create();
+    sfVector2f scale = {0.5, 0.5};
+    sfSprite_setScale(s_head, scale);
+    sfSprite_setScale(s_body, scale);
+    sfSprite_setScale(s_arm_l, scale);
+    sfSprite_setScale(s_arm_r, scale);
+    sfSprite_setScale(s_leg_l, scale);
+    sfSprite_setScale(s_leg_r, scale);
     sfSprite_setTexture(s_head, t_head, sfTrue);
     sfSprite_setTexture(s_body, t_body, sfTrue);
     sfSprite_setTexture(s_arm_l, t_arm, sfTrue);
@@ -32,11 +39,11 @@ animator_t *init_player_animator()
     sfSprite_setOrigin(s_leg_l, alloc_vector2f(14, -14));
     sfSprite_setOrigin(s_leg_r, alloc_vector2f(14, -14));
     animator_t *me = animator_init();
-    animator_addmenber(me, malloc_pos(0, -22, 45), s_arm_l);
-    animator_addmenber(me, malloc_pos(0, 20, 45), s_leg_l);
-    animator_addmenber(me, malloc_pos(0, -30, 10), s_head);
+    animator_addmenber(me, malloc_pos(0, -11, 22.5), s_arm_l);
+    animator_addmenber(me, malloc_pos(0, 10, 22.5), s_leg_l);
+    animator_addmenber(me, malloc_pos(0, -15, 5), s_head);
     animator_addmenber(me, malloc_pos(0, 0, 0), s_body);
-    animator_addmenber(me, malloc_pos(0, 20, -45), s_leg_r);
-    animator_addmenber(me, malloc_pos(0, -22, -45), s_arm_r);
+    animator_addmenber(me, malloc_pos(0, 10, -22.5), s_leg_r);
+    animator_addmenber(me, malloc_pos(0, -11, -22.5), s_arm_r);
     animator_setpos(me, malloc_pos(512, 512, 0));
 }

@@ -12,6 +12,7 @@
 #include "my.h"
 #include "rpg.h"
 
+
 int flr(float x)
 {
     return (x >= 0 ? (int)x : (int)x-1);
@@ -19,11 +20,12 @@ int flr(float x)
 
 void engine_g(float *x, float *y, float *vx, float *vy)
 {
-    *x += *vx;
-    *y += *vy;
+    *x += *vx/60.0;
+    *y += *vy/60.0;
     *vx *= 0.99;
     *vy *= 0.99;
-    *vy += GRAVITY/60;
+    *vy += GRAVITY/60.0;
+    *vx *= 0.8;
 }
 
 int engine_player(game_t *game)
@@ -35,19 +37,18 @@ int engine_player(game_t *game)
         sfIntRect rect = {flr(player->x)-1, flr(player->y)-2, 3, 5};
         block_t ***block = generator_getmap(game->map, &rect);
         //right
-        (flr(player->x + player->vx) > flr(player->x)) && (block[2][1]->solid || block[2][2]->solid) ?
+        player->vx > 0 && (flr(player->x + player->vx/60.0 + 0.25) > flr(player->x)) && (block[2][1]->solid || block[2][2]->solid) ?
         player->vx = 0 : 0;
         //left
-        (flr(player->x + player->vx) < flr(player->x)) && (block[0][1]->solid || block[0][2]->solid) ?
+        player->vx < 0 && (flr(player->x + player->vx/60.0 - 0.25) < flr(player->x)) && (block[0][1]->solid || block[0][2]->solid) ?
         player->vx = 0 : 0;
         //top
         //bot
-        //block[1][2]->solid ? player->y-- : 0;
-        (flr(player->y + player->vy) > flr(player->y)) && (block[1][3]->solid) ?
-        player->vy = 0, player->y = flr(player->y)+0.99 : 0;
+        block[1][2]->solid ? player->y-- : 0;
+        (flr(player->y + player->vy/60.0) > flr(player->y)) && (block[1][3]->solid) ?
+        player->vy = 0, player->y = flr(player->y)+0.99, player->floor = 1 : (player->floor = 0);
         free(block-1);
         engine_g(&(player->x), &(player->y), &(player->vx), &(player->vy));
-
     }
 }
 

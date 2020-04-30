@@ -210,6 +210,7 @@ typedef struct player
     float y;
     float vx;
     float vy;
+    char floor;
     animator_t *anim;
     int hp;
 } player_t;
@@ -328,7 +329,7 @@ void btn_quit_game(win_t *win);
 void draw_game(win_t *win);
 void free_game(win_t *win);
 
-#define GRAVITY 9.8
+#define GRAVITY 10
 
 int engine(game_t *game);
 
