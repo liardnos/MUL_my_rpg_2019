@@ -32,14 +32,18 @@ void engine_g(float *x, float *y, float *vx, float *vy)
 void engine_get_items(game_t *game, player_t *player)
 {
     lld_t *lld = game->items;
+    lld_t *lld_sup = lld_init();
     int i = 0;
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
         item_t *item = mv->data;
         if (fabsf(item->x - player->x) + fabs(item->y - player->y) < 2)
             if (give_inv(player->inventory, item->type, item->item, item->stack))
-                free(lld_pop(lld, i)), i--;
+                lld_insert(lld_sup, 0, (void *)i);
     }
+    while (lld_sup->data)
+        free(lld_pop(lld, lld_pop(lld_sup, 0)));
+    lld_free(lld_sup);
 }
 
 int engine_player(game_t *game)
@@ -90,6 +94,7 @@ int engine_entities(game_t *game)
 int engine_items(game_t *game)
 {
     lld_t *lld = game->items;
+    lld_t *lld_sup = lld_init();
     int i = 0;
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
@@ -101,10 +106,12 @@ int engine_items(game_t *game)
         free(block-1);
         item->life--;
         if (item->life <= 0)
-            lld_pop(lld, i), i--;
+            lld_insert(lld_sup, 0, (void *)i);
         engine_g(&(item->x), &(item->y), &(item->vx), &(item->vy));
     }
-
+    while (lld_sup->data)
+        free(lld_pop(lld, lld_pop(lld_sup, 0)));
+    lld_free(lld_sup);
 }
 
 int engine(game_t *game)
