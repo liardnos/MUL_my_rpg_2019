@@ -40,5 +40,7 @@ void btn_play(win_t *win)
     cpy->bl->sprite = sfSprite_create();
     sfSprite_setTexture(cpy->it->sprite, cpy->it->tex, sfTrue);
     sfSprite_setTexture(cpy->bl->sprite, cpy->bl->tex, sfTrue);
+    engine_create_item(cpy, 0, 0, 1, 1, 100000, 32);
     win->menu = 3;
+
 }
