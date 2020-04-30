@@ -9,6 +9,9 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <math.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include "rpg.h"
 #include "my.h"
 
@@ -122,6 +125,7 @@ map_t *generate_map()
         return (0);
     map->map = lld_init();
     map->size_l = 0;
+    map->size_r = 0;
     lld_insert(map->map, 0, generate_line(0, 6));
     return (map);
 }
@@ -134,7 +138,7 @@ block_t **generate_getcolum(map_t *map, int x)
     while (x != here_p){
         if (x > here_p){
             here_p++;
-            here->next == 0 ? lld_insert(map->map, map->map->data, generate_line(here_p, 6)) : 0;
+            here->next == 0 ? lld_insert(map->map, (u64)map->map->data, generate_line(here_p, 6)) : 0;
             here = here->next;
         } else {
             here_p--;
@@ -158,4 +162,45 @@ block_t ***generator_getmap(map_t *map, sfIntRect *rect)
         block[i] = generate_getcolum(map, rect->left+i)+rect->top;
     }
     return (block);
+}
+
+//save and load
+
+map_t *load_map()
+{
+    int fd = open("save/map", O_RDONLY);
+
+}
+
+player_t *load_player()
+{
+    int fd = open("save/player", O_RDONLY);
+
+}
+
+game_t *load_game()
+{
+    return (0);
+}
+
+int save_map(map_t *map)
+{
+    int fd = open("save/map", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
+    write(fd, &map->size_l, 4);
+    write(fd, &map->size_r, 4);
+    close(fd);
+}
+
+int save_player(map_t *map)
+{
+    int fd = open("save/player", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
+
+    close(fd);
+}
+
+int save_game(game_t *game)
+{
+    save_map(game->map);
+    save_player(game->players->next->data);
+    return (0);
 }
