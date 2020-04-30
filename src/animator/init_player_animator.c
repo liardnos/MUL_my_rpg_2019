@@ -47,5 +47,5 @@ animator_t *init_player_animator()
     animator_addmenber(me, malloc_pos(0, 0, 0), s_body);
     animator_addmenber(me, malloc_pos(0, 10, -22.5), s_leg_r);
     animator_addmenber(me, malloc_pos(0, -11, -22.5), s_arm_r);
-    animator_setpos(me, malloc_pos(512, 512, 0));
+    animator_setpos(me, malloc_pos(1920/2, 1080/2, 0));
 }
