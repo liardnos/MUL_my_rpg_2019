@@ -8,6 +8,7 @@
 #include <SFML/Graphics.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include "my.h"
 #include "rpg.h"
@@ -119,4 +120,22 @@ int engine(game_t *game)
     engine_player(game);
     engine_entities(game);
     engine_items(game);
+}
+
+int engine_create_item(game_t *game, float x, float y, ...)
+{
+    va_list va;
+    item_t *item = malloc(sizeof(item_t));
+
+    if (item == 0)
+        return (0);
+    item->x = x;
+    item->y = y;
+    va_start(va, y);
+    item->type = va_arg(va, int);
+    item->item = va_arg(va, int);
+    item->life = va_arg(va, int);
+    item->stack = va_arg(va, int);
+    lld_insert(game->items, 0, item);
+    return (1);
 }
