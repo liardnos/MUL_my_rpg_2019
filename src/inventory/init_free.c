@@ -13,6 +13,7 @@ Armour
 Tools
 0
 */
+#include <stdlib.h>
 
 int **init_inventory()
 {
@@ -28,7 +29,7 @@ int **init_inventory()
         inv[x] = malloc(sizeof(int) * 10);
         inv[x][9] = 0;
     }
-    return (inventory);
+    return (inv);
 }
 
 void free_inventory(int **inventory)

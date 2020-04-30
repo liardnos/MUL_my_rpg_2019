@@ -36,11 +36,9 @@ void engine_get_items(game_t *game, player_t *player)
         item_t *item = mv->data;
         if (fabsf(item->x - player->x) + fabs(item->y - player->y) < 2)
             if (give_inv(player->inventory, item->type, item->item, item->stack))
-                free(lld_pop(lld, i));
-
+                free(lld_pop(lld, i)), i--;
     }
 }
-
 
 int engine_player(game_t *game)
 {
@@ -89,24 +87,26 @@ int engine_entities(game_t *game)
 
 int engine_items(game_t *game)
 {
-    lld_t *lld = game->entities;
+    lld_t *lld = game->items;
     int i = 0;
+    printf("item\n");
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
+        printf("item2\n");
         item_t *item = mv->data;
-        engine_g(&(item->x), &(item->y), &(item->vx), &(item->vy));
         sfIntRect rect = {item->y, item->x, 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
-        if (block[0][0]->solid == 1){
-            item->vy = 0;
-            item->vx *= 0.9;
-            item->y = (int)item->y + 1;
-        }
+
+        (flr(item->y + item->vy/60.0) > flr(item->y)) && (block[0][0]->solid) ?
+        item->vy = 0, item->y = flr(item->y)+0.99 : 0;
+
         free(block-1);
         item->life--;
         if (item->life <= 0)
             lld_pop(lld, i), i--;
+        engine_g(&(item->x), &(item->y), &(item->vx), &(item->vy));
     }
+
 }
 
 int engine(game_t *game)

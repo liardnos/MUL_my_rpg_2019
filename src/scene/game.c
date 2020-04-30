@@ -39,7 +39,6 @@ float player_head(win_t *win, player_t *player)
     vec.x -= 1920/2, vec.y -= 1080/2;
     float d = pow(pow(vec.x, 2)+pow(vec.y, 2), 0.5);
     float head_angle = 0;
-    printf("head %u %u\n", vec.x, vec.y);
     if (d != 0)
         head_angle = acos((float)vec.y / (float)d);
     vec.x > 0 ? head_angle *= -1 : 0;
@@ -57,7 +56,6 @@ void animate_player(win_t *win)
     player_t *player = win->game->players->next->data;
     static int animation = 0;
     float h_head = player_head(win, player);
-    printf("head %f\n", h_head);
 
     if (!animator_animate(player->anim)){
         if (player->floor && fabsf(player->vx) > 1)
@@ -78,7 +76,6 @@ void animate_player(win_t *win)
 
 void draw_game(win_t *win)
 {
-
     player_t *player = win->game->players->next->data;
     sfIntRect rect = {flr(player->x-15), flr(player->y-10), 31, 18};
     block_t ***to_draw = generator_getmap(win->game->map, &rect);
@@ -100,7 +97,9 @@ void draw_game(win_t *win)
         pos.x += 64;
         pos.y = (flr(player->y)-player->y-1)*64;
     }
-    to_draw[10][8] = blockss[1];
     free(to_draw-1);
     animate_player(win);
+    item_t *item = win->game->items->next->data;
+    printf("item %f %f\n", item->x, item->y);
+    printf("item %f %f\n", player->x, player->y);
 }
