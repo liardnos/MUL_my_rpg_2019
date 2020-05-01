@@ -265,6 +265,8 @@ typedef struct game
     texture_t *it;
     texture_t *bl;
     texture_t *ef;
+    texture_t *bar;
+    texture_t *inv;
     int select;
     sfVector2i old;
 } game_t;
@@ -382,4 +384,5 @@ float player_head(win_t *win, player_t *player);
 animator_t *init_zombie_animator();
 
 texture_t *init_texture(char *path);
+void draw_hud(win_t *win);
 #endif

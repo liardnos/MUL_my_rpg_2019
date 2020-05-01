@@ -30,7 +30,7 @@ void event_manager(win_t *win, button_t **buttons, sfEvent event, int *returned)
 void scene_manager(win_t *win, button_t **buttons, int *returned)
 {
     !win->menu ? draw_home(win) : 0;
-    win->menu >= 3 ? draw_game(win) : 0;
+    win->menu >= 3 ? draw_game(win), draw_hud(win) : 0;
     win->menu == 5 ? draw_inv(win) : 0;
     button_main(win, (button_t **)buttons);
     replace_mouse(win);

@@ -39,7 +39,10 @@ void btn_play(win_t *win)
     cpy->bl = init_texture("assets/tilesx64.png");
     cpy->it = init_texture("assets/itemsx64.png");
     cpy->ef = init_texture("assets/effectsx64.png");
-    if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items)
+    cpy->bar = init_texture("assets/hud/bar.png");
+    cpy->inv = init_texture("assets/hud/inventory.png");
+    if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items
+    || !cpy->inv || !cpy->bar)
         return;
     engine_create_item(cpy, 0, 0, 1, 1, 100000, 32);
     engine_create_item(cpy, 4, 0, 1, 1, 100000, 32);

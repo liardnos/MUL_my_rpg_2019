@@ -7,20 +7,6 @@
 
 #include "rpg.h"
 
-//FIXME
-void draw_background_img(win_t *win)
-{
-    sfTexture *tex = sfTexture_createFromFile("assets/hud/inventory.png", 0);
-    sfSprite *sprite = sfSprite_create();
-    sfVector2f pos = {600, 200};
-
-    sfSprite_setTexture(sprite, tex, sfTrue);
-    sfSprite_setPosition(sprite, pos);
-    sfRenderWindow_drawSprite(win->win, sprite, 0);
-    sfTexture_destroy(tex);
-    sfSprite_destroy(sprite);
-}
-
 void draw_item(win_t *win, sfIntRect rect, sfVector2f pos, int thing)
 {
     sfVector2f scale = {0.53125, 0.53125};
@@ -73,10 +59,11 @@ void draw_quantity(win_t *win, sfVector2f pos, int nb)
 void draw_inv(win_t *win)
 {
     player_t *ply = win->game->players->next->data;
-    sfVector2f pos;
+    sfVector2f pos = {600, 200};
     sfIntRect rect = {0, 0, 64, 64};
 
-    draw_background_img(win);
+    sfSprite_setPosition(win->game->inv->sprite, pos);
+    sfRenderWindow_drawSprite(win->win, win->game->inv->sprite, 0);
     animator_setpos(ply->anim, malloc_pos(795, 375, 0));
     animate_player(win);
     animator_setpos(ply->anim, malloc_pos(1920 / 2, 1080 / 2, 0));

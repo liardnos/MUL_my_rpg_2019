@@ -35,6 +35,8 @@ void free_game(win_t *win)
         free_texture(cpy->bl);
         free_texture(cpy->ef);
         free_texture(cpy->it);
+        free_texture(cpy->bar);
+        free_texture(cpy->inv);
         free_map(win->game->map);
         lld_free_r(cpy->players);
         lld_free_r(cpy->entities);
