@@ -20,5 +20,5 @@ void btn_quit_game(win_t *win, int *returned)
     my_printf("[RM] Exiting game\n");
     save_game(win->game);
     free_game(win);
-    btn_quit(win);
+    btn_quit(win, returned);
 }

@@ -97,5 +97,5 @@ callgrindO6: fclean
 	clear
 	make -C ./lib/my buildO6
 	gcc -g -o $(NAME) $(SRC) $(FLAGS) $(CSFLAGS) -O6
-	-valgrind --tool=callgrind ./$(NAME) 3 #&> valgrind_log
+	-valgrind --tool=callgrind ./$(NAME) 3 &> valgrind_log
 	-kcachegrind callgrind.*

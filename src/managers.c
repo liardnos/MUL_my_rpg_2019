@@ -17,14 +17,17 @@ void keys_manager(win_t *win, sfEvent event)
     }
 }
 
-void event_manager(win_t *win, button_t **buttons, sfEvent event, int *returned)
+int event_manager(win_t *win, button_t **buttons, sfEvent event, int *returned)
 {
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(win->win);
     win->menu >= 3 && event.type == sfEvtMouseLeft ? win->menu = 4 : 0;
     win->menu == 5 ? inventory_events(win, event) : 0;
     keys_manager(win, event);
-    button_event(win, buttons, event);
+    button_event(win, buttons, event, returned);
+    if (*returned != 0)
+        return (0);
+    return (1);
 }
 
 void scene_manager(win_t *win, button_t **buttons, int *returned)
