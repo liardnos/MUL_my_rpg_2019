@@ -233,8 +233,8 @@ typedef struct entity
     float y;
     float vx;
     float vy;
-    char wall_l
-    char wall_r
+    char wall_l;
+    char wall_r;
     int anim_sate;
     char floor;
     animator_t *anim;
