@@ -25,6 +25,9 @@ void **init_buttons_two(void **buttons)
     path = my_strdup("assets/btn/quit");
     res = add_button(4, &btn_quit_game, path, set_attrib(0.30,0.65,800,78));
     buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/delete");
+    res = add_button(1, &btn_reset, path, set_attrib(0.30,0.73,800,78));
+    buttons = add_to_array(buttons, res);
     return(buttons);
 }
 

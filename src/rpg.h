@@ -323,7 +323,7 @@ typedef struct button
     sfTexture *tex_h;
     sfSprite *sprite;
     sfSprite *sprite_h;
-    void (*func)(win_t *win);
+    void (*func)(win_t *win, int *returned);
     int menu;
     int hover;
     int pressed;

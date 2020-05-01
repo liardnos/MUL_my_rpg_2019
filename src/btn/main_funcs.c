@@ -8,7 +8,7 @@
 #include "menu.h"
 #include "rpg.h"
 
-void btn_quit(win_t *win)
+void btn_quit(win_t *win, int *returned)
 {
     my_printf("[RM] Exiting\n");
     sfRenderWindow_close(win->win);
@@ -16,7 +16,7 @@ void btn_quit(win_t *win)
 
 // FIXME EDIT THIS
 
-void btn_play(win_t *win)
+void btn_play(win_t *win, int *returned)
 {
     my_printf("[RM] Launch game\n");
     game_t *cpy;
@@ -24,6 +24,10 @@ void btn_play(win_t *win)
     win->game = load_game();
     if (!win->game){
         win->game = malloc(sizeof(game_t));
+        if (!win->game) {
+            *returned = 84;
+            return;
+        }
         cpy = win->game;
         cpy->map = generate_map();
         cpy->players = lld_init();
@@ -42,8 +46,10 @@ void btn_play(win_t *win)
     cpy->bar = init_texture("assets/hud/bar.png");
     cpy->inv = init_texture("assets/hud/inventory.png");
     if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items
-    || !cpy->inv || !cpy->bar)
+    || !cpy->inv || !cpy->bar || !cpy->players) {
+        *returned = 84;
         return;
+    }
     engine_create_item(cpy, 0, 0, 1, 1, 100000, 32);
     engine_create_item(cpy, 4, 0, 1, 1, 100000, 32);
     engine_create_item(cpy, 2, 0, 1, 4, 100000, 32);
