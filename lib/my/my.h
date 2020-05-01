@@ -102,6 +102,35 @@ typedef struct btr
 typedef long unsigned int u64;
 
 btr_t *btr_init(unsigned char size, int (*cmp)(void *));
+
+
+//matrice
+float *mat3_init(void);
+float *mat3_multiply(float *mat1, float *mat2);
+float *mat3_init_x(float a);
+float *mat3_init_y(float a);
+float *mat3_init_z(float a);
+float *mat3_init_scale(float s);
+float *init_p(void);
+float *mat3_point(float *mat, float *p);
+float *mat3_copy(float *mat);
+
+void mat3_rx(float *mat_o, float a);
+void mat3_ry(float *mat_o, float a);
+void mat3_rz(float *mat_o, float a);
+void mat3_tx(float *mat_o, float t);
+void mat3_ty(float *mat_o, float t);
+void mat3_tz(float *mat_o, float t);
+
+void mat3_ttx(float *mat_o, float t);
+void mat3_tty(float *mat_o, float t);
+void mat3_ttz(float *mat_o, float t);
+void mat3_rrx(float *mat_o, float a);
+void mat3_rry(float *mat_o, float a);
+void mat3_rrz(float *mat_o, float a);
+
+float *mat3_inv(float *mat);
+
 #endif
 
 //csfml

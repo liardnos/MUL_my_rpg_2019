@@ -40,9 +40,7 @@ void draw_entity(win_t *win)
 
         pos.x = (entity->x - p->x) * 64 + 1920/2;
         pos.y = (entity->y - p->y) * 64 + 1080/2;
-        printf("t %f %f\n", entity->x, entity->y);
         animator_setpos(entity->anim, malloc_pos(pos.x, pos.y, 0));
-        printf("e %f %f\n", pos.x, pos.y);
         animator_draw((sfRenderWindow *)win->win, entity->anim);
         sfVector2i posi = {(int)p->x, (int)p->y};
         if (!animator_animate(entity->anim)){

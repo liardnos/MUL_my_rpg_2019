@@ -16,6 +16,9 @@ SRC		=		src/*.c \
 				src/engine/*.c \
 				src/inventory/*.c \
 				src/mob/*.c \
+				src/world/*.c \
+				src/world/cam/*.c \
+				src/world/mesh/*.c \
 
 SRCT 	=		./tests/
 
