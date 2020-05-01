@@ -97,7 +97,12 @@ void draw_game(win_t *win)
         pos.x += 64;
         pos.y = (flr(player->y)-player->y-1)*64;
     }
-    to_draw[10][10] = blockss[1];
+    pos.x = -(flr(player->x)-player->x)*64;
+    pos.y = -(flr(player->y)-player->y-1)*64;
+
+    sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
+    to_draw[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[1];
+
     free(to_draw-1);
-    animate_player(win);
+    win->menu == 3 ? animate_player(win) : 0;
 }

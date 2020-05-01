@@ -64,6 +64,7 @@ typedef struct lld
 
 int lld_db(lld_t *lld);
 void lld_free(lld_t *lld);
+void lld_free_r(lld_t *lld);
 lld_t *lld_init();
 void lld_insert_node(lld_t *lld, int poss, lld_t *node);
 void lld_insert(lld_t *lld, int pos, void *data);

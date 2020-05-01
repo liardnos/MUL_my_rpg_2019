@@ -164,6 +164,15 @@ block_t ***generator_getmap(map_t *map, sfIntRect *rect)
     return (block);
 }
 
+void free_map(map_t *map)
+{
+    for (lld_t *mv = map->map->next; mv; mv = mv->next)
+        free(mv->data-sizeof(block_t *));
+    lld_free(map->map);
+    free(map);
+}
+
+
 //save and load
 
 map_t *load_map()
@@ -174,11 +183,14 @@ map_t *load_map()
     map->map = lld_init();
     read(fd, &map->size_l, sizeof(int));
     read(fd, &map->size_r, sizeof(int));
-    int buf[256];
+    int buf[MAP_Y];
     for (int i = -map->size_l; i < map->size_r; i++){
-        block_t **block = malloc(sizeof(block_t *)*256);
-        read(fd, buf, sizeof(int)*256);
-        for (int j = 0; j < 256; j++){
+        block_t **block = malloc(sizeof(block_t *)*(MAP_Y+2));
+        block[0] = 0;
+        block[MAP_Y+1] = 0;
+        block++;
+        read(fd, buf, sizeof(int)*MAP_Y);
+        for (int j = 0; j < MAP_Y; j++){
             block[j] = blockss[buf[j]];
         }
         printf("line %i\n", i);
@@ -206,6 +218,7 @@ player_t *load_player()
     read(fd, p->inventory[2], sizeof(int)*9);
     read(fd, p->inventory[3], sizeof(int)*9);
     close(fd);
+    p->floor = 0;
     printf("load player\n");
     return (p);
 }
@@ -235,7 +248,7 @@ int save_map(map_t *map)
     write(fd, &map->size_r, sizeof(int));
     for (lld_t *mv = map->map->next; mv; mv = mv->next){
         block_t **block = mv->data;
-        for (int i = 0; i < 256; i++){
+        for (int i = 0; i < MAP_Y; i++){
             write(fd, &block[i]->id, sizeof(int));
         }
     }

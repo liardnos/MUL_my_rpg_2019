@@ -20,10 +20,12 @@ void free_game(win_t *win)
         sfSprite_destroy(cpy->bl->sprite);
         free(cpy->bl);
         free(cpy->it);
-        lld_free(cpy->map->map);
-        lld_free(cpy->players);
-        lld_free(cpy->entities);
-        lld_free(cpy->items);
+        free_map(win->game->map);
+        lld_free_r(cpy->players);
+        printf("%i\n", cpy->entities->data);
+        lld_free_r(cpy->entities);
+        printf("%i\n", cpy->items->data);
+        lld_free_r(cpy->items);
         free(cpy);
         win->game = 0;
     }
