@@ -13,6 +13,7 @@
 #include <SFML/Audio.h>
 #include <stdlib.h>
 #include "my.h"
+#include "screen.h"
 
 #define JUMP_HIGHT 2.5
 #define JUMP_SPEED pow(JUMP_HIGHT*2*GRAVITY, 0.5)
