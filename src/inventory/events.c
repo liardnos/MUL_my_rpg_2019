@@ -78,6 +78,6 @@ void inventory_events(win_t *win, sfEvent event)
         if (is_well_placed(win, &pos) && win->game->select != 0)
             switch_properly(ply->inventory, win->game, pos);
         else
-            printf("Hello\n"),win->game->select = 0;
+            win->game->select = 0;
     }
 }
