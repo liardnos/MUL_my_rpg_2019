@@ -60,6 +60,21 @@ void draw_hud_hp(win_t *win, int hp)
     }
 }
 
+void draw_hud_cursor(win_t *win, int select)
+{
+    sfIntRect rect = {8 * 64, 0, 64, 64};
+    sfVector2f pos = {654 + 71 * select, 977};
+    sfVector2f scale = {0.75, 0.75};
+
+
+    if (select < 0 || select > 8)
+        return;
+    sfSprite_setScale(win->game->ef->sprite, scale);
+    sfSprite_setTextureRect(win->game->ef->sprite, rect);
+    sfSprite_setPosition(win->game->ef->sprite, pos);
+    sfRenderWindow_drawSprite(win->win, win->game->ef->sprite, 0);
+}
+
 void draw_hud(win_t *win)
 {
     player_t *ply = win->game->players->next->data;
@@ -68,4 +83,5 @@ void draw_hud(win_t *win)
     sfSprite_setScale(win->game->ef->sprite, scale);
     draw_hud_hp(win, ply->hp);
     draw_hud_bar(win, ply->inventory[3]);
+    draw_hud_cursor(win, ply->select);
 }

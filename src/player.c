@@ -21,6 +21,7 @@ int player_add_player(game_t *game)
     player->hp = 0;
     player->inventory = init_inventory();
     player->anim = init_player_animator();
+    player->select = 0;
     lld_insert(game->players, 0, player);
     return (1);
 }

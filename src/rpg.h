@@ -225,6 +225,7 @@ typedef struct player
     char floor;
     animator_t *anim;
     int hp;
+    int select;
     int **inventory;
 } player_t;
 

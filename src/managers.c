@@ -10,10 +10,20 @@
 
 void keys_manager(win_t *win, sfEvent event)
 {
+    player_t *ply;
+
     sfKeyboard_isKeyPressed(sfKeyI) && win->menu == 3 ? win->menu = 5 : 0;
     if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyEscape)) {
         win->menu == 3 ? win->menu = 4 : 0;
         win->menu == 5 ? win->menu = 3 : 0;
+    }
+    if (event.type == sfEvtMouseWheelScrolled && win->menu == 3) {
+        sfMouseWheelEvent *event2 = (void *)(&event);
+        printf("%i %i\n", event2->x, event2->y);
+        ply = win->game->players->next->data;
+        event2->x < 0 ? ply->select-- : ply->select++;
+        ply->select < 0 ? ply->select = 8 : 0;
+        ply->select %= 9;
     }
 }
 
