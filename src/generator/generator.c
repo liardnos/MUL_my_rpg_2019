@@ -181,23 +181,23 @@ map_t *load_map()
     int fd = open("save/map", O_RDONLY);
     if (fd < 0) return (0);
     map->map = lld_init();
-    read(fd, &map->size_l, sizeof(int));
-    read(fd, &map->size_r, sizeof(int));
+    if (read(fd, &map->size_l, sizeof(int)) != sizeof(int)) return (0);
+    if (read(fd, &map->size_r, sizeof(int)) != sizeof(int)) return (0);
     int buf[MAP_Y];
-    for (int i = -map->size_l; i < map->size_r; i++){
+    int check_some = 0;
+    for (int i = -map->size_l; i <= map->size_r; i++){
         block_t **block = malloc(sizeof(block_t *)*(MAP_Y+2));
-        block[0] = 0;
-        block[MAP_Y+1] = 0;
-        block++;
-        read(fd, buf, sizeof(int)*MAP_Y);
-        for (int j = 0; j < MAP_Y; j++){
-            block[j] = blockss[buf[j]];
-        }
-        printf("line %i\n", i);
+        block[0] = 0, block[MAP_Y+1] = 0, block++;
+        if (read(fd, buf, sizeof(int)*MAP_Y) != sizeof(int)*MAP_Y);
+        for (int j = 0; j < MAP_Y; j++)
+            check_some += buf[j], block[j] = blockss[buf[j]];
         lld_insert(map->map, (u64)map->map->data, block);
     }
+    int check_some2;
+    read(fd, &check_some2, sizeof(int));
     close(fd);
-    printf("load map\n");
+    printf("check1 : %i | check2 : %i\n", check_some, check_some2);
+    if (check_some2 != check_some) return (0);
     return (map);
 }
 
@@ -206,20 +206,20 @@ player_t *load_player()
     int fd = open("save/player", O_RDONLY);
     if (fd < 0) return (0);
     player_t *p = malloc(sizeof(player_t));
-    read(fd, &p->x, sizeof(float));
-    read(fd, &p->y, sizeof(float));
-    read(fd, &p->vx, sizeof(float));
-    read(fd, &p->vy, sizeof(float));
-    read(fd, &p->hp, sizeof(int));
-    p->inventory = init_inventory();
-    read(fd, p->inventory[-1], sizeof(int)*4);
-    read(fd, p->inventory[0], sizeof(int)*9);
-    read(fd, p->inventory[1], sizeof(int)*9);
-    read(fd, p->inventory[2], sizeof(int)*9);
-    read(fd, p->inventory[3], sizeof(int)*9);
-    close(fd);
+    if (!p) return (0);
     p->floor = 0;
-    printf("load player\n");
+    p->inventory = init_inventory();
+    read(fd, &p->x, sizeof(float)) != sizeof(float) ? (p = 0) :
+    read(fd, &p->y, sizeof(float)) != sizeof(float) ? (p = 0) :
+    read(fd, &p->vx, sizeof(float)) != sizeof(float) ? (p = 0) :
+    read(fd, &p->vy, sizeof(float)) != sizeof(float) ? (p = 0) :
+    read(fd, &p->hp, sizeof(int)) != sizeof(int) ? (p = 0) :
+    read(fd, p->inventory[-1], sizeof(int)*4) != sizeof(int)*4 ? (p = 0) :
+    read(fd, p->inventory[0], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :
+    read(fd, p->inventory[1], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :
+    read(fd, p->inventory[2], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :
+    read(fd, p->inventory[3], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) : 0;
+    close(fd);
     return (p);
 }
 
@@ -229,9 +229,11 @@ game_t *load_game()
     if (!game) return (0);
     game->players = lld_init();
     player_t *player = load_player();
+    printf("load player\n");
     if (!player) return (0);
     lld_insert(game->players, 0, player);
     game->map = load_map();
+    printf("load map\n");
     if (!game->map) return (0);
     printf("load completed %i %i\n", game->map->size_l, game->map->size_r);
     return (game);
@@ -241,17 +243,20 @@ int save_map(map_t *map)
 {
     int fd = open("save/map", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
 
+    int check_some = 0;
     if (fd < 0) return (0);
     write(fd, &map->size_l, sizeof(int));
     write(fd, &map->size_r, sizeof(int));
     for (lld_t *mv = map->map->next; mv; mv = mv->next){
         block_t **block = mv->data;
         for (int i = 0; i < MAP_Y; i++){
+            check_some += block[i]->id;
             write(fd, &block[i]->id, sizeof(int));
         }
     }
+    write(fd, &check_some, sizeof(int));
     close(fd);
-    printf("map saved\n");
+    printf("map saved check = %i\n", check_some);
 }
 
 int save_player(player_t *p)
