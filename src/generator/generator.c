@@ -117,7 +117,7 @@ block_t **generate_line(int x, int d)
     return (line);
 }
 
-map_t *generate_map()
+map_t *generate_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
 
@@ -175,7 +175,7 @@ void free_map(map_t *map)
 
 //save and load
 
-map_t *load_map()
+map_t *load_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
     int fd = open("save/map", O_RDONLY);
@@ -200,7 +200,7 @@ map_t *load_map()
     return (map);
 }
 
-player_t *load_player()
+player_t *load_player(void)
 {
     int fd = open("save/player", O_RDONLY);
     if (fd < 0) return (0);
@@ -222,7 +222,7 @@ player_t *load_player()
     return (p);
 }
 
-game_t *load_game()
+game_t *load_game(void)
 {
     game_t *game = malloc(sizeof(game_t));
     if (!game) return (0);
@@ -286,7 +286,7 @@ int save_game(game_t *game)
     return (1);
 }
 
-void delete_save()
+void delete_save(void)
 {
     int fd = open("save/player", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
     write(0, "this save as been delete", 24);

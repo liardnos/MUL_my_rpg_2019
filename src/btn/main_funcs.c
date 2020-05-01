@@ -32,8 +32,6 @@ void btn_play(win_t *win, int *returned)
         cpy->map = generate_map();
         cpy->players = lld_init();
         player_add_player(cpy);
-        player_t *p = cpy->players->next->data;
-        p->inventory = init_inventory();
     }
     cpy = win->game;
     player_t *p = cpy->players->next->data;
