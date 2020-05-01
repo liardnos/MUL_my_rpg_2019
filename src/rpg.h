@@ -354,5 +354,6 @@ int save_game(game_t *game);
 int engine_create_item(game_t *game, float x, float y, ...);
 
 void free_map(map_t *map);
+void draw_item(win_t *win, sfIntRect rect, sfVector2f pos, int thing);
 
 #endif
