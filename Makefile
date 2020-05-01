@@ -2,7 +2,7 @@
 ## EPITECH PROJECT, 2019
 ## Makefile
 ## File description:
-## makefile for bistro-matic
+## makefile for rpg
 ##
 
 SRC		=		src/*.c \
@@ -78,7 +78,7 @@ valgrind: fclean
 	clear
 	make -C ./lib/my valgrind
 	gcc -g -o $(NAME) $(SRC) $(FLAGS) $(CSFLAGS)
-	valgrind -s --leak-check=full --track-origins=yes  --show-leak-kinds=definite ./$(NAME) #&> valgrind_log
+	valgrind -s --leak-check=full --track-origins=yes --show-leak-kinds=definite ./$(NAME) #&> valgrind_log
 
 callgrind: fclean
 	rm -f callgrind.*

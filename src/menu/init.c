@@ -45,7 +45,7 @@ int init_my_win(win_t *my_win, char *name)
     my_win->mode.width = my_win->x;
     my_win->mode.height = my_win->y;
     my_win->mode.bitsPerPixel = 32;
-    my_win->win = sfRenderWindow_create(my_win->mode, name, sfClose, NULL);
+    my_win->win = sfRenderWindow_create(my_win->mode, name, sfClose | sfResize, 0);
     if (!my_win->win || !init_mouse(my_win))
         return (1);
     my_win->menu = 0;
