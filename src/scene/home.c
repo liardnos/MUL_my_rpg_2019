@@ -12,11 +12,6 @@ void draw_home(win_t *win)
     sfVector2f pos = {410, 80};
 
     world_t **world = main_cam(win->win);
-    /*if ((*world)->mv){
-        win->menu = -1;
-        sfSprite_setPosition(win->logo->sprite, pos);
-        sfRenderWindow_drawSprite(win->win, win->logo->sprite, 0);
-    } else
-        win->menu = 0;
-    */
+    sfSprite_setPosition(win->logo->sprite, pos);
+    sfRenderWindow_drawSprite(win->win, win->logo->sprite, 0);
 }
