@@ -250,6 +250,7 @@ typedef struct game
     map_t *map;
     texture_t *it;
     texture_t *bl;
+    int select;
 } game_t;
 
 /* -- Include CSFML -- */

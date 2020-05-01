@@ -8,19 +8,23 @@
 #include "my.h"
 #include "rpg.h"
 
-void keys_manager(win_t *win)
+void keys_manager(win_t *win, sfEvent event)
 {
     sfKeyboard_isKeyPressed(sfKeyI) && win->menu == 3 ? win->menu = 5 : 0;
-    sfKeyboard_isKeyPressed(sfKeyEscape) && win->menu == 3 ? win->menu = 4 : 0;
-    sfKeyboard_isKeyPressed(sfKeyEscape) && win->menu == 5 ? win->menu = 3 : 0;
+    if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyEscape)) {
+        win->menu == 3 ? win->menu = 4 : 0;
+        win->menu == 5 ? win->menu = 3 : 0;
+    }
 }
 
 void event_manager(win_t *win, button_t **buttons, sfEvent event, int *returned)
 {
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(win->win);
-    keys_manager(win);
-    inventory_events(win);
+    if (win->menu >= 3 && event.type == sfEvtMouseLeft)
+        win->menu = 4;
+    keys_manager(win, event);
+    inventory_events(win, event);
     button_event(win, buttons, event);
 }
 
