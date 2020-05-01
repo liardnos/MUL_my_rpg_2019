@@ -13,6 +13,8 @@
 #include "../my.h"
 #include "../screen.h"
 
+//FIXME
+
 void my_draw_line(framebuffer_t *buf, sfVector2f *vects0, sfVector2f *vects1,
     sfColor color)
 {
