@@ -5,6 +5,7 @@
 ** func for zombie
 */
 
+#include <math.h>
 #include "rpg.h"
 
 int mob_zombie_add(game_t *game, sfVector2f pos)
@@ -46,10 +47,10 @@ void mob_zombie(game_t *game, entity_t *zomb)
     player_t *p = game->players->next->data;
     float dx = zomb->x - p->x;
 
-    if (dx < 0){
+    if (dx < 0 && fabsf(dx) > 1.0){
         zomb->vx = 3;
         zomb->wall_r & 1 ? zomb->vy = -JUMP_SPEED : 0;
-    } else {
+    } else if (fabsf(dx) > 1.0){
         zomb->vx = -3;
         zomb->wall_l & 1 ? zomb->vy = -JUMP_SPEED : 0;
     }

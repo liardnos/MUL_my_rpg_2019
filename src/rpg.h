@@ -13,6 +13,7 @@
 #include <SFML/Audio.h>
 #include <stdlib.h>
 #include "my.h"
+#include "screen.h"
 
 #define JUMP_HIGHT 2.5
 #define JUMP_SPEED pow(JUMP_HIGHT*2*GRAVITY, 0.5)
@@ -385,4 +386,29 @@ animator_t *init_zombie_animator();
 
 texture_t *init_texture(char *path);
 void draw_hud(win_t *win);
+
+typedef struct world
+{
+    int x;
+    int y;
+    sfRenderWindow *cam;
+    float *mat_start;
+    char **sun_grid;
+    char mv;
+    framebuffer_t *cam_buf;
+    sfRenderWindow *edi;
+    float **mesh;
+    framebuffer_t *edi_buf;
+    int edi_x;
+    int edi_y;
+    int brush;
+    int brush_type;
+    button_t *edi_buttons;
+    sfText *txt;
+    sfFont *font;
+    int buton_nb;
+    float sun;
+    int cs;
+} world_t;
+
 #endif
