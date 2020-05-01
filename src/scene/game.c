@@ -73,6 +73,24 @@ void animate_player(win_t *win)
     animator_draw(win->win, player->anim);
 }
 
+void draw_game_items(win_t *win, player_t *p)
+{
+    sfIntRect rect = {0, 0, 64, 64};
+    sfVector2f pos = {0, 0};
+    lld_t *lld = win->game->items;
+    static float angle = 0;
+
+    angle += 0.05;
+    for (lld_t *mv = lld->next; mv; mv = mv->next){
+        item_t *item = mv->data;
+
+        pos.x = (item->x - p->x) * 64 + 1920/2;
+        pos.y = (item->y - p->y) * 64 + 1080/2 + cos(angle)*10;
+        rect.left = 64 * item->item;
+        draw_item(win, rect, pos, item->type*10000);
+    }
+}
+
 void draw_game(win_t *win)
 {
     if (!win->game) return;
@@ -102,7 +120,7 @@ void draw_game(win_t *win)
 
     //sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
     //to_draw[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[1];
-
+    draw_game_items(win, player);
     free(to_draw-1);
     win->menu == 3 ? animate_player(win) : 0;
 }
