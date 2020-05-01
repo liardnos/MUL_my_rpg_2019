@@ -14,6 +14,16 @@
 #include <stdlib.h>
 #include "my.h"
 
+#define JUMP_HIGHT 2.5
+#define JUMP_SPEED pow(JUMP_HIGHT*2*GRAVITY, 0.5)
+
+#define ANIM_JUMP 110.0, -45.0, h_head, 0.0, 45.0, -110.0
+#define ANIM_WALK1 45.0, -45.0, h_head, 0.0, 45.0, -45.0
+#define ANIM_WALK2 -45.0, 45.0, h_head, 0.0, -45.0, 45.0
+#define ANIM_STAND 0.0, 0.0, h_head, 0.0, 0.0, 0.0
+
+
+
 typedef struct texture
 {
     sfTexture *tex;
@@ -226,6 +236,7 @@ typedef struct entity
     char floor;
     animator_t *anim;
     int hp;
+    int type;
 } entity_t;
 
 typedef struct item
