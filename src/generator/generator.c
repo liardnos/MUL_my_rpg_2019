@@ -196,7 +196,6 @@ map_t *load_map()
     int check_some2;
     read(fd, &check_some2, sizeof(int));
     close(fd);
-    printf("check1 : %i | check2 : %i\n", check_some, check_some2);
     if (check_some2 != check_some) return (0);
     return (map);
 }
@@ -228,14 +227,14 @@ game_t *load_game()
     game_t *game = malloc(sizeof(game_t));
     if (!game) return (0);
     game->players = lld_init();
+    my_printf("[RM] loading player...\n");
     player_t *player = load_player();
-    printf("load player\n");
     if (!player) return (0);
     lld_insert(game->players, 0, player);
+    my_printf("[RM] loading map...\n");
     game->map = load_map();
-    printf("load map\n");
     if (!game->map) return (0);
-    printf("load completed %i %i\n", game->map->size_l, game->map->size_r);
+    my_printf("[RM] load completed\n");
     return (game);
 }
 
@@ -256,7 +255,7 @@ int save_map(map_t *map)
     }
     write(fd, &check_some, sizeof(int));
     close(fd);
-    printf("map saved check = %i\n", check_some);
+    my_printf("[RM] map saved\n");
 }
 
 int save_player(player_t *p)
@@ -274,12 +273,22 @@ int save_player(player_t *p)
     write(fd, p->inventory[2], sizeof(int)*9);
     write(fd, p->inventory[3], sizeof(int)*9);
     close(fd);
-    printf("player saved\n");
+    my_printf("[RM] player saved\n");
 }
 
 int save_game(game_t *game)
 {
+    my_printf("[RM] saving map...\n");
     save_map(game->map);
+    my_printf("[RM] saving player...\n");
     save_player(game->players->next->data);
+    my_printf("[RM] game saved\n");
     return (1);
+}
+
+void delete_save()
+{
+    int fd = open("save/player", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
+    write(0, "this save as been delete", 24);
+    close(fd);
 }
