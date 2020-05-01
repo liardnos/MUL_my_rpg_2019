@@ -414,4 +414,10 @@ typedef struct world
     int cs;
 } world_t;
 
+const block_t blockss[8][1];
+world_t **main_cam(sfRenderWindow *win);
+int mob_skeleton_add(game_t *game, sfVector2f pos);
+float perlin(float x, float y);
+animator_t *init_skeleton_animator();
+
 #endif

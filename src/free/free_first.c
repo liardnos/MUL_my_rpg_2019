@@ -67,3 +67,11 @@ void end_free(win_t *win, button_t **buttons)
     free(buttons);
     free(win);
 }
+
+void free_map(map_t *map)
+{
+    for (lld_t *mv = map->map->next; mv; mv = mv->next)
+        free(mv->data-sizeof(block_t *));
+    lld_free(map->map);
+    free(map);
+}
