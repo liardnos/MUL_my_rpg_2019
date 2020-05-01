@@ -228,8 +228,6 @@ game_t *load_game()
     game_t *game = malloc(sizeof(game_t));
     if (!game) return (0);
     game->players = lld_init();
-    game->entities = lld_init();
-    game->items = lld_init();
     player_t *player = load_player();
     if (!player) return (0);
     lld_insert(game->players, 0, player);

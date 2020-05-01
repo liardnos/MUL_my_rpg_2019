@@ -22,9 +22,7 @@ void free_game(win_t *win)
         free(cpy->it);
         free_map(win->game->map);
         lld_free_r(cpy->players);
-        printf("%i\n", cpy->entities->data);
         lld_free_r(cpy->entities);
-        printf("%i\n", cpy->items->data);
         lld_free_r(cpy->items);
         free(cpy);
         win->game = 0;

@@ -9,6 +9,7 @@
 
 void btn_return(win_t *win)
 {
+    save_game(win->game);
     free_game(win);
     win->menu = 0;
 }
