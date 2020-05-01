@@ -10,6 +10,7 @@
 
 void btn_quit(win_t *win)
 {
+    my_printf("[RM] Exiting\n");
     sfRenderWindow_close(win->win);
 }
 
@@ -17,6 +18,7 @@ void btn_quit(win_t *win)
 
 void btn_play(win_t *win)
 {
+    my_printf("[RM] Launch game\n");
     game_t *cpy;
 
     win->game = load_game();
