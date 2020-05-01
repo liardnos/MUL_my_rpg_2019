@@ -298,6 +298,7 @@ typedef struct win
     texture_t *logo;
     config_t *config;
     game_t *game;
+    text_t *txt;
     int menu;
     sfVideoMode mode;
 }win_t;
@@ -354,6 +355,7 @@ int take_inv(int **inv, int type, int item, int nb);
 int give_inv(int **inventory, int type, int item, int nb);
 void draw_inv(win_t *win);
 void inventory_events(win_t *win, sfEvent event);
+int same(int first, int second);
 #define GRAVITY 10
 
 int engine(game_t *game);

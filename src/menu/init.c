@@ -30,25 +30,27 @@ int init_mouse(win_t *win)
     return (1);
 }
 
-int init_my_win(win_t *my_win, char *name)
+int init_my_win(win_t *win, char *name)
 {
     config_t *config = malloc(sizeof(config_t));
 
-    if (!config)
+    if (!config || !(win->txt = malloc(sizeof(text_t))))
         return (1);
-    my_win->x = 1920;
-    my_win->y = 1080;
-    my_win->config = config;
-    my_win->config->sound = 62;
-    my_win->config->difficulty = 1;
-    my_win->config->fps = 60;
-    my_win->mode.width = my_win->x;
-    my_win->mode.height = my_win->y;
-    my_win->mode.bitsPerPixel = 32;
-    my_win->win = sfRenderWindow_create(my_win->mode, name, sfClose | sfResize, 0);
-    if (!my_win->win || !init_mouse(my_win))
+    win->x = 1920;
+    win->y = 1080;
+    win->config = config;
+    win->config->sound = 62;
+    win->config->difficulty = 1;
+    win->config->fps = 60;
+    win->mode.width = win->x;
+    win->mode.height = win->y;
+    win->mode.bitsPerPixel = 32;
+    win->win = sfRenderWindow_create(win->mode, name, sfClose | sfResize, 0);
+    if (!win->win || !init_mouse(win) || !(win->txt->font =
+    sfFont_createFromFile("assets/mc.ttf")) ||
+    !(win->txt->text = sfText_create()))
         return (1);
-    my_win->menu = 0;
+    win->menu = 0;
     return (0);
 }
 

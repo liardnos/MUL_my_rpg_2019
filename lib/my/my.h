@@ -77,7 +77,7 @@ void lld_print_str(lld_t *lld);
 void *lld_read(lld_t *lld, int poss);
 void lld_sort(lld_t *list, int (*cmp)());
 void *lld_write(lld_t *lld, int poss, void *data);
-
+char *my_nts(int nb);
 void print_help(void);
 
 //binary tree (btr)

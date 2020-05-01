@@ -1,0 +1,4 @@
+Assets from:
+    - SphaxPureBD
+    - Kenney
+    - Dafont

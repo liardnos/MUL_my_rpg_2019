@@ -44,6 +44,7 @@ int launch_game(void)
     win->game = 0;
     srand((unsigned int)(unsigned long int) &seed);
     change_icon(win->win);
+    sfText_setFont(win->txt->text, win->txt->font);
     sfWindow_setFramerateLimit((sfWindow *) win->win, 60);
     main_loop(&returned, win, (button_t **)buttons);
     end_free(win, (button_t **)buttons);

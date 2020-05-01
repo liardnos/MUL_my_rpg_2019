@@ -25,11 +25,47 @@ int is_well_placed(win_t *win, sfVector2i *pos)
     return (0);
 }
 
+void add_on_stack(int **inv, game_t *game, sfVector2i pos)
+{
+    if ((game->select % 100) + (inv[pos.y][pos.x] % 100) <= 64) {
+        inv[pos.y][pos.x] += game->select % 100;
+        inv[game->old.y][game->old.x] = 0;
+        game->select = 0;
+    } else {
+        inv[game->old.y][game->old.x] -= ((inv[pos.y][pos.x] % 100) - 64) * -1;
+        inv[pos.y][pos.x] += ((inv[pos.y][pos.x] % 100) - 64) * -1;
+        game->select = 0;
+    }
+}
+
+void switch_properly(int **inv, game_t *game, sfVector2i pos)
+{
+    int temp;
+
+    if (pos.x == game->old.x && pos.y == game->old.y) {
+        game->select = 0;
+        return;
+    }
+    temp = inv[pos.y][pos.x];
+    if (same(inv[pos.y][pos.x], game->select)) {
+        if (inv[pos.y][pos.x] % 100 < 64) {
+            add_on_stack(inv, game, pos);
+        } else {
+            inv[pos.y][pos.x] = game->select;
+            inv[game->old.y][game->old.x] = temp;
+            game->select = 0;
+        }
+    } else {
+        inv[pos.y][pos.x] = game->select;
+        inv[game->old.y][game->old.x] = temp;
+        game->select = 0;
+    }
+}
+
 void inventory_events(win_t *win, sfEvent event)
 {
     sfVector2i pos = sfMouse_getPosition((sfWindow *)win->win);
     player_t *ply = win->game->players->next->data;
-    int temp;
 
     if (event.type == sfEvtMouseButtonPressed) {
         if (is_well_placed(win, &pos) && sfMouse_isButtonPressed(sfMouseLeft)) {
@@ -39,12 +75,9 @@ void inventory_events(win_t *win, sfEvent event)
         }
     }
     if (event.type == sfEvtMouseButtonReleased) {
-        if (is_well_placed(win, &pos) && win->game->select != 0) {
-            temp = ply->inventory[pos.y][pos.x];
-            ply->inventory[pos.y][pos.x] = win->game->select;
-            ply->inventory[win->game->old.y][win->game->old.x] = temp;
-            win->game->select = 0;
-            printf("Put it %i %i\n",pos.x ,pos.y);
-        }
+        if (is_well_placed(win, &pos) && win->game->select != 0)
+            switch_properly(ply->inventory, win->game, pos);
+        else
+            printf("Hello\n"),win->game->select = 0;
     }
 }
