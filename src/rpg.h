@@ -264,6 +264,7 @@ typedef struct game
     map_t *map;
     texture_t *it;
     texture_t *bl;
+    texture_t *ef;
     int select;
     sfVector2i old;
 } game_t;

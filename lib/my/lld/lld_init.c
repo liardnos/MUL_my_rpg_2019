@@ -11,6 +11,9 @@
 lld_t *lld_init(void)
 {
     lld_t *lld = malloc(sizeof(lld_t));
+
+    if (!lld)
+        return (0);
     lld->next = 0;
     lld->prev = 0;
     lld->data = 0;

@@ -9,17 +9,32 @@
 #include "menu.h"
 #include "rpg.h"
 
+void free_texture(texture_t *texture)
+{
+    if (texture) {
+        sfTexture_destroy(texture->tex);
+        sfSprite_destroy(texture->sprite);
+        free(texture);
+    }
+}
+
+void free_text(text_t *text)
+{
+    if (text) {
+        sfText_destroy(text->text);
+        sfFont_destroy(text->font);
+        free(text);
+    }
+}
+
 void free_game(win_t *win)
 {
     game_t *cpy = win->game;
 
     if (cpy) {
-        sfTexture_destroy(cpy->it->tex);
-        sfSprite_destroy(cpy->it->sprite);
-        sfTexture_destroy(cpy->bl->tex);
-        sfSprite_destroy(cpy->bl->sprite);
-        free(cpy->bl);
-        free(cpy->it);
+        free_texture(cpy->bl);
+        free_texture(cpy->ef);
+        free_texture(cpy->it);
         free_map(win->game->map);
         lld_free_r(cpy->players);
         lld_free_r(cpy->entities);
@@ -34,6 +49,11 @@ void end_free(win_t *win, button_t **buttons)
     button_t **cpy = buttons;
 
     sfRenderWindow_destroy(win->win);
+    free_text(win->txt);
+    free_texture(win->mouse);
+    free_texture(win->click);
+    free_texture(win->logo);
+    free(win->config);
     for (; *cpy; cpy++) {
         free((*cpy)->attrib);
         sfTexture_destroy((*cpy)->tex);
@@ -43,4 +63,5 @@ void end_free(win_t *win, button_t **buttons)
         free((*cpy));
     }
     free(buttons);
+    free(win);
 }

@@ -36,14 +36,11 @@ void btn_play(win_t *win)
     p->anim = init_player_animator();
     cpy->entities = lld_init();
     cpy->items = lld_init();
-    cpy->bl = malloc(sizeof(texture_t));
-    cpy->it = malloc(sizeof(texture_t));
-    cpy->it->tex = sfTexture_createFromFile("assets/itemsx64.png", 0);
-    cpy->bl->tex = sfTexture_createFromFile("assets/tilesx64.png", 0);
-    cpy->it->sprite = sfSprite_create();
-    cpy->bl->sprite = sfSprite_create();
-    sfSprite_setTexture(cpy->it->sprite, cpy->it->tex, sfTrue);
-    sfSprite_setTexture(cpy->bl->sprite, cpy->bl->tex, sfTrue);
+    cpy->bl = init_texture("assets/tilesx64.png");
+    cpy->it = init_texture("assets/itemsx64.png");
+    cpy->ef = init_texture("assets/effectsx64.png");
+    if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items)
+        return;
     engine_create_item(cpy, 0, 0, 1, 1, 100000, 32);
     engine_create_item(cpy, 4, 0, 1, 1, 100000, 32);
     engine_create_item(cpy, 2, 0, 1, 4, 100000, 32);
