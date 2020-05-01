@@ -8,14 +8,6 @@
 #include "rpg.h"
 #include <math.h>
 
-#define JUMP_HIGHT 2.5
-#define JUMP_SPEED pow(JUMP_HIGHT*2*GRAVITY, 0.5)
-
-#define ANIM_JUMP 110.0, -45.0, h_head, 0.0, 45.0, -110.0
-#define ANIM_WALK1 45.0, -45.0, h_head, 0.0, 45.0, -45.0
-#define ANIM_WALK2 -45.0, 45.0, h_head, 0.0, -45.0, 45.0
-#define ANIM_STAND 0.0, 0.0, h_head, 0.0, 0.0, 0.0
-
 const block_t blockss[8][1];
 
 float find_angle(float *p1, float *p2)
@@ -121,6 +113,7 @@ void draw_game(win_t *win)
     //sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
     //to_draw[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[1];
     draw_game_items(win, player);
+    win->game && win->menu != 4 ? draw_entity(win) : 0;
     free(to_draw-1);
     win->menu == 3 ? animate_player(win) : 0;
 }

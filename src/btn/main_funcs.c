@@ -47,6 +47,10 @@ void btn_play(win_t *win)
     engine_create_item(cpy, 0, 0, 1, 1, 100000, 32);
     engine_create_item(cpy, 4, 0, 1, 1, 100000, 32);
     engine_create_item(cpy, 2, 0, 1, 4, 100000, 32);
+    engine_create_item(cpy, 1, 0, 2, BOW, 100000, 1);
+    engine_create_item(cpy, 2, 0, 2, ARROW, 100000, 32);
+    sfVector2f pos = {0, 10};
+    mob_zombie_add(win->game, pos);
     win->menu = 3;
 
 }

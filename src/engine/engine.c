@@ -85,7 +85,7 @@ int engine_entities(game_t *game)
         (flr(player->y + player->vy/60.0) < flr(player->y)) && (block[1][0]->solid) ?
         player->vy = 0 : 0 ;
         block[1][2]->solid ? player->y-- : 0;
-        (flr(player->y + player->vy/60.0) > flr(player->y)) && (block[1][3]->solid) ?
+        (flr(player->y + player->vy/60.0 + 0.1) > flr(player->y)) && (block[1][3]->solid) ?
         player->vy = 0, player->y = flr(player->y)+0.99, player->floor = 1 : (player->floor = 0);
         free(block-1);
         engine_g(&(player->x), &(player->y), &(player->vx), &(player->vy));

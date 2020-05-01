@@ -15,6 +15,7 @@ SRC		=		src/*.c \
 				src/menu/*.c \
 				src/engine/*.c \
 				src/inventory/*.c \
+				src/mob/*.c \
 
 SRCT 	=		./tests/
 

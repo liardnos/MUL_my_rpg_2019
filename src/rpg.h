@@ -233,6 +233,9 @@ typedef struct entity
     float y;
     float vx;
     float vy;
+    char wall_l
+    char wall_r
+    int anim_sate;
     char floor;
     animator_t *anim;
     int hp;
@@ -370,5 +373,12 @@ int engine_create_item(game_t *game, float x, float y, ...);
 
 void free_map(map_t *map);
 void draw_item(win_t *win, sfIntRect rect, sfVector2f pos, int thing);
+void mob(win_t *win);
+void draw_entity(win_t *win);
+void animate_player(win_t *win);
+int mob_zombie_add(game_t *game, sfVector2f pos);
+float player_head(win_t *win, player_t *player);
+animator_t *init_zombie_animator();
+
 
 #endif

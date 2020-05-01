@@ -28,6 +28,7 @@ void main_loop(int *returned, win_t *win, button_t **buttons)
         scene_manager(win, buttons, returned);
         sfRenderWindow_display(win->win);
         win->game && win->menu != 4 ? engine(win->game) : 0;
+        win->game && win->menu == 3 ? mob(win) : 0;
     }
 }
 
