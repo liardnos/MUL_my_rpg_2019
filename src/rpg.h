@@ -381,5 +381,5 @@ int mob_zombie_add(game_t *game, sfVector2f pos);
 float player_head(win_t *win, player_t *player);
 animator_t *init_zombie_animator();
 
-
+texture_t *init_texture(char *path);
 #endif

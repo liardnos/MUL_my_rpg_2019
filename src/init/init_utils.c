@@ -5,6 +5,8 @@
 ** Init generic things
 */
 
+#include "rpg.h"
+
 texture_t *init_texture(char *path)
 {
     texture_t *texture = malloc(sizeof(texture_t));
