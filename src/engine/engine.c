@@ -79,11 +79,11 @@ int engine_entities(game_t *game)
         sfIntRect rect = {flr(player->x)-1, flr(player->y)-2, 3, 5};
         block_t ***block = generator_getmap(game->map, &rect);
         player->vx > 0 && (flr(player->x + player->vx/60.0 + 0.25) > flr(player->x)) && (block[2][1]->solid || block[2][2]->solid) ?
-        player->vx = 0 : 0;
+        player->vx = 0, player->wall_r = 1 : (player->wall_r = 0);
         player->vx < 0 && (flr(player->x + player->vx/60.0 - 0.25) < flr(player->x)) && (block[0][1]->solid || block[0][2]->solid) ?
-        player->vx = 0 : 0;
+        player->vx = 0, player->wall_l = 1 : (player->wall_l = 0);
         (flr(player->y + player->vy/60.0) < flr(player->y)) && (block[1][0]->solid) ?
-        player->vy = 0 : 0 ;
+        player->vy = 0 : 0;
         block[1][2]->solid ? player->y-- : 0;
         (flr(player->y + player->vy/60.0 + 0.1) > flr(player->y)) && (block[1][3]->solid) ?
         player->vy = 0, player->y = flr(player->y)+0.99, player->floor = 1 : (player->floor = 0);
