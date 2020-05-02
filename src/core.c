@@ -22,6 +22,7 @@ void main_loop(int *returned, win_t *win, button_t **buttons)
                 return;
         }
         scene_manager(win, buttons, returned);
+        win->menu >= 3 ? player_manager(win) : 0;
         sfRenderWindow_display(win->win);
     }
 }

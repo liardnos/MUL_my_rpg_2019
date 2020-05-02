@@ -61,3 +61,15 @@ void scene_manager(win_t *win, button_t **buttons, int *returned)
     button_main(win, (button_t **)buttons);
     replace_mouse(win);
 }
+
+void player_manager(win_t *win)
+{
+    player_t *ply = win->game->players->next->data;
+
+    if (ply->hp <= 0) {
+        drop_inventory(win->game, ply->inventory);
+        ply->x = HOME_X;
+        ply->y = HOME_Y;
+        ply->hp = ply->maxhp;
+    }
+}

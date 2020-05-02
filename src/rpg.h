@@ -472,4 +472,7 @@ void breaking(win_t *win, block_t ***block, sfVector2f pos);
 int check_assets(void);
 void fight(win_t *win, player_t *player);
 
+void player_manager(win_t *win);
+void drop_inventory(game_t *game, int **inv);
+void clear_inventory(int **inventory);
 #endif
