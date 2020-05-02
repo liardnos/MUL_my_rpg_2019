@@ -62,6 +62,7 @@ void btn_play(win_t *win, int *returned)
         return;
     }
     win->menu = 3;
+    win->game->proj = lld_init();
     sfVector2f pnj = {0, 0};
     mob_pnj_add(win->game, pnj);
     engine_create_item(win->game, 0, 0, 1, 1, 100000, 32);
