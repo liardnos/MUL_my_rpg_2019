@@ -15,8 +15,8 @@ int player_add_player(game_t *game)
         return (0);
     player->x = HOME_X;
     player->y = HOME_Y;
-    player->vx = 0;
-    player->vy = 0;
+    player->vx = -0.1;
+    player->vy = -0.1;
     player->floor = 0;
     player->hp = 3;
     player->maxhp = 3;

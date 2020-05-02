@@ -9,7 +9,7 @@
 
 //FIXME
 
-animator_t *init_png_animator()
+animator_t *init_pnj_animator()
 {
     sfTexture *t_head = sfTexture_createFromFile("assets/characters/alien/alien_head.png", 0);
     sfTexture *t_body = sfTexture_createFromFile("assets/characters/alien/alien_body.png", 0);

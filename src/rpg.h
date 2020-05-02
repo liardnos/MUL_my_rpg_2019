@@ -24,7 +24,7 @@
 #define ANIM_STAND 0.0, 0.0, h_head, 0.0, 0.0, 0.0
 
 #define ITEM_DUR 18000
-#define HOME_X 0.0
+#define HOME_X 0.5
 #define HOME_Y 65.0
 
 typedef struct texture
