@@ -40,7 +40,7 @@ void draw_entity(win_t *win)
         entity_t *entity = mv->data;
         pos.x = (entity->x - p->x) * 64 + 1920/2;
         pos.y = (entity->y - p->y) * 64 + 1080/2;
-        particle_for_block(win, 1, pos.x, pos.y);
+        particle_for_block(win, 1, entity->x, entity->y + 32);
         animator_setpos(entity->anim, malloc_pos(pos.x, pos.y, 0));
         animator_draw((sfRenderWindow *)win->win, entity->anim);
         sfVector2i posi = {(int)p->x, (int)p->y};
@@ -51,7 +51,7 @@ void draw_entity(win_t *win)
             animator_goto(entity->anim, 30.0, ANIM_WALK1) :
             animator_goto(entity->anim, 30.0, ANIM_WALK2);
             else if (entity->floor)
-                animator_goto(entity->anim, 30.0, ANIM_STAND);
+            animator_goto(entity->anim, 30.0, ANIM_STAND);
         }
     }
 }
