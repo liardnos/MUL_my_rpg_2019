@@ -18,10 +18,11 @@ int player_add_player(game_t *game)
     player->vx = 0;
     player->vy = 0;
     player->floor = 0;
-    player->hp = 0;
+    player->hp = 3;
+    player->maxhp = 3;
     player->inventory = init_inventory();
-    player->anim = init_player_animator();
-    player->select = 0;
+    if (!player->inventory)
+        return (0);
     lld_insert(game->players, 0, player);
     return (1);
 }
