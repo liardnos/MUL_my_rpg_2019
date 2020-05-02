@@ -42,10 +42,10 @@ void breaking(win_t *win)
     sfMouse_isButtonPressed(sfMouseRight);
 }
 
-block_t *calc_block(float height)
+const block_t *calc_block(float height)
 {
     height += 50;
-    block_t *a = 0;
+    const block_t *a = 0;
     height > 0 ? a = blockss[3] : 0;
     height <= 0 && height >= -20  ? a = blockss[2] : 0;
     height < -20 ? a = blockss[1] : 0;

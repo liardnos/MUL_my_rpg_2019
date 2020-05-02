@@ -62,7 +62,7 @@ player_t *load_player(void)
 game_t *load_gameb(void)
 {
     game_t *game = malloc(sizeof(game_t));
-    int fd = open("save/player", O_RDONLY);
+    int fd = open("save/game", O_RDONLY);
     if (!game || fd < 0) return (0);
     read(fd, &game->quest, sizeof(int)) != sizeof(int) ? (game = 0) :
     0;
