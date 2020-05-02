@@ -56,6 +56,8 @@ void remove_it(int *in_inv, int *to_rm)
         *to_rm -= (*in_inv) % 100;
         *in_inv = 0;
     }
+    if (!((*in_inv) % 100))
+        *in_inv = 0;
 }
 
 int take_inv(int **inv, int type, int item, int nb)
