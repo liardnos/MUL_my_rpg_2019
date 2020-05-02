@@ -83,7 +83,7 @@ void draw_game_items(win_t *win, player_t *p)
 
 void draw_game_proj(win_t *win, player_t *p)
 {
-    sfIntRect rect = {64*BOW, 0, 64, 64};
+    sfIntRect rect = {64*ARROW, 0, 64, 64};
     sfVector2f pos = {0, 0};
     sfVector2f scale = {0.5, 0.5};
     lld_t *lld = win->game->proj;
@@ -100,7 +100,6 @@ void draw_game_proj(win_t *win, player_t *p)
 
         pos.x = (item->x - p->x) * 64 + 1920/2;
         pos.y = (item->y - p->y) * 64 + 1080/2;
-        rect.left = 64 * ARROW;
         sfSprite_setPosition(win->game->it->sprite, pos);
         sfSprite_setScale(win->game->it->sprite, scale);
         sfSprite_setRotation(win->game->it->sprite, angle/PI*180 + 135);
