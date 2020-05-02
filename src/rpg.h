@@ -48,6 +48,7 @@ typedef struct map
     lld_t *map;
     int size_l;
     int size_r;
+    char new;
 } map_t;
 
 
