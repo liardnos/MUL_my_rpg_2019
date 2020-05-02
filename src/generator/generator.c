@@ -31,8 +31,8 @@ void breaking(win_t *win, block_t ***block, sfVector2f pos)
     if (sfMouse_isButtonPressed(sfMouseLeft)){
         status += 1;
         if (status > b->hard && b->hard != -1){
-            engine_create_item(win->game, (vec.x+pos.x)/64 + p->x, (vec.y+pos.y)/64 + p->y, 1, b->type, 18000, 1);
-            printf("%f,\n", (vec.x+pos.x)/64 + p->x);
+            engine_create_item(win->game, p->x+(-pos.x + vec.x - 1920/2)/64, p->y+(-pos.y + vec.y - 1080/2)/64, 1, b->type, 18000, 1);
+            printf("%f,\n", p->x-(pos.x + vec.x-1920/2)/64);
             block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[ICE];
             status = 0;
         }

@@ -49,10 +49,10 @@ void mob_zombie(game_t *game, entity_t *zomb)
 
     if (dx < 0 && fabsf(dx) > 1.0){
         zomb->vx = 3;
-        zomb->wall_r & 1 ? zomb->vy = -JUMP_SPEED : 0;
+        zomb->wall_r & 1 && zomb->floor ? zomb->vy = -JUMP_SPEED : 0;
     } else if (fabsf(dx) > 1.0){
         zomb->vx = -3;
-        zomb->wall_l & 1 ? zomb->vy = -JUMP_SPEED : 0;
+        zomb->wall_l & 1 && zomb->floor ? zomb->vy = -JUMP_SPEED : 0;
     }
 }
 
@@ -63,10 +63,10 @@ void mob_skeleton(game_t *game, entity_t *skel)
 
     if (dx < 0 && fabsf(dx) > 5.0){
         skel->vx = 3;
-        skel->wall_r & 1 ? skel->vy = -JUMP_SPEED : 0;
+        skel->wall_r & 1 && skel->floor ? skel->vy = -JUMP_SPEED : 0;
     } else if (fabsf(dx) > 5.0){
         skel->vx = -3;
-        skel->wall_l & 1 ? skel->vy = -JUMP_SPEED : 0;
+        skel->wall_l & 1 && skel->floor ? skel->vy = -JUMP_SPEED : 0;
     }
 }
 
