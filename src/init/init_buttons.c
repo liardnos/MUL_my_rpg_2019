@@ -14,7 +14,10 @@ void **init_buttons_three(void **buttons)
     void *res;
 
     path = my_strdup("assets/btn/quests");
-    res = add_button(6, &btn_quests, path, set_attrib(0.291,0.5194,800,78));
+    res = add_button(6, &btn_quests, path, set_attrib(0.291,0.4277,800,78));
+    buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/skills");
+    res = add_button(6, &btn_quests, path, set_attrib(0.291,0.501,800,78));
     buttons = add_to_array(buttons, res);
     return (buttons);
 }
