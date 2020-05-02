@@ -9,11 +9,6 @@
 #include "my.h"
 #include "rpg.h"
 
-int check_assets(void)
-{
-    return (1);
-}
-
 void main_loop(int *returned, win_t *win, button_t **buttons)
 {
     sfEvent event;

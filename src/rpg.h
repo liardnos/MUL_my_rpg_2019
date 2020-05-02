@@ -458,5 +458,6 @@ void particles_draw(win_t *win, lld_t *p_lld);
 void particle_free(win_t *win);
 void breaking(win_t *win, block_t ***block, sfVector2f pos);
 
+int check_assets(void);
 
 #endif
