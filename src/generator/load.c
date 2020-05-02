@@ -15,14 +15,15 @@ map_t *load_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
     int check_some2;
-    map->new = 1;
     int fd = open("save/map", O_RDONLY);
-    if (fd < 0) return (0);
+    int buf[MAP_Y];
+    int check_some = 0;
+
+    if (fd < 0 || !map) return (0);
+    map->new = 1;
     map->map = lld_init();
     if (read(fd, &map->size_l, sizeof(int)) != sizeof(int)) return (0);
     if (read(fd, &map->size_r, sizeof(int)) != sizeof(int)) return (0);
-    int buf[MAP_Y];
-    int check_some = 0;
     for (int i = -map->size_l; i <= map->size_r; i++){
         block_t **block = malloc(sizeof(block_t *)*(MAP_Y+2));
         block[0] = 0, block[MAP_Y+1] = 0, block++;
@@ -64,7 +65,9 @@ game_t *load_gameb(void)
 {
     game_t *game = malloc(sizeof(game_t));
     int fd = open("save/game", O_RDONLY);
-    if (!game || fd < 0) return (0);
+
+    if (!game || fd < 0)
+        return (0);
     read(fd, &game->quest, sizeof(int)) != sizeof(int) ? (game = 0) :
     0;
     close(fd);

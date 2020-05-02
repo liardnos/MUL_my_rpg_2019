@@ -141,5 +141,4 @@ void draw_game(win_t *win)
     draw_game_items(win, player);
     win->game && win->menu != 4 ? draw_entity(win) : 0;
     win->menu == 3 ? animate_player(win) : 0;
-    printf("%f\n", player->y);
 }

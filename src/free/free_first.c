@@ -27,6 +27,35 @@ void free_text(text_t *text)
     }
 }
 
+void free_players(game_t *cpy)
+{
+    while (cpy->players->data){
+        player_t *p = lld_pop(cpy->players, 0);
+        animator_free(p->anim);
+        free_inventory(p->inventory);
+        free(p);
+    }
+    lld_free(cpy->players);
+}
+
+void free_entities(game_t *cpy)
+{
+    while (cpy->entities->data){
+        entity_t *p = lld_pop(cpy->entities, 0);
+        animator_free(p->anim);
+        free(p);
+    }
+    lld_free(cpy->entities);
+}
+
+void free_game_b(game_t *cpy)
+{
+    free_players(cpy);
+    free_entities(cpy);
+    lld_free_r(cpy->items);
+    lld_free_r(cpy->proj);
+}
+
 void free_game(win_t *win)
 {
     game_t *cpy = win->game;
@@ -44,9 +73,7 @@ void free_game(win_t *win)
     free_texture(cpy->hud);
     free_texture(cpy->choose);
     free_map(win->game->map);
-    lld_free_r(cpy->players);
-    lld_free_r(cpy->entities);
-    lld_free_r(cpy->items);
+    free_game_b(cpy);
     free(cpy);
     win->game = 0;
 }
@@ -61,6 +88,7 @@ void end_free(win_t *win, button_t **buttons)
     free_texture(win->click);
     free_texture(win->logo);
     free(win->config);
+    lld_free_r(win->particles);
     for (; *cpy; cpy++) {
         free((*cpy)->attrib);
         sfTexture_destroy((*cpy)->tex);

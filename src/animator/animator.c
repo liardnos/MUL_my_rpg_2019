@@ -94,7 +94,6 @@ void animator_free(animator_t *anim)
         free(member->pos);
         free(member->pos2);
         free(member->pos3);
-        sfSprite_destroy(member->sprite);
         free(member);
     }
     lld_free(anim->member);
