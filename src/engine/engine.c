@@ -47,48 +47,50 @@ void engine_get_items(game_t *game, player_t *player)
     lld_free(lld_sup);
 }
 
-int engine_player(game_t *game)
+int engine_player(game_t *game, win_t *win)
 {
     lld_t *lld = game->players;
 
     for (lld_t *mv = lld->next; mv; mv = mv->next){
-        player_t *player = mv->data;
-        sfIntRect rect = {flr(player->x)-1, flr(player->y)-2, 3, 5};
-        block_t ***block = generator_getmap(game->map, &rect);
-        player->vx > 0 && (flr(player->x + player->vx/60.0 + 0.25) > flr(player->x)) && (block[2][1]->solid || block[2][2]->solid) ?
-        player->vx = 0 : 0;
-        player->vx < 0 && (flr(player->x + player->vx/60.0 - 0.25) < flr(player->x)) && (block[0][1]->solid || block[0][2]->solid) ?
-        player->vx = 0 : 0;
-        (flr(player->y + player->vy/60.0) < flr(player->y)) && (block[1][0]->solid) ?
-        player->vy = 0 : 0 ;
-        block[1][2]->solid ? player->y-- : 0;
-        (flr(player->y + player->vy/60.0+0.1) > flr(player->y)) && (block[1][3]->solid) ?
-        player->vy = 0, player->y = flr(player->y)+0.99, player->floor = 1 : (player->floor = 0);
-        free(block-1);
-        engine_g(&(player->x), &(player->y), &(player->vx), &(player->vy));
-        engine_get_items(game, player);
+        player_t *p = mv->data;
+        sfIntRect rect = {flr(p->x)-1, flr(p->y)-2, 3, 5};
+        block_t ***b = generator_getmap(game->map, &rect);
+        p->vx > 0 && (flr(p->x + p->vx/60.0 + 0.25) > flr(p->x)) && (b[2][1]->solid || b[2][2]->solid) ?
+        p->vx = 0 : 0;
+        p->vx < 0 && (flr(p->x + p->vx/60.0 - 0.25) < flr(p->x)) && (b[0][1]->solid || b[0][2]->solid) ?
+        p->vx = 0 : 0;
+        (flr(p->y + p->vy/60.0) < flr(p->y)) && (b[1][0]->solid) ?
+        p->vy = 0 : 0 ;
+        b[1][2]->solid ? p->y-- : 0;
+        (flr(p->y + p->vy/60.0+0.1) > flr(p->y)) && (b[1][3]->solid) ?
+        p->vy = 0, p->y = flr(p->y)+0.99, p->floor = 1 : (p->floor = 0);
+        free(b-1);
+        engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
+        engine_get_items(game, p);
+        //entity->floor ? particle_for_b(win, b[1][3]->type, p->x, p->y+0.5) :0;
     }
 }
 
-int engine_entities(game_t *game)
+int engine_entities(game_t *game, win_t *win)
 {
     lld_t *lld = game->entities;
 
     for (lld_t *mv = lld->next; mv; mv = mv->next){
-        entity_t *player = mv->data;
-        sfIntRect rect = {flr(player->x)-1, flr(player->y)-2, 3, 5};
-        block_t ***block = generator_getmap(game->map, &rect);
-        player->vx > 0 && (flr(player->x + player->vx/60.0 + 0.25) > flr(player->x)) && (block[2][1]->solid || block[2][2]->solid) ?
-        player->vx = 0, player->wall_r = 1 : (player->wall_r = 0);
-        player->vx < 0 && (flr(player->x + player->vx/60.0 - 0.25) < flr(player->x)) && (block[0][1]->solid || block[0][2]->solid) ?
-        player->vx = 0, player->wall_l = 1 : (player->wall_l = 0);
-        (flr(player->y + player->vy/60.0) < flr(player->y)) && (block[1][0]->solid) ?
-        player->vy = 0 : 0;
-        block[1][2]->solid ? player->y-- : 0;
-        (flr(player->y + player->vy/60.0 + 0.1) > flr(player->y)) && (block[1][3]->solid) ?
-        player->vy = 0, player->y = flr(player->y)+0.99, player->floor = 1 : (player->floor = 0);
-        free(block-1);
-        engine_g(&(player->x), &(player->y), &(player->vx), &(player->vy));
+        entity_t *p = mv->data;
+        sfIntRect rect = {flr(p->x)-1, flr(p->y)-2, 3, 5};
+        b_t ***b = generator_getmap(game->map, &rect);
+        p->vx > 0 && (flr(p->x + p->vx/60.0 + 0.25) > flr(p->x)) && (b[2][1]->solid || b[2][2]->solid) ?
+        p->vx = 0, p->wall_r = 1 : (p->wall_r = 0);
+        p->vx < 0 && (flr(p->x + p->vx/60.0 - 0.25) < flr(p->x)) && (b[0][1]->solid || b[0][2]->solid) ?
+        p->vx = 0, p->wall_l = 1 : (p->wall_l = 0);
+        (flr(p->y + p->vy/60.0) < flr(p->y)) && (b[1][0]->solid) ?
+        p->vy = 0 : 0;
+        b[1][2]->solid ? p->y-- : 0;
+        (flr(p->y + p->vy/60.0 + 0.1) > flr(p->y)) && (b[1][3]->solid) ?
+        p->vy = 0, p->y = flr(p->y)+0.99, p->floor = 1 : (p->floor = 0);
+        free(b-1);
+        engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
+        entity->floor ? particle_for_b(win, b[1][3]->type, player->x, player->y+0.5) :0;
     }
 }
 
@@ -115,10 +117,10 @@ int engine_items(game_t *game)
     lld_free(lld_sup);
 }
 
-int engine(game_t *game)
+int engine(game_t *game, win_t *win)
 {
-    engine_player(game);
-    engine_entities(game);
+    engine_player(game, win);
+    engine_entities(game, win);
     engine_items(game);
 }
 

@@ -370,7 +370,7 @@ int same(int first, int second);
 void draw_quantity(win_t *win, sfVector2f pos, int nb);
 #define GRAVITY 10
 
-int engine(game_t *game);
+int engine(game_t *game, win_t *win);
 
 int player_add_player(game_t *game);
 animator_t *init_player_animator();
