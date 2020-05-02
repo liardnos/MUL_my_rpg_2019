@@ -268,14 +268,22 @@ typedef struct arrow
     float vy;
 } arrow_t;
 
-//items & blocks
+typedef struct body
+{
+    texture_t *head;
+    texture_t *body;
+    texture_t *arm;
+    sfSprite *arm_l;
+    texture_t *leg;
+    sfSprite *leg_;
+}body_t;
 
 typedef struct game
 {
     lld_t *players;
     lld_t *entities;
     lld_t *items;
-    lld_t *projectiles;
+    lld_t *proj;
     map_t *map;
     texture_t *it;
     texture_t *bl;
@@ -284,6 +292,10 @@ typedef struct game
     texture_t *inv;
     texture_t *choose;
     texture_t *hud;
+    body_t *player;
+    body_t *skeleton;
+    body_t *zombie;
+    body_t *alien;
     int quest;
     int select;
     sfVector2i old;
@@ -406,6 +418,7 @@ game_t *load_game();
 int save_game(game_t *game);
 int engine_create_item(game_t *game, float x, float y, ...);
 void delete_save(void);
+body_t *init_body(char *name);
 
 void free_map(map_t *map);
 void draw_item(win_t *win, sfIntRect rect, sfVector2f pos, int thing);

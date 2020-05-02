@@ -34,10 +34,10 @@ animator_t *init_pnj_animator()
     sfSprite_setTexture(s_arm_r, t_arm, sfTrue);
     sfSprite_setTexture(s_leg_l, t_leg, sfTrue);
     sfSprite_setTexture(s_leg_r, t_leg, sfTrue);
-    sfSprite_setOrigin(s_head, alloc_vector2f(32, 64));
-    sfSprite_setOrigin(s_body, alloc_vector2f(22, 30));
-    sfSprite_setOrigin(s_arm_l, alloc_vector2f(14, 0));
-    sfSprite_setOrigin(s_arm_r, alloc_vector2f(14, 0));
+    sfSprite_setOrigin(s_head, alloc_vector2f(50, 50));
+    sfSprite_setOrigin(s_body, alloc_vector2f(22, 10));
+    sfSprite_setOrigin(s_arm_l, alloc_vector2f(14, -10));
+    sfSprite_setOrigin(s_arm_r, alloc_vector2f(14, -10));
     sfSprite_setOrigin(s_leg_l, alloc_vector2f(14, -14));
     sfSprite_setOrigin(s_leg_r, alloc_vector2f(14, -14));
     animator_t *me = animator_init();
