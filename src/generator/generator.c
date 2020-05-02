@@ -17,15 +17,22 @@
 
 //FIXME
 //id color solide pos
-const block_t blockss[8][1] = {
+const block_t blockss[15][1] = {
     {-1, {0x6A, 0x0D, 0xAD, 255}, 0, 0},
     {STONE, {136, 140, 141, 255}, 1, 1},   //stone
     {DIRT, {101, 53, 20, 255}, 1, 2},     //dirt
-    {-1, {135, 206, 235, 255}, 0, 3},    //air
+    {ICE, {135, 206, 235, 255}, 0, 3},    //air
     {ORE_COAL, {50, 50, 50, 255}, 1, 4}, //coal
     {ORE_IRON, {132, 125, 115, 255}, 1, 5}, //iron
     {ORE_DIAMOND, {185, 242, 255, 255}, 1, 6}, //diamond
-    {0}
+    {GRASS, {185, 242, 255, 255}, 1, 7}, //diamond
+    {0},
+    {0},
+    {0},
+    {0},
+    {0},
+    {0},
+    {0},
 };
 
 block_t *calc_block(float height)
@@ -42,13 +49,20 @@ block_t *calc_block(float height)
     return (a);
 }
 
+void generate_line_post(block_t **blocks)
+{
+    for (int i = 1; blocks[i+1]; i++)
+        if (blocks[i]->type == DIRT && blocks[i-1]->type == ICE)
+            blocks[i] = blockss[7];
+}
+
 block_t **generate_line(int x, int d)
 {
     block_t **line = malloc(sizeof(block_t *) * (MAP_Y + 2));
-    line++;
     float line_f[MAP_Y];
     int y = 0;
 
+    line++;
     x < 0 ? x = 1.1*pow(2, d)-x : 0;
     line[MAP_Y] = 0;
     line[-1] = 0;
@@ -60,6 +74,7 @@ block_t **generate_line(int x, int d)
     line[y] = 0;
     for (y = 0; y < MAP_Y; y++)
         line[y] = calc_block(line_f[y]);
+    generate_line_post(line);
     return (line);
 }
 

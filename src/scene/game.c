@@ -8,8 +8,6 @@
 #include "rpg.h"
 #include <math.h>
 
-const block_t blockss[8][1];
-
 float find_angle(float *p1, float *p2)
 {
     float x = p2[0] - p1[0];
