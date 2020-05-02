@@ -11,10 +11,10 @@
 
 animator_t *init_skeleton_animator()
 {
-    sfTexture *t_head = sfTexture_createFromFile("assets/Characters/Skeleton/skeleton_head.png", 0);
-    sfTexture *t_body = sfTexture_createFromFile("assets/Characters/Skeleton/skeleton_body.png", 0);
-    sfTexture *t_arm = sfTexture_createFromFile("assets/Characters/Skeleton/skeleton_arm.png", 0);
-    sfTexture *t_leg = sfTexture_createFromFile("assets/Characters/Skeleton/skeleton_leg.png", 0);
+    sfTexture *t_head = sfTexture_createFromFile("assets/characters/skeleton/skeleton_head.png", 0);
+    sfTexture *t_body = sfTexture_createFromFile("assets/characters/skeleton/skeleton_body.png", 0);
+    sfTexture *t_arm = sfTexture_createFromFile("assets/characters/skeleton/skeleton_arm.png", 0);
+    sfTexture *t_leg = sfTexture_createFromFile("assets/characters/skeleton/skeleton_leg.png", 0);
     sfSprite *s_head = sfSprite_create();
     sfSprite *s_body = sfSprite_create();
     sfSprite *s_arm_l = sfSprite_create();

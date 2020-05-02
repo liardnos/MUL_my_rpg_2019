@@ -19,18 +19,28 @@
 //FIXME
 //int type / sfColor color / char solide / int id / int hard
 
+
 void breaking(win_t *win, block_t ***block, sfVector2f pos)
 {
-    static int status = 0;
+    static float status = 0;
     player_t *p = win->game->players->next->data;
     sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
 
+    block_t *b = block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)];
+
     if (sfMouse_isButtonPressed(sfMouseLeft)){
-        status++;
+        status += 1;
+        printf("bork?\n");
+        if (status > b->hard && b->hard != -1){
+            engine_create_item(win->game, pos.x + vec.x/60, pos.y + vec.y/60, 1, b->type, 18000, 1);
+            block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[ICE];
+            status = 0;
+            printf("borkkkkkk?\n");
+        }
     } else
         status = 0;
     if (sfMouse_isButtonPressed(sfMouseRight)){
-        if (block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)]->type == ICE && p->inventory[3][p->select]/10000 % 10 == 1)
+        if (b->type == ICE && p->inventory[3][p->select]/10000 % 10 == 1)
             take_inv(p->inventory, 1, p->inventory[3][p->select]/100 % 100, 1) ?
             block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[p->inventory[3][p->select]/100%100] : 0;
     }
@@ -44,9 +54,9 @@ block_t *calc_block(float height)
     height <= 0 && height >= -20  ? a = blockss[DIRT] : 0;
     height < -20 ? a = blockss[STONE] : 0;
     srand(height*100);
-    (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blockss[ORE_COAL] : 0;
-    ((u64)a->type == 1 && (rand() % 50) == 0) ? a = blockss[ORE_IRON] : 0;
-    ((u64)a->type == 1 && (rand() % 100) == 0) ? a = blockss[ORE_DIAMOND] : 0;
+    (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blockss[ORE_COAL], printf("coal\n") : 0;
+    ((u64)a->type == 1 && !(rand() % 50)) ? a = blockss[ORE_IRON] : 0;
+    ((u64)a->type == 1 && !(rand() % 100)) ? a = blockss[ORE_DIAMOND] : 0;
     return (a);
 }
 

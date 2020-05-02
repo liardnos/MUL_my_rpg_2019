@@ -11,10 +11,10 @@
 
 animator_t *init_zombie_animator()
 {
-    sfTexture *t_head = sfTexture_createFromFile("assets/Characters/Zombie/zombie_head.png", 0);
-    sfTexture *t_body = sfTexture_createFromFile("assets/Characters/Zombie/zombie_body.png", 0);
-    sfTexture *t_arm = sfTexture_createFromFile("assets/Characters/Zombie/zombie_arm.png", 0);
-    sfTexture *t_leg = sfTexture_createFromFile("assets/Characters/Zombie/zombie_leg.png", 0);
+    sfTexture *t_head = sfTexture_createFromFile("assets/characters/zombie/zombie_head.png", 0);
+    sfTexture *t_body = sfTexture_createFromFile("assets/characters/zombie/zombie_body.png", 0);
+    sfTexture *t_arm = sfTexture_createFromFile("assets/characters/zombie/zombie_arm.png", 0);
+    sfTexture *t_leg = sfTexture_createFromFile("assets/characters/zombie/zombie_leg.png", 0);
     sfSprite *s_head = sfSprite_create();
     sfSprite *s_body = sfSprite_create();
     sfSprite *s_arm_l = sfSprite_create();
