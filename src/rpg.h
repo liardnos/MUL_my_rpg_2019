@@ -270,6 +270,8 @@ typedef struct game
     texture_t *ef;
     texture_t *bar;
     texture_t *inv;
+    texture_t *choose;
+    texture_t *hud;
     int select;
     sfVector2i old;
 } game_t;
@@ -347,7 +349,6 @@ void **init_buttons(void **buttons);
 int launch_game(void);
 int event_manager(win_t *win, button_t **button, sfEvent event, int *returned);
 void scene_manager(win_t *win, button_t **buttons, int *returned);
-void draw_home(win_t *win);
 void btn_quit(win_t *win, int *returned);
 void btn_play(win_t *win, int *returned);
 void btn_opt(win_t *win, int *returned);
@@ -357,7 +358,13 @@ void btn_resume(win_t *win, int *returned);
 void btn_return(win_t *win, int *returned);
 void btn_quit_game(win_t *win, int *returned);
 void btn_reset(win_t *win, int *returned);
+void btn_quests(win_t *win, int *returned);
+void btn_skills(win_t *win, int *returned);
+void btn_complete(win_t *win, int *returned);
+
+void draw_home(win_t *win);
 void draw_game(win_t *win);
+void draw_dialog(win_t *win);
 void free_game(win_t *win);
 
 int **init_inventory();
