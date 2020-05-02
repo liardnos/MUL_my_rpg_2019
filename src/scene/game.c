@@ -85,7 +85,6 @@ void draw_game_items(win_t *win, player_t *p)
 
 void draw_game(win_t *win)
 {
-    if (!win->game) return;
     player_t *player = win->game->players->next->data;
     sfIntRect rect = {flr(player->x-15), flr(player->y-10), 31, 18};
     block_t ***to_draw = generator_getmap(win->game->map, &rect);
