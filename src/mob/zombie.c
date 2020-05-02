@@ -20,7 +20,7 @@ int mob_zombie_add(game_t *game, sfVector2f pos)
     zomb->floor = 0;
     zomb->anim = init_zombie_animator();
     zomb->anim_sate = 0;
-    zomb->hp = 20;
+    zomb->hp = 5;
     zomb->type = 1;
     lld_insert(game->entities, 0, zomb);
 }
@@ -37,7 +37,7 @@ int mob_skeleton_add(game_t *game, sfVector2f pos)
     zomb->floor = 0;
     zomb->anim = init_skeleton_animator();
     zomb->anim_sate = 0;
-    zomb->hp = 20;
+    zomb->hp = 2;
     zomb->type = 2;
     lld_insert(game->entities, 0, zomb);
 }
