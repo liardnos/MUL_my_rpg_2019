@@ -64,12 +64,15 @@ void scene_manager(win_t *win, button_t **buttons, int *returned)
 
 void player_manager(win_t *win)
 {
-    player_t *ply = win->game->players->next->data;
+    player_t *ply;
 
-    if (ply->hp <= 0) {
-        drop_inventory(win->game, ply->inventory);
-        ply->x = HOME_X;
-        ply->y = HOME_Y;
-        ply->hp = ply->maxhp;
+    if (win->menu >= 3 && win->game) {
+        ply = win->game->players->next->data;
+        if (ply->hp <= 0) {
+            drop_inventory(win->game, ply->inventory);
+            ply->x = HOME_X;
+            ply->y = HOME_Y;
+            ply->hp = ply->maxhp;
+        }
     }
 }
