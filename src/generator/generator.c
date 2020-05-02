@@ -38,6 +38,8 @@ const block_t blockss[15][1] = {
 void breaking(win_t *win)
 {
     static int status = 0;
+    sfMouse_isButtonPressed(sfMouseLeft);
+    sfMouse_isButtonPressed(sfMouseRight);
 }
 
 block_t *calc_block(float height)

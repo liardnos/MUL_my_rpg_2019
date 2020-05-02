@@ -50,13 +50,25 @@ int save_player(player_t *p)
     my_printf("[RM] player saved\n");
 }
 
+int save_gameb(game_t *game)
+{
+    int fd = open("save/game", O_TRUNC | O_CREAT | O_WRONLY, 7+7*8+7*8*8);
+
+    if (fd < 0) return (0);
+    write(fd, &game->quest, sizeof(int));
+    close(fd);
+    my_printf("[RM] game saved\n");
+}
+
 int save_game(game_t *game)
 {
+    my_printf("[RM] saving game...\n");
+    save_gameb(game);
     my_printf("[RM] saving map...\n");
     save_map(game->map);
     my_printf("[RM] saving player...\n");
     save_player(game->players->next->data);
-    my_printf("[RM] game saved\n");
+    my_printf("[RM] save completed!\n");
     return (1);
 }
 

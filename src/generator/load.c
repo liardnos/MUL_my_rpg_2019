@@ -59,9 +59,20 @@ player_t *load_player(void)
     return (p);
 }
 
-game_t *load_game(void)
+game_t *load_gameb(void)
 {
     game_t *game = malloc(sizeof(game_t));
+    int fd = open("save/player", O_RDONLY);
+    if (!game || fd < 0) return (0);
+    read(fd, &game->quest, sizeof(int)) != sizeof(int) ? (game = 0) :
+    0;
+    close(fd);
+    return (game);
+}
+
+game_t *load_game(void)
+{
+    game_t *game = load_gameb();
     if (!game) return (0);
     game->players = lld_init();
     my_printf("[RM] loading player...\n");
