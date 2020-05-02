@@ -53,7 +53,7 @@ block_t *calc_block(float height)
     height > 0 ? a = blockss[ICE] : 0;
     height <= 0 && height >= -20  ? a = blockss[DIRT] : 0;
     height < -20 ? a = blockss[STONE] : 0;
-    srand(height*100);
+    srand((u64)height*100);
     (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blockss[ORE_COAL], printf("coal\n") : 0;
     ((u64)a->type == 1 && !(rand() % 50)) ? a = blockss[ORE_IRON] : 0;
     ((u64)a->type == 1 && !(rand() % 100)) ? a = blockss[ORE_DIAMOND] : 0;
