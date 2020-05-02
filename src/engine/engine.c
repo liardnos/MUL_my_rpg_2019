@@ -24,12 +24,12 @@ void engine_g(float *x, float *y, float *vx, float *vy)
 {
     *x += *vx/60.0;
     *y += *vy/60.0;
-    *vx *= 0.99;
-    *vy *= 0.99;
+    *vx *= 0.9999;
+    *vy *= 0.9999;
     *vy += GRAVITY/60.0;
     *vx *= 0.8;
-    *y > 235 && *vy < 0 ? *vy = 0, *y = 235 : 0;
-    *y < 10 && *vy > 0 ? *vy = 0, *y = 10 : 0;
+    *y > 235 ? *vy = 0, *y = 235 : 0;
+    *y < 10 ? *vy = 0, *y = 10 : 0;
 }
 
 void engine_get_items(game_t *game, player_t *player)
@@ -61,11 +61,10 @@ int engine_player(game_t *game, win_t *win)
         p->vx = 0 : 0;
         p->vx < 0 && (flr(p->x + p->vx/60.0 - 0.25) < flr(p->x)) && (b[0][1]->solid || b[0][2]->solid) ?
         p->vx = 0 : 0;
-        (flr(p->y + p->vy/60.0) < flr(p->y)) && (b[1][0]->solid) ?
-        p->vy = 0 : 0 ;
+        flr(p->y + p->vy/60.0 < flr(p->y)) && (b[1][0]->solid) ? p->vy = 0 : 0;
         b[1][2]->solid ? p->y-- : 0;
         (flr(p->y + p->vy/60.0+0.1) > flr(p->y)) && (b[1][3]->solid) ?
-        p->vy = 0, p->y = flr(p->y)+0.99, p->floor = 1 : (p->floor = 0);
+        p->y = flr(p->y)+0.99, p->floor = 1, p->vy > JUMP_SPEED*1.5 ? p->hp -= p->vy/JUMP_SPEED*1.5 : 0, p->vy = 0 : (p->floor = 0);
         engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
         engine_get_items(game, p);
         p->floor && fabsf(p->vx) > 1 ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
@@ -85,11 +84,10 @@ int engine_entities(game_t *game, win_t *win)
         p->vx = 0, p->wall_r = 1 : (p->wall_r = 0);
         p->vx < 0 && (flr(p->x + p->vx/60.0 - 0.25) < flr(p->x)) && (b[0][1]->solid || b[0][2]->solid) ?
         p->vx = 0, p->wall_l = 1 : (p->wall_l = 0);
-        (flr(p->y + p->vy/60.0) < flr(p->y)) && (b[1][0]->solid) ?
-        p->vy = 0 : 0;
+        flr(p->y + p->vy/60.0) < flr(p->y) && (b[1][0]->solid) ? p->vy = 0 : 0;
         b[1][2]->solid ? p->y-- : 0;
         (flr(p->y + p->vy/60.0 + 0.1) > flr(p->y)) && (b[1][3]->solid) ?
-        p->vy = 0, p->y = flr(p->y)+0.99, p->floor = 1 : (p->floor = 0);
+        p->y = flr(p->y)+0.99, p->floor = 1, p->vy > JUMP_SPEED*1.5 ? p->hp -= p->vy/JUMP_SPEED*1.5 : 0, p->vy = 0 : (p->floor = 0);
         engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
         p->floor && fabsf(p->vx) > 1 ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
         free(b-1);
@@ -130,6 +128,7 @@ int engine_create_item(game_t *game, float x, float y, ...)
 {
     va_list va;
     item_t *item = malloc(sizeof(item_t));
+
     if (!item)
         return (0);
     item->x = x;

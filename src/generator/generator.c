@@ -28,6 +28,7 @@ void breaking(win_t *win, block_t ***block, sfVector2f pos)
 
     if (sfMouse_isButtonPressed(sfMouseLeft)){
         status += 1;
+        particle_for_block(win, b->type, p->x+(-pos.x + vec.x-1920/2)/64+1, p->y+(-pos.y+vec.y-1080/2)/64+1);
         if (status > b->hard && b->hard != -1){
             engine_create_item(win->game, p->x+(vec.x-1920/2)/64, p->y+(vec.y-1080/2)/64-0.25, 1, b->type, 18000, 1);
             block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[ICE];

@@ -107,6 +107,7 @@ void draw_game(win_t *win)
     pos.x = -(flr(player->x)-player->x)*64;
     pos.y = -(flr(player->y)-player->y-1)*64;
     win->menu == 3 ? breaking(win, to_draw, pos) : 0;
+    win->menu == 3 ? fight(win, player) : 0;
     free(to_draw-1);
     draw_game_items(win, player);
     win->game && win->menu != 4 ? draw_entity(win) : 0;
