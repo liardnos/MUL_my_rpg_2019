@@ -28,8 +28,8 @@ void engine_g(float *x, float *y, float *vx, float *vy)
     *vy *= 0.99;
     *vy += GRAVITY/60.0;
     *vx *= 0.8;
-    *y > 235 && vy < 0 ? *vy = 0, *y = 235 : 0;
-    *y < 10 && vy > 0 ? *vy = 0, *y = 10 : 0;
+    *y > 235 && *vy < 0 ? *vy = 0, *y = 235 : 0;
+    *y < 10 && *vy > 0 ? *vy = 0, *y = 10 : 0;
 }
 
 void engine_get_items(game_t *game, player_t *player)
