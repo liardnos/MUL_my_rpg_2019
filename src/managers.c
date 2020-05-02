@@ -19,7 +19,6 @@ void keys_manager(win_t *win, sfEvent event)
     }
     if (event.type == sfEvtMouseWheelScrolled && win->menu == 3) {
         sfMouseWheelEvent *event2 = (void *)(&event);
-        printf("%i %i\n", event2->x, event2->y);
         ply = win->game->players->next->data;
         event2->x < 0 ? ply->select-- : ply->select++;
         ply->select < 0 ? ply->select = 8 : 0;
