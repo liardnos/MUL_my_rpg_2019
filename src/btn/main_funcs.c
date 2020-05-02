@@ -40,7 +40,6 @@ int btn_play_init(win_t *win, int *returned, game_t *cpy)
 
 void btn_play(win_t *win, int *returned)
 {
-    game_t *cpy;
     my_printf("[RM] Launch game\n");
     win->game = load_game();
     if (!win->game){
@@ -49,22 +48,21 @@ void btn_play(win_t *win, int *returned)
             *returned = 84;
             return;
         }
-        cpy = win->game;
-        cpy->map = generate_map();
-        cpy->players = lld_init();
-        player_add_player(cpy);
+        win->game->map = generate_map();
+        win->game->players = lld_init();
+        win->game->quest = 0;
+        player_add_player(win->game);
     }
-    cpy = win->game;
-    if (!btn_play_init(win, returned, cpy)) {
+    if (!btn_play_init(win, returned, win->game)) {
         *returned = 84;
         return;
     }
     win->menu = 3;
-    engine_create_item(cpy, 0, 0, 1, 1, 100000, 32);
-    engine_create_item(cpy, 4, 0, 1, 1, 100000, 32);
-    engine_create_item(cpy, 2, 0, 1, 4, 100000, 32);
-    engine_create_item(cpy, 1, 0, 2, BOW, 100000, 1);
-    engine_create_item(cpy, 2, 0, 2, ARROW, 100000, 32);
+    engine_create_item(win->game, 0, 0, 1, 1, 100000, 32);
+    engine_create_item(win->game, 4, 0, 1, 1, 100000, 32);
+    engine_create_item(win->game, 2, 0, 1, 4, 100000, 32);
+    engine_create_item(win->game, 1, 0, 2, BOW, 100000, 1);
+    engine_create_item(win->game, 2, 0, 2, ARROW, 100000, 32);
     sfVector2f pos = {0, 10};
     mob_skeleton_add(win->game, pos);
     mob_zombie_add(win->game, pos);

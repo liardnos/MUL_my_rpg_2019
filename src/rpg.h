@@ -273,6 +273,7 @@ typedef struct game
     texture_t *inv;
     texture_t *choose;
     texture_t *hud;
+    int quest;
     int select;
     sfVector2i old;
 } game_t;
