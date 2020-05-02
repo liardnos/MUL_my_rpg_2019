@@ -81,6 +81,24 @@ void draw_game_items(win_t *win, player_t *p)
     }
 }
 
+void draw_game_proj(win_t *win, player_t *p)
+{
+    sfIntRect rect = {0, 0, 64, 64};
+    sfVector2f pos = {0, 0};
+    lld_t *lld = win->game->proj;
+    static float angle = 0;
+
+    angle += 0.05;
+    for (lld_t *mv = lld->next; mv; mv = mv->next){
+        item_t *item = mv->data;
+
+        pos.x = (item->x - p->x) * 64 + 1920/2;
+        pos.y = (item->y - p->y) * 64 + 1080/2;
+        rect.left = 64 * ARROW;
+        
+    }
+}
+
 void draw_game(win_t *win)
 {
     player_t *player = win->game->players->next->data;

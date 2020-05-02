@@ -117,11 +117,35 @@ int engine_items(game_t *game)
     lld_free(lld_sup);
 }
 
+int engine_proj(game_t *game)
+{
+    lld_t *lld = game->proj;
+    lld_t *lld_sup = lld_init();
+    int i = 0;
+
+    for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
+        arrow_t *arow = mv->data;
+        sfIntRect rect = {arow->x-1, arow->y-1, 3, 3};
+        block_t ***block = generator_getmap(game->map, &rect);
+        //hit the ground
+        if (block[flr(arow->x + arow->vx)][flr(arow->y + arow->vy)]->solid){
+            lld_insert(lld_sup, 0, (void *)(u64)i);
+            engine_create_item(game, arow->x, arow->y, 2, ARROW, 18000, 1);
+        }
+        engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
+        free(block-1);
+    }
+    while (lld_sup->data)
+        free(lld_pop(lld, (u64)lld_pop(lld_sup, 0)));
+    lld_free(lld_sup);
+}
+
 int engine(game_t *game, win_t *win)
 {
     engine_player(game, win);
     engine_entities(game, win);
     engine_items(game);
+    engine_proj(game);
 }
 
 int engine_create_item(game_t *game, float x, float y, ...)

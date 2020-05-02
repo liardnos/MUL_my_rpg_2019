@@ -275,7 +275,7 @@ typedef struct body
     texture_t *arm;
     sfSprite *arm_l;
     texture_t *leg;
-    sfSprite *leg_;
+    sfSprite *leg_l;
 }body_t;
 
 typedef struct game
@@ -490,5 +490,5 @@ void drop_inventory(game_t *game, int **inv);
 void clear_inventory(int **inventory);
 int mob_pnj_add(game_t *game, sfVector2f pos);
 void mob_pnj(game_t *game, entity_t *pnj);
-
+animator_t *init_pnj_animator();
 #endif
