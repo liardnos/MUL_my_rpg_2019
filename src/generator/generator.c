@@ -14,40 +14,29 @@
 #include <unistd.h>
 #include "rpg.h"
 #include "my.h"
+#include "gen.h"
 
 //FIXME
 //int type / sfColor color / char solide / int id / int hard
-const block_t blockss[15][1] = {
-    {-1,            {0x6A, 0x0D, 0xAD, 255} , 0, 0, 0}, //wtf
-    {STONE,         {136, 140, 141, 255}    , 1, 1, 20}, //stone
-    {DIRT,          {101, 53, 20, 255}      , 1, 2, 10}, //dirt
-    {ICE,           {135, 206, 235, 255}    , 0, 3, -1}, //air
-    {ORE_COAL,      {50, 50, 50, 255}       , 1, 4, 30}, //coal
-    {ORE_IRON,      {132, 125, 115, 255}    , 1, 5, 45}, //iron
-    {ORE_DIAMOND,   {185, 242, 255, 255}    , 1, 6, 60}, //diamond
-    {GRASS,         {185, 242, 255, 255}    , 1, 7, 15}, //grass
-    {0},
-    {0},
-    {0},
-    {0},
-    {0},
-    {0},
-    {0}
-};
 
 void breaking(win_t *win)
 {
     static int status = 0;
-    sfMouse_isButtonPressed(sfMouseLeft);
-    sfMouse_isButtonPressed(sfMouseRight);
-    //sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
-    //to_draw[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[1];
+
+    
+    if (sfMouse_isButtonPressed(sfMouseLeft)){
+        status++;
+    }
+    if (sfMouse_isButtonPressed(sfMouseRight)){
+
+    }
+
 }
 
-const block_t *calc_block(float height)
+block_t *calc_block(float height)
 {
     height += 50;
-    const block_t *a = 0;
+    block_t *a = 0;
     height > 0 ? a = blockss[3] : 0;
     height <= 0 && height >= -20  ? a = blockss[2] : 0;
     height < -20 ? a = blockss[1] : 0;

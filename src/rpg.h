@@ -429,7 +429,8 @@ typedef struct world
     int cs;
 } world_t;
 
-const block_t blockss[15][1];
+block_t blockss[15][1];
+
 world_t **main_cam(sfRenderWindow *win);
 int mob_skeleton_add(game_t *game, sfVector2f pos);
 float perlin(float x, float y);
@@ -451,6 +452,7 @@ void particle_add(lld_t *p_lld, ...);
 lld_t *particle_array();
 void particle_for_block(win_t *win, int item, float x, float y);
 void particles_draw(win_t *win, lld_t *p_lld);
+
 void particle_free(win_t *win);
 
 #endif
