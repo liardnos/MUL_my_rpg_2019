@@ -372,6 +372,9 @@ void draw_game(win_t *win);
 void draw_dialog(win_t *win);
 void free_game(win_t *win);
 
+int quest_one(win_t *win);
+int quest_two(win_t *win);
+
 int **init_inventory();
 void free_inventory(int **inventory);
 int take_inv(int **inv, int type, int item, int nb);
