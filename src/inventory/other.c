@@ -34,8 +34,10 @@ void drop_inventory(game_t *game, int **inv)
 
     for (int y = 0; inv[y]; y++)
         for (int x = 0; x < 9; x++) {
-            if (inv[y][x])
+            if (inv[y][x]) {
                 engine_create_item(game, p->x, p->y, inv[y][x] / 10000 % 10,
                 inv[y][x] / 100 % 100, ITEM_DUR, inv[y][x] % 100);
+                inv[y][x] = 0;
+            }
         }
 }
