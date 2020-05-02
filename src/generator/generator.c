@@ -19,18 +19,21 @@
 //FIXME
 //int type / sfColor color / char solide / int id / int hard
 
-void breaking(win_t *win)
+void breaking(win_t *win, block_t ***block, sfVector2f pos)
 {
     static int status = 0;
+    player_t *p = win->game->player->next->data;
+    sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
 
-    
     if (sfMouse_isButtonPressed(sfMouseLeft)){
         status++;
-    }
+    } else
+        status = 0;
     if (sfMouse_isButtonPressed(sfMouseRight)){
-
+        if (block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)]->type == ICE && p->inventory[3][p->select]/10000 % 10 == 1)
+        block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[1];
+        
     }
-
 }
 
 block_t *calc_block(float height)
