@@ -13,7 +13,9 @@ void print_help()
     my_printf("<--- KeyBinding --->\n");
     my_printf("`Z`, `Q`, `S`, `D` - move keys.\n");
     my_printf("`I` - inventory\n");
-    my_printf("`ESCAPE` - pause key.\n");
+    my_printf("`ESCAPE` - pause key or back from menus.\n");
+    my_printf("`Drag'n'drop + LEFT CLICK` -  in inventory switch items.\n");
+    my_printf("`MOUSEWHEEL` - move in toolbar.\n");
 }
 
 int main(int ac, char **av)
