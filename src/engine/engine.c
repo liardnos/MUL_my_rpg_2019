@@ -27,7 +27,6 @@ void engine_g(float *x, float *y, float *vx, float *vy)
     *vx *= 0.9999;
     *vy *= 0.9999;
     *vy += GRAVITY/60.0;
-    *vx *= 0.8;
     *y > 235 ? *vy = 0, *y = 235 : 0;
     *y < 10 ? *vy = 0, *y = 10 : 0;
 }
@@ -69,6 +68,7 @@ int engine_player(game_t *game, win_t *win)
         engine_get_items(game, p);
         p->floor && fabsf(p->vx) > 1 ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
         free(b-1);
+        p->vx *= 0.8;
     }
 }
 
@@ -91,6 +91,7 @@ int engine_entities(game_t *game, win_t *win)
         engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
         p->floor && fabsf(p->vx) > 1 ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
         free(b-1);
+        p->vx *= 0.8;
     }
 }
 
@@ -111,6 +112,7 @@ int engine_items(game_t *game)
         if (item->life <= 0)
             lld_insert(lld_sup, 0, (void *)(u64)i);
         engine_g(&(item->x), &(item->y), &(item->vx), &(item->vy));
+        item->vx *= 0.8;
     }
     while (lld_sup->data)
         free(lld_pop(lld, (u64)lld_pop(lld_sup, 0)));
@@ -128,9 +130,10 @@ int engine_proj(game_t *game)
         sfIntRect rect = {arow->x-1, arow->y-1, 3, 3};
         block_t ***block = generator_getmap(game->map, &rect);
         //hit the ground
-        if (block[flr(arow->x + arow->vx)][flr(arow->y + arow->vy)]->solid){
+        printf("%i %i\n", flr(arow->x + arow->vx) - flr(arow->x)+1, flr(arow->y + arow->vy) - flr(arow->y)+1);
+        if (block[(flr(arow->x + arow->vx) - flr(arow->x))/60+1][(flr(arow->y + arow->vy) - flr(arow->y))/60+1]->solid){
             lld_insert(lld_sup, 0, (void *)(u64)i);
-            engine_create_item(game, arow->x, arow->y, 2, ARROW, 18000, 1);
+            engine_create_item(game, arow->x, arow->y-1, 2, ARROW, 18000, 1);
         }
         engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
         free(block-1);

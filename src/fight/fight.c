@@ -32,11 +32,13 @@ void fight_bow(win_t *win, player_t *p)
 
     if (sfMouse_isButtonPressed(sfMouseRight) && s == 0){
         printf("FIREEEEEE\n");
+        if (!take_inv(p->inventory, 2, ARROW, 1))
+            return;
         arrow_t *arrow = malloc(sizeof(arrow_t));
         arrow->x = p->x;
-        arrow->x = p->y;
-        arrow->vx = pos.x/100;
-        arrow->vy = pos.y/100;
+        arrow->y = p->y-1;
+        arrow->vx = pos.x/30;
+        arrow->vy = pos.y/30;
         lld_insert(win->game->proj, 0, arrow);
         s = 1;
     } else if (sfMouse_isButtonPressed(sfMouseRight))

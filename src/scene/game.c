@@ -83,20 +83,31 @@ void draw_game_items(win_t *win, player_t *p)
 
 void draw_game_proj(win_t *win, player_t *p)
 {
-    sfIntRect rect = {0, 0, 64, 64};
+    sfIntRect rect = {64*BOW, 0, 64, 64};
     sfVector2f pos = {0, 0};
+    sfVector2f scale = {0.5, 0.5};
     lld_t *lld = win->game->proj;
-    static float angle = 0;
+    float angle = 0;
 
     angle += 0.05;
     for (lld_t *mv = lld->next; mv; mv = mv->next){
         item_t *item = mv->data;
 
+        float d = pow(pow(item->vx, 2)+pow(item->vy, 2), 0.5);
+        if (d != 0)
+            angle = acos((float)item->vy / (float)d);
+        item->vx > 0 ? angle *= -1 : 0;
+
         pos.x = (item->x - p->x) * 64 + 1920/2;
         pos.y = (item->y - p->y) * 64 + 1080/2;
         rect.left = 64 * ARROW;
-        
+        sfSprite_setPosition(win->game->it->sprite, pos);
+        sfSprite_setScale(win->game->it->sprite, scale);
+        sfSprite_setRotation(win->game->it->sprite, angle/PI*180 + 135);
+        sfSprite_setTextureRect(win->game->bl->sprite, rect);
+        sfRenderWindow_drawSprite(win->win, win->game->it->sprite, 0);
     }
+    sfSprite_setRotation(win->game->it->sprite, 0);
 }
 
 void draw_game(win_t *win)
@@ -127,6 +138,7 @@ void draw_game(win_t *win)
     win->menu == 3 ? breaking(win, to_draw, pos) : 0;
     win->menu == 3 ? fight(win, player) : 0;
     free(to_draw-1);
+    draw_game_proj(win, player);
     draw_game_items(win, player);
     win->game && win->menu != 4 ? draw_entity(win) : 0;
     win->menu == 3 ? animate_player(win) : 0;
