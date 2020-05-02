@@ -451,5 +451,6 @@ void particle_add(lld_t *p_lld, ...);
 lld_t *particle_array();
 void particle_for_block(win_t *win, int item, float x, float y);
 void particles_draw(win_t *win, lld_t *p_lld);
+void particle_free(win_t *win);
 
 #endif
