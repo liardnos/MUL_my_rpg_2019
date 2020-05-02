@@ -309,6 +309,7 @@ typedef struct win
     text_t *txt;
     int menu;
     sfVideoMode mode;
+    lld_t *particles;
 }win_t;
 
 typedef struct att_s
@@ -433,7 +434,7 @@ typedef struct particle
     sfSprite *sprite;
 } particle_t;
 
-void particle_add(lld_t *p_lld, particle_t *p);
+void particle_add(lld_t *p_lld, ...);
 lld_t *particle_array();
 void particles_draw(sfRenderWindow *win, lld_t *p_lld);
 
