@@ -31,6 +31,7 @@ void free_game(win_t *win)
 {
     game_t *cpy = win->game;
 
+    particle_free(win);
     if (cpy) {
         free_texture(cpy->bl);
         free_texture(cpy->ef);
