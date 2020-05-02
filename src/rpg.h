@@ -382,6 +382,7 @@ void draw_inv(win_t *win);
 void inventory_events(win_t *win, sfEvent event);
 int same(int first, int second);
 void draw_quantity(win_t *win, sfVector2f pos, int nb);
+void add_max(int *item, int *to_add);
 #define GRAVITY 10
 
 int engine(game_t *game, win_t *win);

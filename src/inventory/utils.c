@@ -5,8 +5,7 @@
 ** Inventory core
 */
 
-// Item T|ID|QT 111
-// Blocks = 1 & Items = 2
+#include "rpg.h"
 
 int same(int first, int second)
 {
@@ -34,9 +33,14 @@ int give_inv(int **inventory, int type, int item, int nb)
 {
     int to_add = 0;
 
-    if (nb > 64 || nb < 0 || type > 2 || type < 1)
-        return (0);
     to_add = type * 10000 + item * 100 + nb;
+    for (int y = 0; inventory[y]; y++)
+        for (int x = 0; x < 9; x++)
+            if (same(inventory[y][x], to_add) && inventory[y][x] % 100 <= 64) {
+                add_max(&inventory[y][x], &to_add);
+            }
+    if (!to_add)
+        return (1);
     for (int y = 0; inventory[y]; y++)
         for (int x = 0; x < 9; x++) {
             if (!inventory[y][x]) {
