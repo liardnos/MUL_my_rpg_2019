@@ -21,6 +21,7 @@ SRC		=		src/*.c \
 				src/world/mesh/*.c \
 				src/particle/*.c \
 				src/quests/*.c \
+				src/fight/*.c \
 
 SRCT 	=		./tests/
 

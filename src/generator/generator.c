@@ -17,22 +17,19 @@
 #include "gen.h"
 
 //FIXME
-//int type / sfColor color / char solide / int id / int hard
-
 
 void breaking(win_t *win, block_t ***block, sfVector2f pos)
 {
     static float status = 0;
     player_t *p = win->game->players->next->data;
     sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
-
+    if (vec.x < 0 || vec.y < 0 || vec.x > 1920 || vec.y > 1080) return;
     block_t *b = block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)];
 
     if (sfMouse_isButtonPressed(sfMouseLeft)){
         status += 1;
         if (status > b->hard && b->hard != -1){
-            engine_create_item(win->game, (vec.x+pos.x)/64 + p->x, (vec.y+pos.y)/64 + p->y, 1, b->type, 18000, 1);
-            printf("%f,\n", (vec.x+pos.x)/64 + p->x);
+            engine_create_item(win->game, p->x+(vec.x-1920/2)/64, p->y+(vec.y-1080/2)/64-0.25, 1, b->type, 18000, 1);
             block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[ICE];
             status = 0;
         }
@@ -40,8 +37,9 @@ void breaking(win_t *win, block_t ***block, sfVector2f pos)
         status = 0;
     if (sfMouse_isButtonPressed(sfMouseRight)){
         if (b->type == ICE && p->inventory[3][p->select]/10000 % 10 == 1){
-            take_inv(p->inventory, 1, p->inventory[3][p->select]/100 % 100, 1) ?
-            block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[p->inventory[3][p->select]/100%100] : 0;
+            int type = p->inventory[3][p->select]/100%100;
+            take_inv(p->inventory, 1, type, 1) ?
+            block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[type] : 0;
         }
     }
 }

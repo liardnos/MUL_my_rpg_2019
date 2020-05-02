@@ -14,7 +14,7 @@ int player_add_player(game_t *game)
     if (!player)
         return (0);
     player->x = 10+1/3;
-    player->y = 1/3+20;
+    player->y = 1/3+40;
     player->vx = 0;
     player->vy = 0;
     player->floor = 0;
