@@ -84,7 +84,7 @@ typedef struct animator
 
 
 sfVector2f alloc_vector2f(float x, float y);
-pos_t *malloc_pos(float x, float y, float a);
+pos_t *mpos(float x, float y, float a);
 
 animator_t *animator_init();
 int animator_setpos(animator_t *anim, pos_t *coor);
@@ -319,6 +319,7 @@ typedef struct my_text
 
 typedef struct config
 {
+    int type;
     int sound;
     int fps;
     int difficulty;
@@ -411,7 +412,7 @@ void add_max(int *item, int *to_add);
 int engine(game_t *game, win_t *win);
 
 int player_add_player(game_t *game);
-animator_t *init_player_animator();
+animator_t *init_player_animator(game_t *game);
 int flr(float x);
 
 game_t *load_game();
@@ -427,7 +428,7 @@ void draw_entity(win_t *win);
 void animate_player(win_t *win);
 int mob_zombie_add(game_t *game, sfVector2f pos);
 float player_head(win_t *win, player_t *player);
-animator_t *init_zombie_animator();
+animator_t *init_zombie_animator(game_t *game);
 
 texture_t *init_texture(char *path);
 void draw_hud(win_t *win);
@@ -461,7 +462,7 @@ block_t blockss[61][1];
 world_t **main_cam(sfRenderWindow *win);
 int mob_skeleton_add(game_t *game, sfVector2f pos);
 float perlin(float x, float y);
-animator_t *init_skeleton_animator();
+animator_t *init_skeleton_animator(game_t *game);
 
 typedef struct particle
 {
@@ -490,5 +491,8 @@ void drop_inventory(game_t *game, int **inv);
 void clear_inventory(int **inventory);
 int mob_pnj_add(game_t *game, sfVector2f pos);
 void mob_pnj(game_t *game, entity_t *pnj);
-animator_t *init_pnj_animator();
+animator_t *init_pnj_animator(game_t *game);
+
+void free_texture(texture_t *texture);
+void free_body(body_t *body);
 #endif

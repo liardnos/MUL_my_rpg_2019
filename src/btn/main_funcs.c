@@ -18,7 +18,6 @@ int btn_play_init(win_t *win, int *returned, game_t *cpy)
 {
     player_t *p = cpy->players->next->data;
 
-    p->anim = init_player_animator();
     p->select = 0;
     cpy->entities = lld_init();
     cpy->items = lld_init();
@@ -29,10 +28,11 @@ int btn_play_init(win_t *win, int *returned, game_t *cpy)
     cpy->inv = init_texture("assets/hud/inventory.png");
     cpy->hud = init_texture("assets/hud/quests_hud.png");
     cpy->choose = init_texture("assets/hud/choose_hud.png");
-    cpy->player = init_body("player");
+    cpy->player = init_body(win->config->type ? "female" : "male");
     cpy->skeleton = init_body("skeleton");
     cpy->zombie = init_body("zombie");
     cpy->alien = init_body("alien");
+    p->anim = init_player_animator(cpy);
     if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items
     || !cpy->inv || !cpy->bar || !cpy->players || !p->anim || !cpy->choose ||
     !cpy->hud || !cpy->zombie || !cpy->alien || !cpy->skeleton) {

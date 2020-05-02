@@ -53,7 +53,7 @@ int animator_setpos(animator_t *anim, pos_t *pos)
     anim->pos = pos;
 }
 
-pos_t *malloc_pos(float x, float y, float a)
+pos_t *mpos(float x, float y, float a)
 {
     pos_t *pos = malloc(sizeof(pos_t));
 

@@ -21,7 +21,7 @@ int mob_pnj_add(game_t *game, sfVector2f pos)
     pnj->vy = 0;
     pnj->type = 3;
     pnj->anim_sate = 0;
-    pnj->anim = init_pnj_animator();
+    pnj->anim = init_pnj_animator(game);
     lld_insert(game->entities, 0, pnj);
 }
 

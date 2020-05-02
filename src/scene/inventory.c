@@ -64,9 +64,9 @@ void draw_inv(win_t *win)
 
     sfSprite_setPosition(win->game->inv->sprite, pos);
     sfRenderWindow_drawSprite(win->win, win->game->inv->sprite, 0);
-    animator_setpos(ply->anim, malloc_pos(795, 375, 0));
+    animator_setpos(ply->anim, mpos(795, 375, 0));
     animate_player(win);
-    animator_setpos(ply->anim, malloc_pos(1920 / 2, 1080 / 2, 0));
+    animator_setpos(ply->anim, mpos(1920 / 2, 1080 / 2, 0));
     for (int y = 0; ply->inventory[y]; y++) {
         pos.y = (int) (557 + 64 * y + (y == 3 ? 33 : 0));
         for (int x = 0; x < 9; x++) {

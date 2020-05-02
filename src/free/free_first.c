@@ -32,21 +32,23 @@ void free_game(win_t *win)
     game_t *cpy = win->game;
 
     particle_free(win);
-    if (cpy) {
-        free_texture(cpy->bl);
-        free_texture(cpy->ef);
-        free_texture(cpy->it);
-        free_texture(cpy->bar);
-        free_texture(cpy->inv);
-        free_texture(cpy->hud);
-        free_texture(cpy->choose);
-        free_map(win->game->map);
-        lld_free_r(cpy->players);
-        lld_free_r(cpy->entities);
-        lld_free_r(cpy->items);
-        free(cpy);
-        win->game = 0;
-    }
+    free_body(cpy->player);
+    free_body(cpy->alien);
+    free_body(cpy->skeleton);
+    free_body(cpy->zombie);
+    free_texture(cpy->bl);
+    free_texture(cpy->ef);
+    free_texture(cpy->it);
+    free_texture(cpy->bar);
+    free_texture(cpy->inv);
+    free_texture(cpy->hud);
+    free_texture(cpy->choose);
+    free_map(win->game->map);
+    lld_free_r(cpy->players);
+    lld_free_r(cpy->entities);
+    lld_free_r(cpy->items);
+    free(cpy);
+    win->game = 0;
 }
 
 void end_free(win_t *win, button_t **buttons)

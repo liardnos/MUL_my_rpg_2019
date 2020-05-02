@@ -29,6 +29,7 @@ int init_my_win(win_t *win, char *name)
     win->y = 1080;
     win->config = config;
     win->config->sound = 62;
+    win->config->type = 0;
     win->config->difficulty = 1;
     win->config->fps = 60;
     win->mode.width = win->x;
