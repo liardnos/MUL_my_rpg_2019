@@ -26,9 +26,13 @@ void fight_sword_diamond(win_t *win, player_t *p)
 
 void fight_bow(win_t *win, player_t *p)
 {
-    if (sfMouse_isButtonPressed(sfMouseRight)){
-        
-    }
+    static int s = 0;
+    if (sfMouse_isButtonPressed(sfMouseRight) && s == 0){
+        s = 1;
+    } else if (sfMouse_isButtonPressed(sfMouseRight))
+        s = s;
+    else
+        s = 0;
 
 }
 
