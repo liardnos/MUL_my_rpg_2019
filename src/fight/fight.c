@@ -26,8 +26,11 @@ void fight_sword_diamond(win_t *win, player_t *p)
 
 void fight_bow(win_t *win, player_t *p)
 {
+    sfVector2i pos = sfMouse_getPosition((sfRenderWindow *)win->win);
     static int s = 0;
+
     if (sfMouse_isButtonPressed(sfMouseRight) && s == 0){
+        printf("FIREEEEEE\n");
         s = 1;
     } else if (sfMouse_isButtonPressed(sfMouseRight))
         s = s;
@@ -39,6 +42,10 @@ void fight_bow(win_t *win, player_t *p)
 void fight(win_t *win, player_t *p)
 {
     int select = p->inventory[3][p->select] / 100 % 100;
+    int type = p->inventory[3][p->select] / 10000 % 10;
+
+    if (type != 2)
+        return;
     select == BOW ? fight_bow(win, p) :
     select == SWORD_WOOD ? fight_sword_wood(win, p) :
     select == SWORD_STONE ? fight_sword_stone(win, p) :

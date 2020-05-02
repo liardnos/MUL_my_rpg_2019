@@ -475,4 +475,7 @@ void fight(win_t *win, player_t *player);
 void player_manager(win_t *win);
 void drop_inventory(game_t *game, int **inv);
 void clear_inventory(int **inventory);
+int mob_pnj_add(game_t *game, sfVector2f pos);
+void mob_pnj(game_t *game, entity_t *pnj);
+
 #endif

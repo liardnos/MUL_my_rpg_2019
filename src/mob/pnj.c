@@ -30,10 +30,10 @@ void mob_pnj(game_t *game, entity_t *pnj)
     player_t *p = game->players->next->data;
     float dx = pnj->x - p->x;
 
-    if (dx < 0 && fabsf(dx) > 50.0){
+    if (dx < 0 && fabsf(dx) > 20.0){
         pnj->vx = 3;
         pnj->wall_r & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED : 0;
-    } else if (fabsf(dx) > 50.0){
+    } else if (fabsf(dx) > 20.0){
         pnj->vx = -3;
         pnj->wall_l & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED : 0;
     }
