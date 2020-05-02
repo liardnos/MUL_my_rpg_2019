@@ -260,6 +260,14 @@ typedef struct item
     int stack;
 } item_t;
 
+typedef struct arrow
+{
+    float x;
+    float y;
+    float vx;
+    float vy;
+} arrow_t;
+
 //items & blocks
 
 typedef struct game
@@ -267,6 +275,7 @@ typedef struct game
     lld_t *players;
     lld_t *entities;
     lld_t *items;
+    lld_t *projectiles;
     map_t *map;
     texture_t *it;
     texture_t *bl;
