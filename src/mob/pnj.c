@@ -10,28 +10,17 @@
 
 int mob_pnj_add(game_t *game, sfVector2f pos)
 {
-    entity_t *pnj = malloc(sizeof(entity_t);
+    entity_t *pnj = malloc(sizeof(entity_t));
     if (!pnj) return (0);
 
-    zomb->x = 10;
-    zomb->y = HOME_X;
-    zomb->hp = 200000000;
-    zomb->floor = 0;
-    zomb->vx = 0;
-    zomb->vy = 0;
-    zomb->type = 3;
-    zomb->anim_sate = 0;
-    png->anim = animator_png_create();
+    pnj->x = 10;
+    pnj->y = HOME_X;
+    pnj->hp = 200000000;
+    pnj->floor = 0;
+    pnj->vx = 0;
+    pnj->vy = 0;
+    pnj->type = 3;
+    pnj->anim_sate = 0;
+    pnj->anim = init_pnj_animator();
     lld_insert(game->entities, 0, pnj);
-}
-
-int mob_zombie_add(game_t *game, sfVector2f pos)
-{
-    entity_t *zomb = malloc(sizeof(entity_t));
-
-    if (!zomb) return (0);
-    zomb->x = pos.x;
-    zomb->y = pos.y;
-    zomb->anim = init_zombie_animator();
-    lld_insert(game->entities, 0, zomb);
 }
