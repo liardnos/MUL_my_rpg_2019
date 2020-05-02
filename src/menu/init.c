@@ -10,23 +10,11 @@
 
 int init_mouse(win_t *win)
 {
-    win->mouse = malloc(sizeof(texture_t));
-    win->click = malloc(sizeof(texture_t));
-    win->logo = malloc(sizeof(texture_t));
+    win->mouse = init_texture("assets/cursor.png");
+    win->click = init_texture("assets/btn/clicked");
+    win->logo = init_texture("assets/hud/logo.png");
     if (!win->mouse || !win->click || !win->logo)
         return (0);
-    win->mouse->tex = sfTexture_createFromFile("assets/cursor.png", NULL);
-    win->click->tex = sfTexture_createFromFile("assets/btn/clicked", NULL);
-    win->logo->tex = sfTexture_createFromFile("assets/hud/logo.png", NULL);
-    win->mouse->sprite = sfSprite_create();
-    win->logo->sprite = sfSprite_create();
-    win->click->sprite = sfSprite_create();
-    if (!win->mouse->tex || !win->mouse->sprite || !win->click->tex ||
-        !win->click->sprite || !win->logo->sprite || !win->logo->tex)
-        return (0);
-    sfSprite_setTexture(win->click->sprite, win->click->tex, sfTrue);
-    sfSprite_setTexture(win->mouse->sprite, win->mouse->tex, sfTrue);
-    sfSprite_setTexture(win->logo->sprite, win->logo->tex, sfTrue);
     return (1);
 }
 
