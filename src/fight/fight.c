@@ -5,6 +5,9 @@
 ** fighting mecanics
 */
 
+#include <stdlib.h>
+#include "rpg.h"
+
 void fight(win_t *win)
 {
 
