@@ -425,8 +425,8 @@ animator_t *init_skeleton_animator();
 typedef struct particle
 {
     float x;
-    float vx;
     float y;
+    float vx;
     float vy;
     float a;
     float va;
