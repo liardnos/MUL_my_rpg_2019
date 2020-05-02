@@ -20,6 +20,7 @@ SRC		=		src/*.c \
 				src/world/cam/*.c \
 				src/world/mesh/*.c \
 				src/particle/*.c \
+				src/quests/*.c \
 
 SRCT 	=		./tests/
 
