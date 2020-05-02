@@ -27,8 +27,11 @@ int btn_play_init(win_t *win, int *returned, game_t *cpy)
     cpy->ef = init_texture("assets/effectsx64.png");
     cpy->bar = init_texture("assets/hud/bar.png");
     cpy->inv = init_texture("assets/hud/inventory.png");
+    cpy->hud = init_texture("assets/hud/quests_hud.png");
+    cpy->choose = init_texture("assets/hud/choose_hud.png");
     if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items
-    || !cpy->inv || !cpy->bar || !cpy->players || !p->anim) {
+    || !cpy->inv || !cpy->bar || !cpy->players || !p->anim || !cpy->choose ||
+    !cpy->hud) {
         *returned = 84;
         return (0);
     }
