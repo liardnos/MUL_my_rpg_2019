@@ -19,11 +19,12 @@ lld_t *particle_array()
 void particle_for_block(win_t *win, int item, float x, float y)
 {
     sfVector2f scale = {(rand()%100+1)/200.0, (rand()%100+1)/200.0};
+    //sfVector2f scale = {1, 1};
     sfSprite *sprite = sfSprite_create();
     sfIntRect rect = {item*64, 0, 64, 64};
 
     sfSprite_setTexture(sprite, win->game->bl->tex, 0);
-    sfSprite_setTextureRect(win->game->bl->sprite, rect);
+    sfSprite_setTextureRect(sprite, rect);
     if (!sprite)
         return;
     sfSprite_setScale(sprite, scale);
