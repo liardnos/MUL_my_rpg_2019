@@ -50,6 +50,7 @@ player_t *load_player(void)
     read(fd, &p->vx, sizeof(float)) != sizeof(float) ? (p = 0) :
     read(fd, &p->vy, sizeof(float)) != sizeof(float) ? (p = 0) :
     read(fd, &p->hp, sizeof(int)) != sizeof(int) ? (p = 0) :
+    read(fd, &p->maxhp, sizeof(int)) != sizeof(int) ? (p = 0) :
     read(fd, p->inventory[-1], sizeof(int)*4) != sizeof(int)*4 ? (p = 0) :
     read(fd, p->inventory[0], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :
     read(fd, p->inventory[1], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :

@@ -41,6 +41,7 @@ int save_player(player_t *p)
     write(fd, &p->vx, sizeof(float));
     write(fd, &p->vy, sizeof(float));
     write(fd, &p->hp, sizeof(int));
+    write(fd, &p->maxhp, sizeof(int));
     write(fd, p->inventory[-1], sizeof(int)*4);
     write(fd, p->inventory[0], sizeof(int)*9);
     write(fd, p->inventory[1], sizeof(int)*9);

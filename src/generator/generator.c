@@ -40,6 +40,8 @@ void breaking(win_t *win)
     static int status = 0;
     sfMouse_isButtonPressed(sfMouseLeft);
     sfMouse_isButtonPressed(sfMouseRight);
+    //sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
+    //to_draw[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[1];
 }
 
 const block_t *calc_block(float height)
