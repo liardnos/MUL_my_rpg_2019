@@ -17,7 +17,7 @@ void btn_quit(win_t *win, int *returned)
 int btn_play_init(win_t *win, int *returned, game_t *cpy)
 {
     player_t *p = cpy->players->next->data;
-
+    
     p->anim = init_player_animator();
     cpy->entities = lld_init();
     cpy->items = lld_init();

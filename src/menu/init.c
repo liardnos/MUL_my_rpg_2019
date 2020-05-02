@@ -13,6 +13,7 @@ int init_mouse(win_t *win)
     win->mouse = init_texture("assets/cursor.png");
     win->click = init_texture("assets/btn/clicked");
     win->logo = init_texture("assets/hud/logo.png");
+    win->particles = lld_init();
     if (!win->mouse || !win->click || !win->logo)
         return (0);
     return (1);
