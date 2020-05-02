@@ -9,15 +9,15 @@
 
 void btn_quests(win_t *win, int *returned)
 {
-
+    win->menu = 7;
 }
 
 void btn_skills(win_t *win, int *returned)
 {
-
+    win->menu = 8;
 }
 
 void btn_complete(win_t *win, int *returned)
 {
-    
+
 }

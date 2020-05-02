@@ -364,6 +364,8 @@ void btn_skills(win_t *win, int *returned);
 void btn_complete(win_t *win, int *returned);
 
 void draw_home(win_t *win);
+void draw_quest(win_t *win);
+void draw_skills(win_t *win);
 void draw_game(win_t *win);
 void draw_dialog(win_t *win);
 void free_game(win_t *win);

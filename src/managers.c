@@ -48,8 +48,10 @@ void scene_manager(win_t *win, button_t **buttons, int *returned)
         return;
     !win->menu ? draw_home(win) : 0;
     win->menu >= 3 ? draw_game(win), draw_hud(win) : 0;
-    win->menu == 5 ? draw_inv(win), win->menu++ : 0;
+    win->menu == 5 ? draw_inv(win) : 0;
     win->menu == 6 ? draw_dialog(win) : 0;
+    win->menu == 7 ? draw_quest(win) : 0;
+    win->menu == 8 ? draw_dialog(win) : 0;
     if (win->menu == 3) {
         engine(win->game, win);
         mob(win);
