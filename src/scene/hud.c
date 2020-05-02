@@ -77,14 +77,11 @@ void draw_hud_cursor(win_t *win, int select)
 
 void draw_hud(win_t *win)
 {
-    player_t *ply;
+    player_t *ply = win->game->players->next->data;
     sfVector2f scale = {0.53125, 0.53125};
 
-    if (win->game) {
-        ply = win->game->players->next->data;
-        sfSprite_setScale(win->game->ef->sprite, scale);
-        draw_hud_hp(win, ply->hp);
-        draw_hud_bar(win, ply->inventory[3]);
-        draw_hud_cursor(win, ply->select);
-    }
+    sfSprite_setScale(win->game->ef->sprite, scale);
+    draw_hud_hp(win, ply->hp);
+    draw_hud_bar(win, ply->inventory[3]);
+    draw_hud_cursor(win, ply->select);
 }
