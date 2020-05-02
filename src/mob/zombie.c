@@ -78,7 +78,7 @@ void mob(win_t *win)
         entity_t *entity = mv->data;
         entity->type == 1 ? mob_zombie(win->game, entity) :
         entity->type == 2 ? mob_skeleton(win->game, entity) :
+        entity->type == 3 ? mob_pnj(win->game, entity) :
         0;
-
     }
 }

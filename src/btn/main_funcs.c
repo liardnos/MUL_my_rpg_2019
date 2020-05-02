@@ -58,6 +58,7 @@ void btn_play(win_t *win, int *returned)
         return;
     }
     win->menu = 3;
+    mob_pnj_add(win->game, malloc_pos(0, 10, 0));
     engine_create_item(win->game, 0, 0, 1, 1, 100000, 32);
     engine_create_item(win->game, 4, 0, 1, 1, 100000, 32);
     engine_create_item(win->game, 2, 0, 1, 4, 100000, 32);
