@@ -21,8 +21,8 @@ int save_map(map_t *map)
     for (lld_t *mv = map->map->next; mv; mv = mv->next){
         block_t **block = mv->data;
         for (int i = 0; i < MAP_Y; i++){
-            check_some += block[i]->id;
-            write(fd, &block[i]->id, sizeof(int));
+            check_some += block[i]->type;
+            write(fd, &block[i]->type, sizeof(int));
         }
     }
     write(fd, &check_some, sizeof(int));

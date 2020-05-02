@@ -109,8 +109,9 @@ void draw_game(win_t *win)
 
     //sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
     //to_draw[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[1];
+    breaking(win, to_draw, pos);
+    free(to_draw-1);
     draw_game_items(win, player);
     win->game && win->menu != 4 ? draw_entity(win) : 0;
-    free(to_draw-1);
     win->menu == 3 ? animate_player(win) : 0;
 }

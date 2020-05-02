@@ -39,7 +39,6 @@ typedef struct block {
     int type;
     sfColor color;
     char solid;
-    int id;
     int hard;
 } block_t;
 
@@ -432,7 +431,7 @@ typedef struct world
     int cs;
 } world_t;
 
-block_t blockss[15][1];
+block_t blockss[61][1];
 
 world_t **main_cam(sfRenderWindow *win);
 int mob_skeleton_add(game_t *game, sfVector2f pos);

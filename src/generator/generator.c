@@ -31,8 +31,8 @@ void breaking(win_t *win, block_t ***block, sfVector2f pos)
         status = 0;
     if (sfMouse_isButtonPressed(sfMouseRight)){
         if (block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)]->type == ICE && p->inventory[3][p->select]/10000 % 10 == 1)
-        block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[p->inventory[3][p->select]];
-
+            take_inv(p->inventory, 1, p->inventory[3][p->select]/100 % 100, 1) ?
+            block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[p->inventory[3][p->select]/100%100] : 0;
     }
 }
 
@@ -40,13 +40,13 @@ block_t *calc_block(float height)
 {
     height += 50;
     block_t *a = 0;
-    height > 0 ? a = blockss[3] : 0;
-    height <= 0 && height >= -20  ? a = blockss[2] : 0;
-    height < -20 ? a = blockss[1] : 0;
+    height > 0 ? a = blockss[ICE] : 0;
+    height <= 0 && height >= -20  ? a = blockss[DIRT] : 0;
+    height < -20 ? a = blockss[STONE] : 0;
     srand(height*100);
-    (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blockss[4] : 0;
-    ((u64)a->type == 1 && (rand() % 50) == 0) ? a = blockss[5] : 0;
-    ((u64)a->type == 1 && (rand() % 100) == 0) ? a = blockss[6] : 0;
+    (u64)a->type == 1 && !((u64)height % 50 / 4) ? a = blockss[ORE_COAL] : 0;
+    ((u64)a->type == 1 && (rand() % 50) == 0) ? a = blockss[ORE_IRON] : 0;
+    ((u64)a->type == 1 && (rand() % 100) == 0) ? a = blockss[ORE_DIAMOND] : 0;
     return (a);
 }
 
@@ -54,7 +54,7 @@ void generate_line_post(block_t **blocks)
 {
     for (int i = 1; blocks[i+1]; i++)
         if (blocks[i]->type == DIRT && blocks[i-1]->type == ICE)
-            blocks[i] = blockss[7];
+            blocks[i] = blockss[GRASS];
 }
 
 block_t **generate_line(int x, int d)
