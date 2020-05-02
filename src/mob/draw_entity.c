@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-**
+** MUL_my_rpg_2019
 ** File description:
 ** func for zombie
 */
@@ -35,7 +35,6 @@ void draw_entity(win_t *win)
     sfVector2f pos = {0, 0};
     lld_t *lld = win->game->entities;
     player_t *p = win->game->players->next->data;
-
     for (lld_t *mv = lld->next; mv; mv = mv->next){
         entity_t *entity = mv->data;
         pos.x = (entity->x - p->x) * 64 + 1920/2;

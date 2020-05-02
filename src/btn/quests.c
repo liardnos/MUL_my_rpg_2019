@@ -11,6 +11,8 @@ void btn_complete(win_t *win, int *returned)
 {
     int (*funcs[])(win_t *) = { &quest_one, &quest_two, 0};
 
-    if (win->game->quest + 1 <= 2 && (funcs[win->game->quest])(win))
+    if (win->game->quest + 1 <= 2 && (funcs[win->game->quest])(win)) {
         win->game->quest++;
+        win->menu = 3;
+    }
 }

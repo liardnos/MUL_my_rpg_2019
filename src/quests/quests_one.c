@@ -22,7 +22,8 @@ int quest_two(win_t *win)
     int ret = 0;
 
     for (int x = 0; x < 9; x++)
-        if (ply->inventory[3][x])
-            return (1);
+        if (ply->inventory[3][x] == 24901 &&
+        give_inv(ply->inventory, 2, PICKAXE_WOOD, 1))
+                return (1);
     return (0);
 }

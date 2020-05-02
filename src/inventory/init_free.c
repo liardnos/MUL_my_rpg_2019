@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 
-int **init_inventory()
+int **init_inventory(void)
 {
     int **inv;
 

@@ -9,7 +9,7 @@
 #include "my.h"
 #include "rpg.h"
 
-int check_assets()
+int check_assets(void)
 {
     return (1);
 }

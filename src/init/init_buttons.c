@@ -46,7 +46,7 @@ void **init_buttons_two(void **buttons)
     res = add_button(1, &btn_reset, path, set_attrib(0.30,0.73,800,78));
     buttons = add_to_array(buttons, res);
     buttons = init_buttons_three(buttons);
-    return(buttons);
+    return (buttons);
 }
 
 void **init_buttons(void **buttons)
