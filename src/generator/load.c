@@ -14,6 +14,8 @@
 map_t *load_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
+    int check_some2;
+    map->new = 1;
     int fd = open("save/map", O_RDONLY);
     if (fd < 0) return (0);
     map->map = lld_init();
@@ -29,7 +31,6 @@ map_t *load_map(void)
             check_some += buf[j], block[j] = blockss[buf[j]];
         lld_insert(map->map, (u64)map->map->data, block);
     }
-    int check_some2;
     read(fd, &check_some2, sizeof(int));
     close(fd);
     if (check_some2 != check_some) return (0);

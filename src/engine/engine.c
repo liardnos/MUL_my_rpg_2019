@@ -28,6 +28,8 @@ void engine_g(float *x, float *y, float *vx, float *vy)
     *vy *= 0.99;
     *vy += GRAVITY/60.0;
     *vx *= 0.8;
+    *y > 235 && vy < 0 ? vy = 0, y = 235 : 0;
+    *y < 10 && vy > 0 ? vy = 0, y = 10 : 0;
 }
 
 void engine_get_items(game_t *game, player_t *player)
@@ -64,10 +66,10 @@ int engine_player(game_t *game, win_t *win)
         b[1][2]->solid ? p->y-- : 0;
         (flr(p->y + p->vy/60.0+0.1) > flr(p->y)) && (b[1][3]->solid) ?
         p->vy = 0, p->y = flr(p->y)+0.99, p->floor = 1 : (p->floor = 0);
-        free(b-1);
         engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
         engine_get_items(game, p);
-        p->floor ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
+        p->floor && fabsf(p->vx) > 1 ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
+        free(b-1);
     }
 }
 
@@ -88,9 +90,9 @@ int engine_entities(game_t *game, win_t *win)
         b[1][2]->solid ? p->y-- : 0;
         (flr(p->y + p->vy/60.0 + 0.1) > flr(p->y)) && (b[1][3]->solid) ?
         p->vy = 0, p->y = flr(p->y)+0.99, p->floor = 1 : (p->floor = 0);
-        free(b-1);
         engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
-        p->floor ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
+        p->floor && fabsf(p->vx) > 1 ? particle_for_block(win, b[1][3]->type, p->x, p->y+0.5) :0;
+        free(b-1);
     }
 }
 

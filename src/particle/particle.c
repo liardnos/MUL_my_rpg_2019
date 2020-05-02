@@ -76,3 +76,14 @@ void particles_draw(win_t *win, lld_t *p_lld)
             p->life--;
     }
 }
+
+void particle_free(win_t *win)
+{
+    particle_t *p;
+
+    while (win->particles->data){
+        p = lld_pop(win->particles, 0);
+        sfSprite_destroy(p->sprite);
+        free(p);
+    }
+}

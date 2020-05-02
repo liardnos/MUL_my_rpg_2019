@@ -16,24 +16,29 @@
 #include "my.h"
 
 //FIXME
-//id color solide pos
+//int type / sfColor color / char solide / int id / int hard
 const block_t blockss[15][1] = {
-    {-1, {0x6A, 0x0D, 0xAD, 255}, 0, 0},
-    {STONE, {136, 140, 141, 255}, 1, 1},   //stone
-    {DIRT, {101, 53, 20, 255}, 1, 2},     //dirt
-    {ICE, {135, 206, 235, 255}, 0, 3},    //air
-    {ORE_COAL, {50, 50, 50, 255}, 1, 4}, //coal
-    {ORE_IRON, {132, 125, 115, 255}, 1, 5}, //iron
-    {ORE_DIAMOND, {185, 242, 255, 255}, 1, 6}, //diamond
-    {GRASS, {185, 242, 255, 255}, 1, 7}, //diamond
+    {-1,            {0x6A, 0x0D, 0xAD, 255} , 0, 0, 0}, //wtf
+    {STONE,         {136, 140, 141, 255}    , 1, 1, 20}, //stone
+    {DIRT,          {101, 53, 20, 255}      , 1, 2, 10}, //dirt
+    {ICE,           {135, 206, 235, 255}    , 0, 3, -1}, //air
+    {ORE_COAL,      {50, 50, 50, 255}       , 1, 4, 30}, //coal
+    {ORE_IRON,      {132, 125, 115, 255}    , 1, 5, 45}, //iron
+    {ORE_DIAMOND,   {185, 242, 255, 255}    , 1, 6, 60}, //diamond
+    {GRASS,         {185, 242, 255, 255}    , 1, 7, 15}, //grass
     {0},
     {0},
     {0},
     {0},
     {0},
     {0},
-    {0},
+    {0}
 };
+
+void breaking(win_t *win)
+{
+    static int status = 0;
+}
 
 block_t *calc_block(float height)
 {
@@ -87,6 +92,7 @@ map_t *generate_map(void)
     map->map = lld_init();
     map->size_l = 0;
     map->size_r = 0;
+    map->new = 1;
     lld_insert(map->map, 0, generate_line(0, 6));
     return (map);
 }
@@ -94,7 +100,7 @@ map_t *generate_map(void)
 block_t **generate_getcolum(map_t *m, int x)
 {
     static int here_p = 0;
-    static lld_t *here = 0; !here ? here = m->map->next, here_p = -m->size_l : 0;
+    static lld_t *here = 0; m->new ? m->new = 0, here = m->map->next, here_p = -m->size_l : 0;
 
     while (x != here_p){
         if (x > here_p){
