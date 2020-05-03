@@ -17,7 +17,7 @@ void print_help(void)
     my_printf("`ESCAPE` - pause key or back from menus.\n");
     my_printf("`Drag'n'drop + LEFT CLICK` -  in inventory switch items.\n");
     my_printf("`MOUSEWHEEL` - move in toolbar.\n");
-    my_printf("`LEFT CLICK` - Attack with sword or Break.\n");
+    my_printf("`LEFT CLICK` - Attack with sword or Break with Pickaxe.\n");
     my_printf("`RIGHT CLICK` - Attack with bow or Place Block.\n");
 }
 

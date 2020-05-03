@@ -409,6 +409,8 @@ int quest_one(win_t *win);
 int quest_two(win_t *win);
 int quest_three(win_t *win);
 int quest_four(win_t *win);
+int quest_five(win_t *win);
+int quest_six(win_t *win);
 
 int **init_inventory();
 void free_inventory(int **inventory);
@@ -419,6 +421,7 @@ void inventory_events(win_t *win, sfEvent event);
 int same(int first, int second);
 void draw_quantity(win_t *win, sfVector2f pos, int nb);
 void add_max(int *item, int *to_add);
+void replace_inv(int **inv, int old, int new);
 #define GRAVITY 10
 
 int engine(game_t *game, win_t *win);

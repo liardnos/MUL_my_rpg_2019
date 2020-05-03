@@ -47,3 +47,15 @@ int quest_four(win_t *win)
         return (1);
     return (0);
 }
+
+int quest_five(win_t *win)
+{
+    player_t *ply = win->game->players->next->data;
+
+    if (take_inv(ply->inventory, 1, STONE, 20)) {
+        replace_inv(ply->inventory, 236, 237);
+        replace_inv(ply->inventory, 249, 250);
+        return (1);
+    }
+    return (0);
+}

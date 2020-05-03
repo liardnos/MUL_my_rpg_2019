@@ -41,3 +41,12 @@ void drop_inventory(game_t *game, int **inv)
             }
         }
 }
+
+void replace_inv(int **inv, int old, int new)
+{
+    for (int y = 0; inv[y]; y++)
+        for (int x = 0; x < 9; x++)
+            if (inv[y][x] / 100 == old) {
+                inv[y][x] = inv[y][x] % 100 + new * 100;
+            }
+}
