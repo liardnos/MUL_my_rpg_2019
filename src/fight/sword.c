@@ -15,7 +15,7 @@ void fight_sword_wood(win_t *win, player_t *p)
     static int cool = 0;
     float h_head = 0;
 
-    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 10){
+    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 30){
         cool = 0;
         for (lld_t *mv = lld->next; mv; mv = mv->next){
             entity_t *ent = mv->data;
@@ -37,7 +37,7 @@ void fight_sword_stone(win_t *win, player_t *p)
     static int cool = 0;
     float h_head = 0;
 
-    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 10){
+    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 30){
         cool = 0;
         for (lld_t *mv = lld->next; mv; mv = mv->next){
             entity_t *ent = mv->data;
@@ -59,7 +59,7 @@ void fight_sword_iron(win_t *win, player_t *p)
     static int cool = 0;
     float h_head = 0;
 
-    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 10){
+    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 30){
         cool = 0;
         for (lld_t *mv = lld->next; mv; mv = mv->next){
             entity_t *ent = mv->data;
@@ -81,7 +81,7 @@ void fight_sword_diamond(win_t *win, player_t *p)
     static int cool = 0;
     float h_head = 0;
 
-    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 10){
+    if (sfMouse_isButtonPressed(sfMouseLeft) && cool >= 30){
         cool = 0;
         for (lld_t *mv = lld->next; mv; mv = mv->next){
             entity_t *ent = mv->data;
