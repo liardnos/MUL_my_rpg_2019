@@ -80,9 +80,9 @@ void mob_skeleton(game_t *game, entity_t *skel)
         arrow_t *arrow = malloc(sizeof(arrow_t));
         if (!arrow) return;
         arrow->x = skel->x;
-        arrow->y = skel->y-0.10;
-        arrow->vx = -dx * 2 + ((rand()%100)/100.0-0.5)*2;
-        arrow->vy = -dy * 2 + ((rand()%100)/100.0-0.5)*2;
+        arrow->y = skel->y-0.50;
+        arrow->vx = -dx * 2 + ((rand()%100)/100.0-0.5)*2.5;
+        arrow->vy = -dy * 2 + ((rand()%100)/100.0-0.5)*2.5;
         arrow->type = 2;
         lld_insert(game->proj, 0, arrow);
         dmg = 0;
