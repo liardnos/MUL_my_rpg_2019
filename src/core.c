@@ -18,17 +18,17 @@ void main_loop(int *returned, win_t *win, button_t **buttons)
     while (sfRenderWindow_isOpen(win->win)) {
         if (*returned == 84)
             return;
-        sfRenderWindow_clear(win->win, sfBlack);
-        while (sfRenderWindow_pollEvent(win->win, &event)) {
-            if (!event_manager(win, buttons, event, returned))
+        if (sfTime_asSeconds(sfClock_getElapsedTime(win->clock)) >= 1 / 60.0) {
+            sfRenderWindow_clear(win->win, sfBlack);
+            while (sfRenderWindow_pollEvent(win->win, &event)) {
+                if (!event_manager(win, buttons, event, returned))
                 return;
+            }
+            scene_manager(win, buttons, returned);
+            player_manager(win);
+            sfRenderWindow_display(win->win);
+            sfClock_restart(win->clock);
         }
-        //if (sfTime_asSeconds(sfClock_getElapsedTime(win->clock)) >= 1 / 120.0) {
-        scene_manager(win, buttons, returned);
-            //sfClock_restart(win->clock);
-        //}
-        player_manager(win);
-        sfRenderWindow_display(win->win);
     }
 }
 
