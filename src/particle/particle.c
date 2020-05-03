@@ -11,13 +11,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-lld_t *particle_array()
-{
-    return (lld_init());
-}
-
-//FIXME
-
 void particle_for_block(win_t *win, int item, float x, float y)
 {
     sfVector2f scale = {(rand()%100+1)/500.0, 0};

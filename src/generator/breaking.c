@@ -41,7 +41,8 @@ void breaking(win_t *win, block_t ***block, sfVector2f pos)
         if (b->type == ICE && p->inventory[3][p->select]/10000 % 10 == 1){
             int type = p->inventory[3][p->select]/100%100;
             take_inv(p->inventory, 1, type, 1) ?
-            block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] = blockss[type] : 0;
+            block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)] =
+            blockss[type] : 0;
         }
     }
 }

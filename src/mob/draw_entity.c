@@ -53,3 +53,46 @@ void draw_entity(win_t *win)
         }
     }
 }
+
+float player_head(win_t *win, player_t *player)
+{
+    sfVector2i vec = sfMouse_getPosition((sfWindow *)win->win);
+    member_t *member = player->anim->member->next->next->next->data;
+
+    vec.x -= player->anim->pos->x, vec.y -= player->anim->pos->y;
+    float d = pow(pow(vec.x, 2)+pow(vec.y, 2), 0.5);
+    float head_angle = 0;
+    if (d != 0)
+        head_angle = acos((float)vec.y / (float)d);
+    vec.x > 0 ? head_angle *= -1 : 0;
+    sfVector2f vec1 = {-0.5, 0.5};
+    sfVector2f vec2 = {0.5, 0.5};
+    if (head_angle < 0)
+        head_angle -= PI, sfSprite_setScale(member->sprite, vec1);
+    else
+        sfSprite_setScale(member->sprite, vec2);
+    return (head_angle/PI*180-90);
+}
+
+void animate_player(win_t *win)
+{
+    player_t *player = win->game->players->next->data;
+    static int animation = 0;
+    float h_head = player_head(win, player);
+
+    if (!animator_animate(player->anim)){
+        if (player->floor && fabsf(player->vx) > 1)
+            animation ^= 1, animation ? animator_goto(player->anim, 15.0,
+            ANIM_WALK1) : animator_goto(player->anim, 15.0, ANIM_WALK2);
+        else if (player->floor)
+            animator_goto(player->anim, 5.0, ANIM_STAND);
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyD))
+        player->vx = 6.0 * (1+win->game->speed*0.1);
+    else if (sfKeyboard_isKeyPressed(sfKeyQ))
+        player->vx = -6.0 * (1+win->game->speed*0.1);
+    if (sfKeyboard_isKeyPressed(sfKeyZ) && player->floor)
+        player->vy = -JUMP_SPEED * (1+win->game->jumpb*0.1),
+        animator_goto(player->anim, 15.0, ANIM_JUMP);
+    animator_draw(win->win, player->anim);
+}

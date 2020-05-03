@@ -19,10 +19,8 @@ map_t *load_map(void)
     int fd = open("save/map", O_RDONLY);
     int buf[MAP_Y];
     int check_some = 0;
-
     if (fd < 0 || !map) return (0);
-    map->new = 1;
-    map->map = lld_init();
+    map->new = 1, map->map = lld_init();
     if (read(fd, &map->size_l, sizeof(int)) != sizeof(int)) return (0);
     if (read(fd, &map->size_r, sizeof(int)) != sizeof(int)) return (0);
     for (int i = -map->size_l; i <= map->size_r; i++){
@@ -35,8 +33,7 @@ map_t *load_map(void)
     }
     read(fd, &check_some2, sizeof(int));
     close(fd);
-    if (check_some2 != check_some) return (0);
-    return (map);
+    return (check_some2 == check_some ? map : 0);
 }
 
 player_t *load_player(void)
