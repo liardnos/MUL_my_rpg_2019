@@ -23,7 +23,6 @@ int init_mouse(win_t *win)
 int init_my_win(win_t *win, char *name)
 {
     config_t *config = malloc(sizeof(config_t));
-
     if (!config || !(win->txt = malloc(sizeof(text_t))))
         return (1);
     win->x = 1920;

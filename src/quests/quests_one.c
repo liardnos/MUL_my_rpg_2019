@@ -41,7 +41,7 @@ int quest_three(win_t *win)
 int quest_four(win_t *win)
 {
     player_t *ply = win->game->players->next->data;
-    
+
     if (!win->game->skills && give_inv(ply->inventory, 2, BOW, 1) &&
     give_inv(ply->inventory, 2, ARROW, 32))
         return (1);
