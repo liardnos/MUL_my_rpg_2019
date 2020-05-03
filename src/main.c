@@ -7,7 +7,7 @@
 
 #include "rpg.h"
 
-void print_help()
+void print_help(void)
 {
     my_printf("Raft Minec - Help :\n");
     my_printf("<--- KeyBinding --->\n");
