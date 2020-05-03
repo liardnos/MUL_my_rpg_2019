@@ -533,5 +533,6 @@ void fight_sword_stone(win_t *win, player_t *p);
 void fight_sword_iron(win_t *win, player_t *p);
 void fight_sword_diamond(win_t *win, player_t *p);
 void spawn_mod(win_t *win);
+void player_quest_inv(game_t *game);
 
 #endif

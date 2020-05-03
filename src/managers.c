@@ -75,6 +75,7 @@ void player_manager(win_t *win)
             ply->x = HOME_X;
             ply->y = HOME_Y;
             ply->hp = ply->maxhp;
+            player_quest_inv(win->game);
         }
         if (ply->hp < ply->maxhp && ply->hp > 0) {
             regen++;

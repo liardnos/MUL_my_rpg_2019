@@ -7,6 +7,28 @@
 
 #include "rpg.h"
 
+const int backup[][10] =
+{
+    {0},
+    {SWORD_WOOD, 0},
+    {SWORD_WOOD, PICKAXE_WOOD, 0},
+    {SWORD_WOOD, PICKAXE_WOOD, BOW, 0},
+    {SWORD_WOOD, PICKAXE_WOOD, BOW, 0},
+    {SWORD_STONE, PICKAXE_STONE, BOW, 0},
+    {SWORD_STONE, PICKAXE_STONE, BOW, 0},
+    0
+};
+
+void player_quest_inv(game_t *game)
+{
+    const int *back = backup[game->quest];
+    player_t *p = game->players->next->data;
+
+    for (int i = 0; back[i]; i++)
+        give_inv(p->inventory, 2, back[i], 1);
+}
+
+
 int player_add_player(game_t *game)
 {
     player_t *player = malloc(sizeof(player_t));
