@@ -53,6 +53,7 @@ void end_free(win_t *win, button_t **buttons)
 {
     button_t **cpy = buttons;
 
+    sfClock_destroy(win->clock);
     sfRenderWindow_destroy(win->win);
     free_text(win->txt);
     free_texture(win->mouse);
