@@ -14,6 +14,19 @@ void btn_quit(win_t *win, int *returned)
     sfRenderWindow_close(win->win);
 }
 
+int btn_play_init_two(win_t *win, game_t *cpy)
+{
+    player_t *p = cpy->players->next->data;
+
+    cpy->player = init_body(win->config->type ? "female" : "male");
+    cpy->skeleton = init_body("skeleton");
+    cpy->zombie = init_body("zombie");
+    cpy->alien = init_body("alien");
+    p->anim = init_player_animator(cpy);
+    if (!cpy->zombie || !cpy->alien || !cpy->skeleton || !p->anim)
+        return (0);
+}
+
 int btn_play_init(win_t *win, int *returned, game_t *cpy)
 {
     player_t *p = cpy->players->next->data;
@@ -28,19 +41,26 @@ int btn_play_init(win_t *win, int *returned, game_t *cpy)
     cpy->inv = init_texture("assets/hud/inventory.png");
     cpy->hud = init_texture("assets/hud/quests_hud.png");
     cpy->choose = init_texture("assets/hud/choose_hud.png");
-    cpy->player = init_body(win->config->type ? "female" : "male");
-    cpy->skeleton = init_body("skeleton");
-    cpy->zombie = init_body("zombie");
-    cpy->alien = init_body("alien");
-    p->anim = init_player_animator(cpy);
     if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items
     || !cpy->inv || !cpy->bar || !cpy->players || !p->anim || !cpy->choose ||
-    !cpy->hud || !cpy->zombie || !cpy->alien || !cpy->skeleton) {
+    !cpy->hud || !btn_play_init_two(win, cpy)) {
         *returned = 84;
         return (0);
     }
     return (1);
 }
+
+void btn_play_set_value(win_t *win)
+{
+    win->game->quest = 0;
+    win->game->nofall = 0;
+    win->game->jumpb = 1.0;
+    win->game->attack = 1.0;
+    win->game->speed = 1.0;
+    win->game->shield = 1.0;
+}
+
+//FIXME
 
 void btn_play(win_t *win, int *returned)
 {
@@ -54,7 +74,7 @@ void btn_play(win_t *win, int *returned)
         }
         win->game->map = generate_map();
         win->game->players = lld_init();
-        win->game->quest = 0;
+        btn_play_set_value(win);
         player_add_player(win->game);
     }
     if (!btn_play_init(win, returned, win->game)) {

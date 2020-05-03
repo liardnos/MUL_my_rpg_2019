@@ -298,10 +298,13 @@ typedef struct game
     body_t *alien;
     int quest;
     int select;
+    float jumpb;
+    float shield;
+    float speed;
+    float attack;
+    int nofall;
     sfVector2i old;
 } game_t;
-
-/* -- Include CSFML -- */
 
 /* -- For coords -- */
 
