@@ -27,7 +27,7 @@ void engine_g(float *x, float *y, float *vx, float *vy)
     *vx *= 0.9999;
     *vy *= 0.9999;
     *vy += GRAVITY/60.0;
-    *y > 235 ? *vy = 0, *y = 235 : 0;
+    *y > 246 ? *vy = 0, *y = 246 : 0;
     *y < 10 ? *vy = 0, *y = 10 : 0;
 }
 
@@ -180,6 +180,7 @@ int engine_proj(game_t *game)
         if (block[0][0]->solid){
             lld_insert(rm, 0, (void *)(u64)i);
             engine_create_item(game, arow->x, arow->y-1, 2, ARROW, 18000, 1);
+            continue;
         }
         engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
         free(block-1);

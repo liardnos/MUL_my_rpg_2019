@@ -99,10 +99,9 @@ void draw_game_proj(win_t *win, player_t *p)
         if (d != 0)
             angle = acos((float)item->vy / (float)d);
         item->vx > 0 ? angle *= -1 : 0;
-
         pos.x = (item->x - p->x) * 64 + 1920/2;
         pos.y = (item->y - p->y) * 64 + 1080/2;
-        sfSprite_setTextureRect(win->game->bl->sprite, rect);
+        sfSprite_setTextureRect(win->game->it->sprite, rect);
         sfSprite_setPosition(win->game->it->sprite, pos);
         sfSprite_setOrigin(win->game->it->sprite, ori);
         sfSprite_setScale(win->game->it->sprite, scale);

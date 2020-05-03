@@ -8,6 +8,8 @@
 #include <math.h>
 #include "rpg.h"
 
+//FIXME
+
 int mob_zombie_add(game_t *game, sfVector2f pos)
 {
     entity_t *zomb = malloc(sizeof(entity_t));

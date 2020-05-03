@@ -32,7 +32,7 @@ block_t blockss[61][1] = {
     {CARROT_1       , {0, 0, 0}, 0, 1},
     {CARROT_2       , {0, 0, 0}, 0, 1},
     {CLAY           , {0, 0, 0}, 1, 20},
-    {COBBLE         , {0, 0, 0}, 1, 20},
+    {COBBLE         , {0, 0, 0}, 1, -1},
     {COTTON_BLOCK_B , {0, 0, 0}, 1, 1},
     {COTTON_BLOCK_G , {0, 0, 0}, 1, 1},
     {COTTON_BLOCK_R , {0, 0, 0}, 1, 1},

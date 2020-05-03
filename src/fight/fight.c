@@ -6,22 +6,44 @@
 */
 
 #include <stdlib.h>
+#include <math.h>
 #include "rpg.h"
 
 void fight_sword_wood(win_t *win, player_t *p)
 {
+    lld_t *lld = win->game->entities;
+    static int cool = 0;
+    float h_head = 0;
+
+    if (sfMouse_isButtonPressed(sfMouseRight) && cool >= 10){
+        cool = 0;
+        for (lld_t *mv = lld->next; mv; mv = mv->next){
+            entity_t *ent = mv->data;
+            float dx = ent->x - p->x;
+            float dy = ent->y - p->y;
+            if (fabsf(dx) < 3 && fabsf(dx) < 3){
+                ent->hp--;
+                animator_goto(p->anim, 5.0, ANIM_WALK1);
+                animator_goto(ent->anim, 5.0, ANIM_WALK1);
+            }
+        }
+    }
+    cool++;
 }
 
 void fight_sword_stone(win_t *win, player_t *p)
 {
+
 }
 
 void fight_sword_iron(win_t *win, player_t *p)
 {
+
 }
 
 void fight_sword_diamond(win_t *win, player_t *p)
 {
+
 }
 
 void fight_bow(win_t *win, player_t *p)
@@ -29,6 +51,7 @@ void fight_bow(win_t *win, player_t *p)
     sfVector2i pos = sfMouse_getPosition((sfWindow *)win->win);
     static int s = 0;
     arrow_t *arrow;
+    float h_head = 0;
 
     pos.x -= 1920/2, pos.y -= 1080/2;
     if (sfMouse_isButtonPressed(sfMouseRight) && s == 0){
@@ -42,6 +65,7 @@ void fight_bow(win_t *win, player_t *p)
         arrow->vy = pos.y/30 + ((rand()%100)/100.0-0.5)*2;
         arrow->type = 0;
         lld_insert(win->game->proj, 0, arrow);
+        animator_goto(p->anim, 5.0, ANIM_WALK1);
         s = 1;
     } else if (sfMouse_isButtonPressed(sfMouseRight))
         s = s;
