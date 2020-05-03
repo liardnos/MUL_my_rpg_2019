@@ -39,7 +39,7 @@ int engine_proj_colide_p(game_t *game, arrow_t *arow)
         float dx = fabsf(p->x -arow->x);
         float dy = fabsf(p->y -arow->y);
         if (dx < 0.33 && dy < 1){
-            p->hp--;
+            p->hp -= 1 * (1 + game->shield*0.1);
             animator_goto(p->anim, 5.0, ANIM_WALK1);
             return (1);
         }
