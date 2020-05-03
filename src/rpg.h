@@ -381,6 +381,8 @@ int launch_game(void);
 int event_manager(win_t *win, button_t **button, sfEvent event, int *returned);
 void scene_manager(win_t *win, button_t **buttons, int *returned);
 void btn_quit(win_t *win, int *returned);
+void btn_skinr(win_t *win, int *returned);
+void btn_skinl(win_t *win, int *returned);
 void btn_play(win_t *win, int *returned);
 void btn_opt(win_t *win, int *returned);
 void btn_back(win_t *win, int *returned);
@@ -395,6 +397,7 @@ void btn_complete(win_t *win, int *returned);
 
 void draw_home(win_t *win);
 void draw_quest(win_t *win);
+void draw_param(win_t *win);
 void draw_skills(win_t *win);
 void draw_game(win_t *win);
 void draw_dialog(win_t *win);

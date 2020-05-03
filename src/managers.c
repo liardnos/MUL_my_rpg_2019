@@ -48,6 +48,7 @@ void scene_manager(win_t *win, button_t **buttons, int *returned)
     if (win->menu >= 3 && !win->game)
         return;
     !win->menu ? draw_home(win) : 0;
+    win->menu == 1 ? draw_param(win) : 0;
     win->menu >= 3 ? draw_game(win), draw_hud(win) : 0;
     win->menu == 5 ? draw_inv(win) : 0;
     win->menu == 6 ? draw_dialog(win) : 0;

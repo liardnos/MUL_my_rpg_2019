@@ -8,6 +8,20 @@
 #include "my.h"
 #include "rpg.h"
 
+void **init_buttons_five(void **buttons)
+{
+    char *path;
+    void *res;
+
+    path = my_strdup("assets/btn/add");
+    res = add_button(1, &btn_skinr, path, set_attrib(0.674,0.6,81,78));
+    buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/rm");
+    res = add_button(1, &btn_skinl, path, set_attrib(0.30,0.6,81,78));
+    buttons = add_to_array(buttons, res);
+    return (buttons);
+}
+
 void **init_buttons_four(void **buttons)
 {
     char *path;
@@ -28,6 +42,7 @@ void **init_buttons_four(void **buttons)
     path = my_strdup("assets/btn/add");
     res = add_button(8, &btn_speed, path, set_attrib(0.647,0.465,81,78));
     buttons = add_to_array(buttons, res);
+    buttons = init_buttons_five(buttons);
     return (buttons);
 }
 
