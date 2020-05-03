@@ -75,12 +75,12 @@ void mob_skeleton(game_t *game, entity_t *skel)
         skel->vx = -3 - rand() % 1000 / 1000.0;
         skel->wall_l & 1 && skel->floor ? skel->vy = -JUMP_SPEED : 0;
     }
-    if (fabsf(dx) < 15 && fabsf(dy) < 15 && dmg >= 109){
+    if (fabsf(dx) < 15 && fabsf(dy) < 15 && dmg >= 199){
         arrow_t *arrow = malloc(sizeof(arrow_t));
         if (!arrow) return;
         arrow->x = skel->x, arrow->y = skel->y-0.50;
-        arrow->vx = -dx * 2 + ((rand()%100)/100.0-0.5)*4;
-        arrow->vy = -dy * 2 + ((rand()%100)/100.0-0.5)*4;
+        arrow->vx = -dx * 2 + ((rand()%100)/100.0-0.5)*2;
+        arrow->vy = -dy * 2 + ((rand()%100)/100.0-0.5)*2;
         arrow->type = 2, dmg = 0, lld_insert(game->proj, 0, arrow);
     }
     fabsf(dx) < 15 && fabsf(dy) < 15 ? dmg++ : 0;
