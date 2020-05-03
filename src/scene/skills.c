@@ -36,6 +36,22 @@ void draw_skill_cur(win_t *win, sfVector2f pos, int nb, char *max)
     free(strt);
 }
 
+void draw_my_skill(win_t *win)
+{
+    char *str;
+    char *amount;
+    sfVector2f pos = {565, 410};
+
+    sfText_setCharacterSize(win->txt->text, 20);
+    sfText_setPosition(win->txt->text, pos);
+    amount = my_nts(win->game->skills);
+    str = my_strcat("Your skill(s) point(s) : ", amount);
+    free(amount);
+    sfText_setString(win->txt->text, str);
+    sfRenderWindow_drawText(win->win, win->txt->text, 0);
+    free(str);
+}
+
 void draw_skills(win_t *win)
 {
     game_t *game = win->game;
@@ -50,12 +66,12 @@ void draw_skills(win_t *win)
 
     sfSprite_setPosition(win->game->hud->sprite, pos);
     sfRenderWindow_drawSprite(win->win, win->game->hud->sprite, 0);
+    draw_my_skill(win);
     rect.left = 128, pos.x += 50, pos.y += 70;
     for (int x = 0; x < 6; x++) {
         draw_skill(win, rect, pos, name[x]);
         draw_skill_cur(win, pos, value[x], max[x]);
-        rect.left += 64;
-        pos.y += 64;
+        rect.left += 64, pos.y += 80;
         x == 2 ? pos.y = 371 + 70, pos.x += 425 : 0;
     }
 }

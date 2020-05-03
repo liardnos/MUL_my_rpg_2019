@@ -8,6 +8,29 @@
 #include "my.h"
 #include "rpg.h"
 
+void **init_buttons_four(void **buttons)
+{
+    char *path;
+    void *res;
+
+    path = my_strdup("assets/btn/add");
+    res = add_button(8, &btn_jumpb, path, set_attrib(0.478,0.39,81,78));
+    buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/add");
+    res = add_button(8, &btn_health, path, set_attrib(0.478,0.465,81,78));
+    buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/add");
+    res = add_button(8, &btn_shield, path, set_attrib(0.478,0.54,81,78));
+    buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/add");
+    res = add_button(8, &btn_nofall, path, set_attrib(0.647,0.39,81,78));
+    buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/add");
+    res = add_button(8, &btn_speed, path, set_attrib(0.647,0.465,81,78));
+    buttons = add_to_array(buttons, res);
+    return (buttons);
+}
+
 void **init_buttons_three(void **buttons)
 {
     char *path;
@@ -22,6 +45,10 @@ void **init_buttons_three(void **buttons)
     path = my_strdup("assets/btn/complete");
     res = add_button(7, &btn_complete, path, set_attrib(0.291,0.56,800,78));
     buttons = add_to_array(buttons, res);
+    path = my_strdup("assets/btn/add");
+    res = add_button(8, &btn_attack, path, set_attrib(0.647,0.54,81,78));
+    buttons = add_to_array(buttons, res);
+    buttons = init_buttons_four(buttons);
     return (buttons);
 }
 

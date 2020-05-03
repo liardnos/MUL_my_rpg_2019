@@ -65,6 +65,7 @@ void scene_manager(win_t *win, button_t **buttons, int *returned)
 void player_manager(win_t *win)
 {
     player_t *ply;
+    static int regen = 0;
 
     if (win->menu >= 3 && win->game) {
         ply = win->game->players->next->data;
@@ -73,6 +74,13 @@ void player_manager(win_t *win)
             ply->x = HOME_X;
             ply->y = HOME_Y;
             ply->hp = ply->maxhp;
+        }
+        if (ply->hp < ply->maxhp && ply->hp > 0) {
+            regen++;
+            if (regen >= 600) {
+                regen = 0;
+                ply->hp++;
+            }
         }
     }
 }

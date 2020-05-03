@@ -14,7 +14,10 @@ void button_click(win_t *win, button_t **buttons, int *returned)
 
     while (*cpy) {
         if (pos.x >= X && pos.x <= X + SX && pos.y >= Y && pos.y <= Y + SY)
-            win->menu == (*cpy)->menu ? ((*cpy)->func)(win, returned) : 0;
+            if (win->menu == (*cpy)->menu ) {
+                ((*cpy)->func)(win, returned);
+                break;
+            }
         cpy++;
     }
 }
@@ -26,7 +29,7 @@ void button_on_click(win_t *win, button_t **buttons)
 
     while (*cpy) {
         if (pos.x >= X && pos.x <= X + SX && pos.y >= Y && pos.y <= Y + SY)
-            if (win->menu != CFG_MENU_PARAM)
+            if (win->menu != CFG_MENU_PARAM && win->menu != 8)
                 (*cpy)->pressed = 1;
         cpy++;
     }
