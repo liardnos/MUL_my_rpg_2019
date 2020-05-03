@@ -5,23 +5,74 @@
 ## makefile for rpg
 ##
 
-SRC		=		src/*.c \
-				src/free/*.c	\
-				src/init/*.c	\
-				src/scene/*.c	\
-				src/btn/*.c \
-				src/animator/*.c \
-				src/generator/*.c \
-				src/menu/*.c \
-				src/engine/*.c \
-				src/inventory/*.c \
-				src/mob/*.c \
-				src/world/*.c \
-				src/world/cam/*.c \
-				src/world/mesh/*.c \
-				src/particle/*.c \
-				src/quests/*.c \
-				src/fight/*.c \
+SRC		=		src/check.c \
+				src/core.c	\
+				src/gui.c	\
+				src/main.c	\
+				src/managers.c	\
+				src/player.c	\
+				src/animator/animator.c \
+				src/animator/init_player_animator.c \
+				src/animator/init_pnj_animator.c \
+				src/animator/init_skeleton_animator.c \
+				src/animator/init_zombie_animator.c \
+				src/btn/btn_skin.c \
+				src/btn/first_skills.c \
+				src/btn/goto_dialog.c \
+				src/btn/goto.c \
+				src/btn/main_funcs.c \
+				src/btn/quests.c \
+				src/btn/quit_menus.c \
+				src/btn/second_skills.c \
+				src/engine/arow.c \
+				src/engine/engine.c \
+				src/engine/entities.c \
+				src/engine/items.c \
+				src/engine/player.c \
+				src/fight/bow.c \
+				src/fight/fight.c \
+				src/fight/sword.c \
+				src/free/free_first.c	\
+				src/free/free_second.c	\
+				src/generator/breaking.c \
+				src/generator/generator.c \
+				src/generator/load.c \
+				src/generator/map.c \
+				src/generator/perlin.c \
+				src/generator/save.c \
+				src/init/init_buttons.c	\
+				src/init/init_utils.c	\
+				src/inventory/events.c \
+				src/inventory/init_free.c \
+				src/inventory/other.c \
+				src/inventory/utils.c \
+				src/menu/add.c \
+				src/menu/buttons.c \
+				src/menu/events.c \
+				src/menu/init.c \
+				src/mob/draw_entity.c \
+				src/mob/pnj.c \
+				src/mob/spawn.c \
+				src/mob/zombie.c \
+				src/particle/particle.c \
+				src/quests/quests_one.c \
+				src/quests/quests_two.c \
+				src/scene/dialog.c	\
+				src/scene/game.c	\
+				src/scene/home.c	\
+				src/scene/hud.c	\
+				src/scene/inventory.c	\
+				src/scene/man.c	\
+				src/scene/param.c	\
+				src/scene/quest.c	\
+				src/scene/skills.c	\
+				src/world/cam/calc.c \
+				src/world/cam/cam.c \
+				src/world/cam/draw.c \
+				src/world/cam/init.c \
+				src/world/mesh/mesh.c \
+				src/world/mesh/meshs.c \
+				src/world/main.c
 
 SRCT 	=		./tests/
 
