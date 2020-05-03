@@ -18,10 +18,24 @@ void spawn_mod(win_t *win)
         spawn+= win->game->quest - 2;
         if (spawn > 3600){
             while (fabsf(pos.x-p->x) < 15)
-                pos.x = p->x + rand()%200-100;
+                pos.x = p->x + rand()%100-50;
             rand() % 2 ? mob_zombie_add(win->game, pos, win->game->quest*2) : 0;
             rand() % 2 ? mob_skeleton_add(win->game, pos, win->game->quest) : 0;
             spawn = 0;
         }
+    }
+}
+
+void spawn_mobs(win_t *win, int nb, int hp)
+{
+    player_t *p = win->game->players->next->data;
+    sfVector2f pos = {p->x + rand()%200-100, HOME_Y};
+
+    for (int i = 0; i < nb; i++){
+        spawn+= win->game->quest - 2;
+        while (fabsf(pos.x-p->x) < 15)
+            pos.x = p->x + rand()%100-50;
+        rand() % 2 ? mob_zombie_add(win->game, pos, win->game->quest*2) : 0;
+        rand() % 2 ? mob_skeleton_add(win->game, pos, win->game->quest) : 0;
     }
 }
