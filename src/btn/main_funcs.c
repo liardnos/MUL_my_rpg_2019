@@ -59,6 +59,7 @@ void btn_play_set_value(win_t *win)
     win->game->attack = 0;
     win->game->speed = 0;
     win->game->shield = 0;
+    win->game->skills = 0;
 }
 
 //FIXME
