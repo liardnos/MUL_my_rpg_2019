@@ -39,26 +39,20 @@ world_t **main_cam(sfRenderWindow *win)
     return (&world);
 }
 
-int take_movement_input(float *mat_start, world_t *world)
+int take_movement_input(float *mat_s, world_t *world)
 {
     int mv = 0;
-    static sfVector2i mouse_o = {0, 0};
-    sfVector2i mouse = sfMouse_getPositionRenderWindow(world->cam);
-    if (mouse.x < 0 || mouse.y < 0 || mouse.x > SCREEN_X || mouse.y > SCREEN_Y)
-        return (0);
-    sfKeyboard_isKeyPressed(sfKeyZ) ? mat3_tz(mat_start, 1), mv = 1 : 0;
-    sfKeyboard_isKeyPressed(sfKeyS) ? mat3_tz(mat_start, -1), mv = 1 : 0;
-    sfKeyboard_isKeyPressed(sfKeyQ) ? mat3_tx(mat_start, 1), mv = 1 : 0;
-    sfKeyboard_isKeyPressed(sfKeyD) ? mat3_tx(mat_start, -1), mv = 1 : 0;
-    sfKeyboard_isKeyPressed(sfKeyE) ? mat3_ty(mat_start, 1), mv = 1 : 0;
-    sfKeyboard_isKeyPressed(sfKeyA) ? mat3_ty(mat_start, -1), mv = 1 : 0;
-    sfKeyboard_isKeyPressed(sfKeyW) ? mat3_rz(mat_start, PI/180), mv = 1 : 0;
-    sfKeyboard_isKeyPressed(sfKeyX) ? mat3_rz(mat_start, -PI/180), mv = 1 : 0;
-    if (sfMouse_isButtonPressed(sfMouseLeft)){
-        float vx = mouse.x - mouse_o.x;
-        float vy = mouse.y - mouse_o.y;
-        mat3_rx(mat_start, vy/180), mat3_ry(mat_start, -vx/180), mv = 1;
-    }
-    mouse_o = mouse;
+    sfKeyboard_isKeyPressed(sfKeyZ) ? mat3_tz(mat_s, 1), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyS) ? mat3_tz(mat_s, -1), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyQ) ? mat3_tx(mat_s, 1), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyD) ? mat3_tx(mat_s, -1), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyE) ? mat3_ty(mat_s, 1), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyA) ? mat3_ty(mat_s, -1), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyW) ? mat3_rz(mat_s, PI/180), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyX) ? mat3_rz(mat_s, -PI/180), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyLeft) ? mat3_ry(mat_s, -PI/180), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyRight) ? mat3_ry(mat_s, PI/180), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyUp) ? mat3_rx(mat_s, PI/180), mv = 1 : 0;
+    sfKeyboard_isKeyPressed(sfKeyDown) ? mat3_rx(mat_s, -PI/180), mv = 1 : 0;
     return (mv);
 }
