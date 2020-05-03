@@ -57,6 +57,13 @@ int save_gameb(game_t *game)
 
     if (fd < 0) return (0);
     write(fd, &game->quest, sizeof(int));
+
+    write(fd, &game->jumpb, sizeof(int));
+    write(fd, &game->shield, sizeof(int));
+    write(fd, &game->speed, sizeof(int));
+    write(fd, &game->attack, sizeof(int));
+    write(fd, &game->nofall, sizeof(int));
+    write(fd, &game->skills, sizeof(int));
     close(fd);
     my_printf("[RM] game saved\n");
 }
