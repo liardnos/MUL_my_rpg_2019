@@ -82,9 +82,7 @@ void draw_game(win_t *win)
     block_t ***to_draw = generator_getmap(win->game->map, &rect);
     sfVector2f pos = {(flr(p->x)-p->x)*64, (flr(p->y)-p->y-1)*64};
     pos.x == 0 ? pos.x  += 0.01 : 0;
-    rect.width = 64;
-    rect.height = 64;
-    rect.top = 0;
+    rect.width = 64, rect.height = 64, rect.top = 0;
     for (int x = 0; x < 31; x++) {
         for (int y = 0; y < 19; y++) {
             if (to_draw[x][y]->type != -1) {

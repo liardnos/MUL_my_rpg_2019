@@ -17,7 +17,8 @@ void breaking_b(win_t *win, block_t ***block, sfVector2f pos, block_t *b)
     p->inventory[3][p->select] /10000 % 10 == 2){
         if (vec.x < 0 || vec.y < 0 || vec.x > 1920 || vec.y > 1080) return;
         if (sfMouse_isButtonPressed(sfMouseLeft)){
-            status += (p->inventory[3][p->select] / 100 % 100 + 1 - PICKAXE_WOOD) * 0.75;
+            status += (p->inventory[3][p->select] / 100 % 100 + 1 -
+            PICKAXE_WOOD) * 0.75;
             particle_for_block(win, b->type, p->x+(-pos.x + vec.x-1920/2)/64+1,
             p->y+(-pos.y+vec.y-1080/2)/64+1);
             if (status > b->hard && b->hard != -1){
@@ -26,8 +27,7 @@ void breaking_b(win_t *win, block_t ***block, sfVector2f pos, block_t *b)
                 block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)]
                 = blockss[ICE], status = 0;
             }
-        } else
-            status = 0;
+        } else status = 0;
     }
 }
 

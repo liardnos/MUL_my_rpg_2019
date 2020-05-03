@@ -8,42 +8,6 @@
 #include <math.h>
 #include "rpg.h"
 
-//FIXME
-
-int mob_zombie_add(game_t *game, sfVector2f pos, int hp)
-{
-    entity_t *zomb = malloc(sizeof(entity_t));
-
-    if (!zomb) return (0);
-    zomb->x = pos.x;
-    zomb->y = pos.y;
-    zomb->vx = 0;
-    zomb->vy = 0;
-    zomb->floor = 0;
-    zomb->anim = init_zombie_animator(game);
-    zomb->anim_sate = 0;
-    zomb->hp = hp;
-    zomb->type = 1;
-    lld_insert(game->entities, 0, zomb);
-}
-
-int mob_skeleton_add(game_t *game, sfVector2f pos, int hp)
-{
-    entity_t *zomb = malloc(sizeof(entity_t));
-
-    if (!zomb) return (0);
-    zomb->x = pos.x;
-    zomb->y = pos.y;
-    zomb->vx = 0;
-    zomb->vy = 0;
-    zomb->floor = 0;
-    zomb->anim = init_skeleton_animator(game);
-    zomb->anim_sate = 0;
-    zomb->hp = hp;
-    zomb->type = 2;
-    lld_insert(game->entities, 0, zomb);
-}
-
 void mob_zombie(game_t *game, entity_t *zomb)
 {
     player_t *p = game->players->next->data;
