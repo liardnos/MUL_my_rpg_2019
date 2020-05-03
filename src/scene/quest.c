@@ -7,7 +7,7 @@
 
 #include "rpg.h"
 
-const char *str[8][10] =
+const char *str[11][10] =
     {{
     "Welcome stranger !\0",
     "I've some quests for you,\0",
@@ -46,7 +46,31 @@ const char *str[8][10] =
     "You want some ?\0",
     0
     }, {
-    "I've nothing to tell you ...\0",
+    "Bonjour !\0",
+    "Sometimes enemies spawn here,\0",
+    "Can you kill some of them ? (> 3)\0",
+    "Reward : Iron Sword !\0",
+    0
+    }, {
+    "Wassup !\0",
+    "If you bring me iron (32),\0",
+    "I could give you an iron pickaxe.\0",
+    0
+    }, {
+    "Hey !\0",
+    "Have you seen ?\0",
+    "If you kill mobs you win skill points !\0",
+    "Gooo kill more (10)\0",
+    "Reward : Diamond Sword\0",
+    0
+    }, {
+    "Hey !\0",
+    "I'm so poor !\0",
+    "If you bring me 32 diamonds !\0",
+    "I'll give you a diamond pickaxe\0",
+    0
+    }, {
+    "Now, bring me a carrot !\0",
     "Go away !!\0",
     0
     }

@@ -412,6 +412,10 @@ int quest_three(win_t *win);
 int quest_four(win_t *win);
 int quest_five(win_t *win);
 int quest_six(win_t *win);
+int quest_seven(win_t *win);
+int quest_eight(win_t *win);
+int quest_nine(win_t *win);
+int quest_ten(win_t *win);
 
 int **init_inventory();
 void free_inventory(int **inventory);
