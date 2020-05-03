@@ -23,7 +23,8 @@ world_t **main_cam(sfRenderWindow *win)
         sfRenderWindow_clear(win, sfBlack);
         world->mv &= 2;
         for (int i = 0; i < world->x*world->y/100; i++){
-            int xy[] = {rand()%(world->x-2)+1, rand()%(world->y-2)+1, world->x, world->y};
+            int xy[] = {rand()%(world->x-2)+1, rand()%(world->y-2)+1,
+            world->x, world->y};
             if (world->mesh[xy[0]][xy[1]] < -20)
                 drop_water(world->mesh, xy, 0.5, 0);
         }

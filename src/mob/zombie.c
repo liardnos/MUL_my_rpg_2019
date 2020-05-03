@@ -109,6 +109,7 @@ void mob(win_t *win)
     while (rm->data){
         entity = lld_pop(lld, (u64)lld_pop(rm, 0));
         animator_free(entity->anim);
+        win->game->skills += 0.2;
         free(entity);
     }
     lld_free(rm);

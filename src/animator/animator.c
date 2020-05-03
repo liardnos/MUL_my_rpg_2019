@@ -79,7 +79,8 @@ int animator_draw(sfRenderWindow *window, animator_t *anim)
     for (lld_t *mv = anim->member->next; mv; mv = mv->next){
         member_t *member = mv->data;
         sfSprite *sprite = member->sprite;
-        sfVector2f vec[] = {member->pos->x + anim->pos->x, member->pos->y + anim->pos->y};
+        sfVector2f vec[] = {member->pos->x + anim->pos->x, member->pos->y
+        + anim->pos->y};
 
         sfSprite_setPosition(sprite, *vec);
         sfSprite_setRotation(sprite, member->pos->a);

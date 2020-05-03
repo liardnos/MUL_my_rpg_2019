@@ -48,23 +48,21 @@ int engine_proj(game_t *game)
     lld_t *lld = game->proj;
     lld_t *rm = lld_init();
     int i = 0;
-
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
-        arrow_t *arow = mv->data;
-        sfIntRect rect = {flr(arow->x), flr(arow->y-0.5), 1, 1};
+        arrow_t *p = mv->data;
+        sfIntRect rect = {flr(p->x), flr(p->y-0.5), 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
         if (block[0][0]->solid){
             lld_insert(rm, 0, (void *)(u64)i);
-            engine_create_item(game, arow->x, arow->y-0.5, 2, ARROW, 18000, 1);
+            engine_create_item(game, p->x, p->y-0.5, 2, ARROW, 18000, 1);
             continue;
         }
-        engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
+        engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
         free(block-1);
-        arow->type == 0 ?
-        engine_proj_colide_e(game, arow) ? lld_insert(rm, 0, (void *)(u64)i) : 0 :
-        engine_proj_colide_p(game, arow) ? lld_insert(rm, 0, (void *)(u64)i) : 0;
+        p->type == 0 ?
+        engine_proj_colide_e(game, p) ? lld_insert(rm, 0, (void *)(u64)i) : 0 :
+        engine_proj_colide_p(game, p) ? lld_insert(rm, 0, (void *)(u64)i) : 0;
     }
-    while (rm->data)
-        free(lld_pop(lld, (u64)lld_pop(rm, 0)));
+    while (rm->data) free(lld_pop(lld, (u64)lld_pop(rm, 0)));
     lld_free(rm);
 }

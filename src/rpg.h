@@ -524,5 +524,10 @@ void engine_g(float *x, float *y, float *vx, float *vy);
 int flr(float x);
 void engine_get_items(game_t *game, player_t *player);
 
+void fight_bow(win_t *win, player_t *p);
+void fight_sword_wood(win_t *win, player_t *p);
+void fight_sword_stone(win_t *win, player_t *p);
+void fight_sword_iron(win_t *win, player_t *p);
+void fight_sword_diamond(win_t *win, player_t *p);
 
 #endif

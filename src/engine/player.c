@@ -17,7 +17,8 @@ int engine_player_b(game_t *game, win_t *win, player_t *p, block_t ***b)
     b[1][2]->solid ? p->y-- : 0;
     (flr(p->y + p->vy/60.0+0.1) > flr(p->y)) && (b[1][3]->solid) ?
     p->y = flr(p->y)+0.99, p->floor = 1, p->vy >= JUMP_SPEED*1.5 ?
-    p->hp -= p->vy/(JUMP_SPEED*2)*(1-game->nofall) : 0, p->vy = 0 : (p->floor = 0);
+    p->hp -= p->vy/(JUMP_SPEED*2)*(1-game->nofall) : 0, p->vy = 0 :
+    (p->floor = 0);
     engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
     engine_get_items(game, p);
     p->floor && fabsf(p->vx) > 1 ?

@@ -11,7 +11,7 @@
 #include <string.h>
 #include "rpg.h"
 #include "my.h"
-//FIXME
+
 map_t *load_map(void)
 {
     map_t *map = malloc(sizeof(map_t));
