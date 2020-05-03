@@ -7,7 +7,7 @@
 
 #include "rpg.h"
 
-const char *str[3][5] =
+const char *str[5][6] =
     {{
     "Welcome stranger !\0",
     "I've some quests for you,\0",
@@ -19,6 +19,18 @@ const char *str[3][5] =
     "Your sword is in your inventory,\0",
     "Try to switch it in your toolbar.\0",
     "And I'll give you a pickaxe !\0",
+    0
+    }, {
+    "Now that you've the pickaxe,\0",
+    "Please bring me coal ore (5).\0",
+    "And you'll have a reward...\0",
+    0
+    }, {
+    "Hey boiiii !\0",
+    "I saw that you've a skill point !\0",
+    "Try to spend it in skill menu.\0",
+    "After this I'll give you a gift.\0",
+    "(Bow & Arrows)\0",
     0
     }, {
     "I've nothing to tell you ...\0",

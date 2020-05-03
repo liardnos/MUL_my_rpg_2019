@@ -13,7 +13,6 @@ void keys_manager(win_t *win, sfEvent event)
     player_t *ply;
 
     sfKeyboard_isKeyPressed(sfKeyI) && win->menu == 3 ? win->menu = 5 : 0;
-    sfKeyboard_isKeyPressed(sfKeyP) && win->menu == 3 ? win->menu = 6 : 0;
     if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyEscape)) {
         win->menu == 3 ? win->menu = 4 : 0;
         win->menu == 5 ? win->menu = 3 : 0;
