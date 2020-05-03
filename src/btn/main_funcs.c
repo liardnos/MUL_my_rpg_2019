@@ -23,8 +23,9 @@ int btn_play_init_two(win_t *win, game_t *cpy)
     cpy->zombie = init_body("zombie");
     cpy->alien = init_body("alien");
     p->anim = init_player_animator(cpy);
+    win->game->proj = lld_init();
     if (!cpy->player || !cpy->zombie || !cpy->alien || !cpy->skeleton ||
-    !p->anim)
+    !p->anim || !win->game->proj)
         return (0);
 }
 
@@ -63,8 +64,6 @@ void btn_play_set_value(win_t *win)
     win->game->skills = 0;
 }
 
-//FIXME
-
 void btn_play(win_t *win, int *returned)
 {
     my_printf("[RM] Launch game\n");
@@ -85,19 +84,4 @@ void btn_play(win_t *win, int *returned)
         return;
     }
     win->menu = 3;
-    win->game->proj = lld_init();
-    sfVector2f pnj = {0, 0};
-    mob_pnj_add(win->game, pnj);
-    engine_create_item(win->game, 0, 0, 1, 1, 100000, 32);
-    engine_create_item(win->game, 4, 0, 1, 1, 100000, 32);
-    engine_create_item(win->game, 2, 0, 1, 4, 100000, 32);
-    engine_create_item(win->game, 1, 0, 2, BOW, 100000, 1);
-    engine_create_item(win->game, 2, 0, 2, ARROW, 100000, 32);
-    sfVector2f pos = {0, HOME_Y};
-    mob_skeleton_add(win->game, pos);
-    mob_zombie_add(win->game, pos);
-    pos.x = 10;
-    mob_skeleton_add(win->game, pos);
-    mob_zombie_add(win->game, pos);
-
 }
