@@ -27,7 +27,7 @@ void engine_g(float *x, float *y, float *vx, float *vy)
     *vx *= 0.9999;
     *vy *= 0.9999;
     *vy += GRAVITY/60.0;
-    *y > 235 ? *vy = 0, *y = 235 : 0;
+    *y > 246 ? *vy = 0, *y = 246 : 0;
     *y < 10 ? *vy = 0, *y = 10 : 0;
 }
 
@@ -54,7 +54,7 @@ int engine_player_b(game_t *game, win_t *win, player_t *p, block_t ***b)
     b[1][2]->solid ? p->y-- : 0;
     (flr(p->y + p->vy/60.0+0.1) > flr(p->y)) && (b[1][3]->solid) ?
     p->y = flr(p->y)+0.99, p->floor = 1, p->vy >= JUMP_SPEED*1.5 ?
-    p->hp -= p->vy/(JUMP_SPEED*2) : 0, p->vy = 0 : (p->floor = 0);
+    p->hp -= p->vy/(JUMP_SPEED*2)*(1-game->nofall) : 0, p->vy = 0 : (p->floor = 0);
     engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));
     engine_get_items(game, p);
     p->floor && fabsf(p->vx) > 1 ?
@@ -175,11 +175,12 @@ int engine_proj(game_t *game)
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
         arrow_t *arow = mv->data;
-        sfIntRect rect = {flr(arow->x), flr(arow->y), 1, 1};
+        sfIntRect rect = {flr(arow->x), flr(arow->y-0.5), 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
         if (block[0][0]->solid){
             lld_insert(rm, 0, (void *)(u64)i);
-            engine_create_item(game, arow->x, arow->y-1, 2, ARROW, 18000, 1);
+            engine_create_item(game, arow->x, arow->y-0.5, 2, ARROW, 18000, 1);
+            continue;
         }
         engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
         free(block-1);

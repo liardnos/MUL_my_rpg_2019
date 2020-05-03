@@ -55,11 +55,11 @@ void animate_player(win_t *win)
             animator_goto(player->anim, 5.0, ANIM_STAND);
     }
     if (sfKeyboard_isKeyPressed(sfKeyD))
-        player->vx = 6.0;
+        player->vx = 6.0 * (1+win->game->speed*0.1);
     else if (sfKeyboard_isKeyPressed(sfKeyQ))
-        player->vx = -6.0;
+        player->vx = -6.0 * (1+win->game->speed*0.1);
     if (sfKeyboard_isKeyPressed(sfKeyZ) && player->floor)
-        player->vy = -JUMP_SPEED, animator_goto(player->anim, 15.0, ANIM_JUMP);
+        player->vy = -JUMP_SPEED * (1+win->game->jumpb*0.1), animator_goto(player->anim, 15.0, ANIM_JUMP);
     animator_draw(win->win, player->anim);
 }
 
@@ -99,10 +99,9 @@ void draw_game_proj(win_t *win, player_t *p)
         if (d != 0)
             angle = acos((float)item->vy / (float)d);
         item->vx > 0 ? angle *= -1 : 0;
-
         pos.x = (item->x - p->x) * 64 + 1920/2;
         pos.y = (item->y - p->y) * 64 + 1080/2;
-        sfSprite_setTextureRect(win->game->bl->sprite, rect);
+        sfSprite_setTextureRect(win->game->it   ->sprite, rect);
         sfSprite_setPosition(win->game->it->sprite, pos);
         sfSprite_setOrigin(win->game->it->sprite, ori);
         sfSprite_setScale(win->game->it->sprite, scale);

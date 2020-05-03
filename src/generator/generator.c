@@ -64,6 +64,8 @@ void generate_line_post(block_t **blocks)
     for (int i = 1; blocks[i+1]; i++)
         if (blocks[i]->type == DIRT && blocks[i-1]->type == ICE)
             blocks[i] = blockss[GRASS];
+    blocks[8] = blockss[COBBLE];
+    blocks[246] = blockss[COBBLE];
 }
 
 block_t **generate_line(int x, int d)
