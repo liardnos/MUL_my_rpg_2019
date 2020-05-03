@@ -16,6 +16,7 @@ SRC		=		src/check.c \
 				src/animator/init_pnj_animator.c \
 				src/animator/init_skeleton_animator.c \
 				src/animator/init_zombie_animator.c \
+				src/animator/animator_init.c \
 				src/btn/btn_skin.c \
 				src/btn/first_skills.c \
 				src/btn/goto_dialog.c \

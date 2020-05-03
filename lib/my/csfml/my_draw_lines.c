@@ -13,30 +13,38 @@
 #include "../my.h"
 #include "../screen.h"
 
-//FIXME
+void my_draw_line_b(framebuffer_t *buf, sfFloatRect size, sfColor color)
+{
+    int y = 0;
+    float coef = size.left / size.top;
 
-void my_draw_line(framebuffer_t *buf, sfVector2f *vects0, sfVector2f *vects1,
+    if (size.top > 0.0)
+        for (float x = 0; y <= size.top; y++, x += coef)
+            my_put_pixel(buf, size.width+x, size.height+y, color);
+    else if (size.top < 0.0)
+        for (float x = 0; y >= size.top; y--, x -= coef)
+            my_put_pixel(buf, size.width+x, size.height+y, color);
+}
+
+void my_draw_line(framebuffer_t *buf, sfVector2f *v0, sfVector2f *v1,
     sfColor color)
 {
-    float size_x = (float)vects1->x - (float)vects0->x;
-    float size_y = (float)vects1->y - (float)vects0->y;
+    sfFloatRect size = {v1->x - v0->x, v1->y - v0->y, v0->x, v0->y};
     float y = 0;
-    if (size_x == 0 && size_y == 0)
+
+    if (size.left == 0 && size.top == 0)
         return;
-    else if (size_x*size_x > size_y*size_y){
-        float coef = size_y / size_x;
-        if (size_x > 0.0) for (float x = 0; x <= size_x; x++, y += coef)
-                my_put_pixel(buf, vects0->x+x, vects0->y+y, color);
-        else if (size_x < 0.0) for (float x = 0; x >= size_x; x--, y -= coef)
-                my_put_pixel(buf, vects0->x+x, vects0->y+y, color);
-    } else {
-        float coef = size_x / size_y;
-        if (size_y > 0.0) for (float x = 0; y <= size_y; y++, x += coef)
-                my_put_pixel(buf, vects0->x+x, vects0->y+y, color);
-        else if (size_y < 0.0)
-            for (float x = 0; y >= size_y; y--, x -= coef)
-                my_put_pixel(buf, vects0->x+x, vects0->y+y, color);
-    }
+    else if (size.left*size.left > size.top*size.top){
+        float coef = size.top / size.left;
+        if (size.left > 0.0)
+            for (float x = 0; x <= size.left; x++, y += coef)
+                my_put_pixel(buf, size.width+x, size.height+y, color);
+        else if (size.left < 0.0)
+            for (float x = 0; x >= size.left; x--, y -= coef)
+                my_put_pixel(buf, size.width+x, size.height+y, color);
+    } else
+        my_draw_line_b(buf, size, color);
+
 }
 
 void my_draw_lines(framebuffer_t *buf, sfVector2f **vects, int n, sfColor color)
