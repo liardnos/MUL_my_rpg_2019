@@ -38,8 +38,9 @@ void fight_bow(win_t *win, player_t *p)
         if (!arrow) return;
         arrow->x = p->x;
         arrow->y = p->y-0.10;
-        arrow->vx = pos.x/30;
-        arrow->vy = pos.y/30;
+        arrow->vx = pos.x/30 + ((rand()%100)/100.0-0.5)*2;
+        arrow->vy = pos.y/30 + ((rand()%100)/100.0-0.5)*2;
+        arrow->type = 0;
         lld_insert(win->game->proj, 0, arrow);
         s = 1;
     } else if (sfMouse_isButtonPressed(sfMouseRight))

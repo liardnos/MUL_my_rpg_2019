@@ -32,20 +32,16 @@ void mob_pnj(win_t *win, entity_t *pnj)
     sfVector2i pos = sfMouse_getPosition((sfWindow *)win->win);
 
     if (dx < 0 && fabsf(dx) > 20.0){
-        pnj->vx = 3;
-        pnj->wall_r & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED : 0;
+        pnj->vx = 6;
+        pnj->wall_r & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED*2 : 0;
     } else if (fabsf(dx) > 20.0){
-        pnj->vx = -3;
-        pnj->wall_l & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED : 0;
+        pnj->vx = -6;
+        pnj->wall_l & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED*2 : 0;
     }
-
     if (sfMouse_isButtonPressed(sfMouseRight) && win->menu == 3){
         float dx = fabsf(pnj->x - (pos.x-1920/2)/60 - p->x);
         float dy = fabsf(pnj->y - (pos.y-1080/2)/60 - p->y);
-        my_printf("oki2\n");
-        if (dx < 0.5 && dy < 2){
+        if (dx < 0.5 && dy < 2)
             win->menu = 6;
-            my_printf("oki\n");
-        }
     }
 }

@@ -46,28 +46,47 @@ void mob_zombie(game_t *game, entity_t *zomb)
 {
     player_t *p = game->players->next->data;
     float dx = zomb->x - p->x;
+    float dy = zomb->y - p->y;
+    static int dmg = 0;
 
-    if (dx < 0 && fabsf(dx) > 1.0){
+    if (dx < 0 && fabsf(dx) > 0.5){
         zomb->vx = 3;
         zomb->wall_r & 1 && zomb->floor ? zomb->vy = -JUMP_SPEED : 0;
-    } else if (fabsf(dx) > 1.0){
+    } else if (fabsf(dx) > 0.5){
         zomb->vx = -3;
         zomb->wall_l & 1 && zomb->floor ? zomb->vy = -JUMP_SPEED : 0;
     }
+    if (fabsf(dx) < 0.5 && fabsf(dy) < 1)
+        dmg < 60 ? dmg++ : (dmg = 0, p->hp--);
+
 }
 
 void mob_skeleton(game_t *game, entity_t *skel)
 {
     player_t *p = game->players->next->data;
     float dx = skel->x - p->x;
+    float dy = skel->y - p->y;
+    static int dmg = 0;
 
-    if (dx < 0 && fabsf(dx) > 5.0){
+    if (dx < 0 && fabsf(dx) > 7.5){
         skel->vx = 3;
         skel->wall_r & 1 && skel->floor ? skel->vy = -JUMP_SPEED : 0;
-    } else if (fabsf(dx) > 5.0){
+    } else if (fabsf(dx) > 7.5){
         skel->vx = -3;
         skel->wall_l & 1 && skel->floor ? skel->vy = -JUMP_SPEED : 0;
     }
+    if (fabsf(dx) < 10 && fabsf(dy) < 10 && dmg >= 199){
+        arrow_t *arrow = malloc(sizeof(arrow_t));
+        if (!arrow) return;
+        arrow->x = skel->x;
+        arrow->y = skel->y-0.10;
+        arrow->vx = -dx * 2 + ((rand()%100)/100.0-0.5)*2;
+        arrow->vy = -dy * 2 + ((rand()%100)/100.0-0.5)*2;
+        arrow->type = 2;
+        lld_insert(game->proj, 0, arrow);
+        dmg = 0;
+    }
+    fabsf(dx) < 10 && fabsf(dy) < 10 ? dmg++ : 0;
 }
 
 void mob(win_t *win)
