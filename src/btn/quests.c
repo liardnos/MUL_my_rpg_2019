@@ -18,4 +18,7 @@ void btn_complete(win_t *win, int *returned)
         win->game->quest++;
         win->menu = 3;
     }
+    if (win->game->quest + 1 > nb) {
+        spawn_mobs(win, rand() % 25, rand() % 250);
+    }
 }
