@@ -71,6 +71,8 @@ void draw_other(win_t *win, player_t *p, sfVector2f pos, block_t ***to_draw)
     draw_game_items(win, p);
     win->game && win->menu != 4 ? draw_entity(win) : 0;
     win->menu == 3 ? animate_player(win) : 0;
+    win->menu == 3 ? spawn_mod(win) : 0;
+
 }
 
 void draw_game(win_t *win)

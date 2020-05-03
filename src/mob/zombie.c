@@ -10,7 +10,7 @@
 
 //FIXME
 
-int mob_zombie_add(game_t *game, sfVector2f pos)
+int mob_zombie_add(game_t *game, sfVector2f pos, int hp)
 {
     entity_t *zomb = malloc(sizeof(entity_t));
 
@@ -22,12 +22,12 @@ int mob_zombie_add(game_t *game, sfVector2f pos)
     zomb->floor = 0;
     zomb->anim = init_zombie_animator(game);
     zomb->anim_sate = 0;
-    zomb->hp = 5;
+    zomb->hp = hp;
     zomb->type = 1;
     lld_insert(game->entities, 0, zomb);
 }
 
-int mob_skeleton_add(game_t *game, sfVector2f pos)
+int mob_skeleton_add(game_t *game, sfVector2f pos, int hp)
 {
     entity_t *zomb = malloc(sizeof(entity_t));
 
@@ -39,7 +39,7 @@ int mob_skeleton_add(game_t *game, sfVector2f pos)
     zomb->floor = 0;
     zomb->anim = init_skeleton_animator(game);
     zomb->anim_sate = 0;
-    zomb->hp = 2;
+    zomb->hp = hp;
     zomb->type = 2;
     lld_insert(game->entities, 0, zomb);
 }

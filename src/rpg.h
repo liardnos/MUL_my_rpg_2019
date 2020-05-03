@@ -438,7 +438,7 @@ void draw_item(win_t *win, sfIntRect rect, sfVector2f pos, int thing);
 void mob(win_t *win);
 void draw_entity(win_t *win);
 void animate_player(win_t *win);
-int mob_zombie_add(game_t *game, sfVector2f pos);
+int mob_zombie_add(game_t *game, sfVector2f pos, int hp);
 float player_head(win_t *win, player_t *player);
 animator_t *init_zombie_animator(game_t *game);
 
@@ -472,7 +472,7 @@ typedef struct world
 block_t blockss[61][1];
 
 world_t **main_cam(sfRenderWindow *win);
-int mob_skeleton_add(game_t *game, sfVector2f pos);
+int mob_skeleton_add(game_t *game, sfVector2f pos, int hp);
 float perlin(float x, float y);
 animator_t *init_skeleton_animator(game_t *game);
 
@@ -529,5 +529,6 @@ void fight_sword_wood(win_t *win, player_t *p);
 void fight_sword_stone(win_t *win, player_t *p);
 void fight_sword_iron(win_t *win, player_t *p);
 void fight_sword_diamond(win_t *win, player_t *p);
+void spawn_mod(win_t *win);
 
 #endif
