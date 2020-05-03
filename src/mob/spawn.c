@@ -17,7 +17,7 @@ void spawn_mod(win_t *win)
     if (win->game->quest > 2){
         spawn+= win->game->quest - 2;
         if (spawn > 3600){
-            while (fabsf(pos.x) < 15)
+            while (fabsf(pos.x-p->x) < 15)
                 pos.x = p->x + rand()%200-100;
             rand() % 2 ? mob_zombie_add(win->game, pos, win->game->quest*2) : 0;
             rand() % 2 ? mob_skeleton_add(win->game, pos, win->game->quest) : 0;

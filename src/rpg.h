@@ -227,7 +227,7 @@ typedef struct player
     float vy;
     char floor;
     animator_t *anim;
-    int hp;
+    float hp;
     int maxhp;
     int select;
     int **inventory;

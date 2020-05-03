@@ -14,13 +14,15 @@
 int engine_proj_colide_e(game_t *game, arrow_t *arow)
 {
     lld_t *lld = game->entities;
+    float h_head = 0;
 
     for (lld_t *mv = lld->next; mv; mv = mv->next){
         entity_t *p = mv->data;
         float dx = fabsf(p->x -arow->x);
         float dy = fabsf(p->y -arow->y);
         if (dx < 0.33 && dy < 1){
-            p->hp--;
+            p->hp -= 1 * (1 + game->attack*0.2);
+            animator_goto(p->anim, 5.0, ANIM_WALK1);
             return (1);
         }
     }
@@ -30,6 +32,7 @@ int engine_proj_colide_e(game_t *game, arrow_t *arow)
 int engine_proj_colide_p(game_t *game, arrow_t *arow)
 {
     lld_t *lld = game->players;
+    float h_head = 0;
 
     for (lld_t *mv = lld->next; mv; mv = mv->next){
         player_t *p = mv->data;
@@ -37,6 +40,7 @@ int engine_proj_colide_p(game_t *game, arrow_t *arow)
         float dy = fabsf(p->y -arow->y);
         if (dx < 0.33 && dy < 1){
             p->hp--;
+            animator_goto(p->anim, 5.0, ANIM_WALK1);
             return (1);
         }
     }
