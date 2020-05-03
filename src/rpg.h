@@ -495,4 +495,5 @@ animator_t *init_pnj_animator(game_t *game);
 
 void free_texture(texture_t *texture);
 void free_body(body_t *body);
+void free_game_b(game_t *cpy);
 #endif

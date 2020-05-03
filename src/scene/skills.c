@@ -7,6 +7,16 @@
 
 #include "rpg.h"
 
+void draw_skill(win_t *win, sfIntRect rect, sfVector2f pos, char *name)
+{
+
+}
+
+void draw_skill__cur(win_t *win, sfVector2f pos, int nb, int max)
+{
+
+}
+
 void draw_skills(win_t *win)
 {
     sfVector2f pos = {534, 371};

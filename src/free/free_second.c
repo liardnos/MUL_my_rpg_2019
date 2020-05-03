@@ -7,6 +7,39 @@
 
 #include "rpg.h"
 
+void free_players(game_t *cpy)
+{
+    player_t *p;
+
+    while (cpy->players->data){
+        p = lld_pop(cpy->players, 0);
+        animator_free(p->anim);
+        free_inventory(p->inventory);
+        free(p);
+    }
+    lld_free(cpy->players);
+}
+
+void free_entities(game_t *cpy)
+{
+    entity_t *p;
+
+    while (cpy->entities->data){
+        p = lld_pop(cpy->entities, 0);
+        animator_free(p->anim);
+        free(p);
+    }
+    lld_free(cpy->entities);
+}
+
+void free_game_b(game_t *cpy)
+{
+    free_players(cpy);
+    free_entities(cpy);
+    lld_free_r(cpy->items);
+    lld_free_r(cpy->proj);
+}
+
 void free_body(body_t *body)
 {
     free_texture(body->arm);
