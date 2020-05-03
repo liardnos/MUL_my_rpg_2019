@@ -76,7 +76,7 @@ void mob_skeleton(game_t *game, entity_t *skel)
         skel->vx = -3;
         skel->wall_l & 1 && skel->floor ? skel->vy = -JUMP_SPEED : 0;
     }
-    if (fabsf(dx) < 10 && fabsf(dy) < 10 && dmg >= 199){
+    if (fabsf(dx) < 20 && fabsf(dy) < 20 && dmg >= 109){
         arrow_t *arrow = malloc(sizeof(arrow_t));
         if (!arrow) return;
         arrow->x = skel->x;
@@ -88,6 +88,22 @@ void mob_skeleton(game_t *game, entity_t *skel)
         dmg = 0;
     }
     fabsf(dx) < 10 && fabsf(dy) < 10 ? dmg++ : 0;
+}
+
+void mob_delete(win_t *win, lld_t *rm)
+{
+    entity_t *en;
+    lld_t *lld = win->game->entities;
+
+    while (rm->data){
+        en = lld_pop(lld, (u64)lld_pop(rm, 0));
+        animator_free(en->anim);
+        win->game->skills += 0.2, win->game->mob_kill++;
+        en->type == 2 ? engine_create_item(win->game, en->x, en->y, 2,
+        ARROW, 36000, rand()%5+1) : 0;
+        free(en);
+    }
+    lld_free(rm);
 }
 
 void mob(win_t *win)
@@ -105,11 +121,5 @@ void mob(win_t *win)
         if (entity->hp <= 0)
             lld_insert(rm, 0, (void *)(u64)i);
     }
-    while (rm->data){
-        entity = lld_pop(lld, (u64)lld_pop(rm, 0));
-        animator_free(entity->anim);
-        win->game->skills += 0.2, win->game->mob_kill++;
-        free(entity);
-    }
-    lld_free(rm);
+    mob_delete(win, rm);
 }
