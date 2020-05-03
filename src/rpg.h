@@ -402,6 +402,7 @@ void draw_param(win_t *win);
 void draw_skills(win_t *win);
 void draw_game(win_t *win);
 void draw_dialog(win_t *win);
+void draw_man(win_t *win);
 void free_game(win_t *win);
 
 int quest_one(win_t *win);

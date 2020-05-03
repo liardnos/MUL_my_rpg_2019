@@ -11,11 +11,14 @@ void print_help()
 {
     my_printf("Raft Minec - Help :\n");
     my_printf("<--- KeyBinding --->\n");
-    my_printf("`Z`, `Q`, `S`, `D` - move keys.\n");
+    my_printf("`Z`, `Q`, `D` - move keys.\n");
     my_printf("`I` - inventory\n");
+    my_printf("`T` - Talk to alien (Need to be near of him)\n");
     my_printf("`ESCAPE` - pause key or back from menus.\n");
     my_printf("`Drag'n'drop + LEFT CLICK` -  in inventory switch items.\n");
     my_printf("`MOUSEWHEEL` - move in toolbar.\n");
+    my_printf("`LEFT CLICK` - Attack with sword or Break.\n");
+    my_printf("`RIGHT CLICK` - Attack with bow or Place Block.\n");
 }
 
 int main(int ac, char **av)
