@@ -514,4 +514,15 @@ void btn_shield(win_t *win, int *returned);
 void btn_nofall(win_t *win, int *returned);
 void btn_speed(win_t *win, int *returned);
 void btn_attack(win_t *win, int *returned);
+
+void engine_g(float *x, float *y, float *vx, float *vy);
+int engine_items(game_t *game);
+int engine_player(game_t *game, win_t *win);
+int engine_entities(game_t *game, win_t *win);
+int engine_proj(game_t *game);
+void engine_g(float *x, float *y, float *vx, float *vy);
+int flr(float x);
+void engine_get_items(game_t *game, player_t *player);
+
+
 #endif
