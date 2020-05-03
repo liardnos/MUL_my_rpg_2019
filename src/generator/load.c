@@ -24,9 +24,9 @@ map_t *load_map(void)
     if (read(fd, &map->size_l, sizeof(int)) != sizeof(int)) return (0);
     if (read(fd, &map->size_r, sizeof(int)) != sizeof(int)) return (0);
     for (int i = -map->size_l; i <= map->size_r; i++){
-        block_t **block = malloc(sizeof(block_t *)*(MAP_Y+2));
+        block_t **block = malloc(sizeof(block_t *)*(MAP_Y + 2));
         block[0] = 0, block[MAP_Y+1] = 0, block++;
-        if (read(fd, buf, sizeof(int)*MAP_Y) != sizeof(int)*MAP_Y);
+        if (read(fd, buf, sizeof(int) * MAP_Y) != sizeof(int) * MAP_Y);
         for (int j = 0; j < MAP_Y; j++)
             check_some += buf[j], block[j] = blockss[buf[j]];
         lld_insert(map->map, (u64)map->map->data, block);
@@ -40,8 +40,8 @@ player_t *load_player(void)
 {
     int fd = open("save/player", O_RDONLY);
     player_t *p = malloc(sizeof(player_t));
-    if (fd < 0 || !p) return (0);
 
+    if (fd < 0 || !p) return (0);
     p->floor = 0;
     p->inventory = init_inventory();
     read(fd, &p->x, sizeof(float)) != sizeof(float) ? (p = 0) :
@@ -50,11 +50,11 @@ player_t *load_player(void)
     read(fd, &p->vy, sizeof(float)) != sizeof(float) ? (p = 0) :
     read(fd, &p->hp, sizeof(int)) != sizeof(int) ? (p = 0) :
     read(fd, &p->maxhp, sizeof(int)) != sizeof(int) ? (p = 0) :
-    read(fd, p->inventory[-1], sizeof(int)*4) != sizeof(int)*4 ? (p = 0) :
-    read(fd, p->inventory[0], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :
-    read(fd, p->inventory[1], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :
-    read(fd, p->inventory[2], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) :
-    read(fd, p->inventory[3], sizeof(int)*9) != sizeof(int)*9 ? (p = 0) : 0;
+    read(fd, p->inventory[-1], sizeof(int) * 4) != sizeof(int) * 4 ? (p = 0) :
+    read(fd, p->inventory[0], sizeof(int) * 9) != sizeof(int) * 9 ? (p = 0) :
+    read(fd, p->inventory[1], sizeof(int) * 9) != sizeof(int) * 9 ? (p = 0) :
+    read(fd, p->inventory[2], sizeof(int) * 9) != sizeof(int) * 9 ? (p = 0) :
+    read(fd, p->inventory[3], sizeof(int) * 9) != sizeof(int) * 9 ? (p = 0) : 0;
     close(fd);
     return (p);
 }

@@ -22,7 +22,7 @@ void fight_sword_wood(win_t *win, player_t *p)
             float dx = ent->x - p->x;
             float dy = ent->y - p->y;
             if (fabsf(dx) < 2 && fabsf(dx) < 2){
-                ent->hp -= 1 * (1+win->game->attack*0.2);
+                ent->hp -= 1 * (1 + win->game->attack * 0.2);
                 animator_goto(p->anim, 5.0, ANIM_WALK1);
                 animator_goto(ent->anim, 5.0, ANIM_WALK1);
             }
@@ -44,7 +44,7 @@ void fight_sword_stone(win_t *win, player_t *p)
             float dx = ent->x - p->x;
             float dy = ent->y - p->y;
             if (fabsf(dx) < 2 && fabsf(dx) < 2){
-                ent->hp -= 2 * (1+win->game->attack*0.2);
+                ent->hp -= 2 * (1 + win->game->attack * 0.2);
                 animator_goto(p->anim, 5.0, ANIM_WALK1);
                 animator_goto(ent->anim, 5.0, ANIM_WALK1);
             }
@@ -66,7 +66,7 @@ void fight_sword_iron(win_t *win, player_t *p)
             float dx = ent->x - p->x;
             float dy = ent->y - p->y;
             if (fabsf(dx) < 2 && fabsf(dx) < 2){
-                ent->hp -= 3 * (1+win->game->attack*0.2);
+                ent->hp -= 3 * (1 + win->game->attack * 0.2);
                 animator_goto(p->anim, 5.0, ANIM_WALK1);
                 animator_goto(ent->anim, 5.0, ANIM_WALK1);
             }
@@ -88,7 +88,7 @@ void fight_sword_diamond(win_t *win, player_t *p)
             float dx = ent->x - p->x;
             float dy = ent->y - p->y;
             if (fabsf(dx) < 2 && fabsf(dx) < 2){
-                ent->hp -= 4 * (1+win->game->attack*0.2);
+                ent->hp -= 4 * (1 + win->game->attack * 0.2);
                 animator_goto(p->anim, 5.0, ANIM_WALK1);
                 animator_goto(ent->anim, 5.0, ANIM_WALK1);
             }

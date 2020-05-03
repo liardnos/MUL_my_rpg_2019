@@ -27,11 +27,13 @@ int engine_entities_b(game_t *game, win_t *win, entity_t *p, block_t ***b)
 int engine_entities(game_t *game, win_t *win)
 {
     lld_t *lld = game->entities;
+    entity_t *p;
+    block_t ***b;
 
     for (lld_t *mv = lld->next; mv; mv = mv->next){
-        entity_t *p = mv->data;
-        sfIntRect rect = {flr(p->x)-1, flr(p->y)-2, 3, 5};
-        block_t ***b = generator_getmap(game->map, &rect);
+        p = mv->data;
+        sfIntRect rect = {flr(p->x) - 1, flr(p->y) - 2, 3, 5};
+        b = generator_getmap(game->map, &rect);
         p->vx > 0 && (flr(p->x + p->vx/60.0 + 0.25) > flr(p->x)) &&
         (b[2][1]->solid || b[2][2]->solid) ?
         p->vx = 0, p->wall_r = 1 : (p->wall_r = 0);

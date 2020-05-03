@@ -48,6 +48,7 @@ win_t *create_window(int *returned, char *name)
 {
     win_t *my_win = malloc(sizeof(win_t));
     int res;
+
     if (!my_win) {
         *returned = 84;
         return (NULL);

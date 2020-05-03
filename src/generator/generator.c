@@ -40,7 +40,7 @@ block_t **generate_getcolum(map_t *m, int x)
 
 block_t ***generator_getmap(map_t *map, sfIntRect *rect)
 {
-    block_t ***block = malloc(sizeof(block_t **) * (rect->width+2));
+    block_t ***block = malloc(sizeof(block_t **) * (rect->width + 2));
 
     if (!block)
         return (0);
@@ -48,7 +48,7 @@ block_t ***generator_getmap(map_t *map, sfIntRect *rect)
     block[-1] = 0;
     block[rect->width] = 0;
     for (int i = 0; i < rect->width; i++){
-        block[i] = generate_getcolum(map, rect->left+i)+rect->top;
+        block[i] = generate_getcolum(map, rect->left + i) + rect->top;
     }
     return (block);
 }

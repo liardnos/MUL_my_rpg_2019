@@ -52,11 +52,11 @@ int animator_animate(animator_t *anim)
     for (lld_t *mv = anim->member->next; mv; mv = mv->next){
         member_t *mbr = mv->data;
         float v = anim->dtime * mbr->ag;
-        if (anim->time/2 >   anim->dtime)
+        if (anim->time / 2 >   anim->dtime)
             mbr->pos->a = mbr->pos3->a + v * anim->dtime/2;
         else
             mbr->pos->a = mbr->pos3->a + v * anim->dtime/2 -
-            pow((anim->dtime - anim->time/2), 2) * mbr->ag;
+            pow((anim->dtime - anim->time / 2), 2) * mbr->ag;
     }
     if (anim->time > anim->dtime){
         anim->dtime++;
@@ -77,6 +77,6 @@ int animator_goto(animator_t *anim, ...)
         mbr->pos3->a = mbr->pos->a;
         mbr->pos2->a = va_arg(va, double);
         float d = mbr->pos->a - mbr->pos2->a;
-        mbr->ag = -d/pow(anim->time/2, 2);
+        mbr->ag = -d / pow(anim->time / 2, 2);
     }
 }

@@ -21,7 +21,7 @@ block_t *calc_block(float h)
     h > 0 ? a = blockss[ICE] : 0;
     h <= 0 && h >= -20  ? a = blockss[DIRT] : 0;
     h < -20 ? a = blockss[STONE] : 0;
-    srand((u64)h*100);
+    srand((u64)h * 100);
     (u64)a->type == STONE && !(((u64)h % 50) / 4) ? a = blockss[ORE_COAL] : 0;
     ((u64)a->type == STONE && !(rand() % 50)) ? a = blockss[ORE_IRON] : 0;
     ((u64)a->type == STONE && !(rand() % 100)) ? a = blockss[ORE_DIAMOND] : 0;
@@ -44,14 +44,14 @@ block_t **generate_line(int x, int d)
     int y = 0;
 
     line++;
-    x < 0 ? x = 1.1*pow(2, d)-x : 0;
+    x < 0 ? x = 1.1 * pow(2, d) - x : 0;
     line[MAP_Y] = 0;
     line[-1] = 0;
     for (; y < MAP_Y; y++){
-        line_f[y] = (80 - y*2);
+        line_f[y] = (80 - y * 2);
         for (int d_nb = 0; d_nb < d; d_nb++)
-            line_f[y] += perlin((float)x/(1.1*pow(2, d_nb)),
-            (float)y/(1.1*pow(2, d_nb)))*pow(2, d_nb);
+            line_f[y] += perlin((float)x / (1.1 * pow(2, d_nb)),
+            (float)y / (1.1 * pow(2, d_nb))) * pow(2, d_nb);
     }
     line[y] = 0;
     for (y = 0; y < MAP_Y; y++)

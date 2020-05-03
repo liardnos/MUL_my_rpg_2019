@@ -54,11 +54,11 @@ int engine_proj(game_t *game)
     int i = 0;
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
         arrow_t *p = mv->data;
-        sfIntRect rect = {flr(p->x), flr(p->y-0.5), 1, 1};
+        sfIntRect rect = {flr(p->x), flr(p->y - 0.5), 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
         if (block[0][0]->solid){
             lld_insert(rm, 0, (void *)(u64)i);
-            engine_create_item(game, p->x, p->y-1, 2, ARROW, 18000, 1);
+            engine_create_item(game, p->x, p->y - 1, 2, ARROW, 18000, 1);
             continue;
         }
         engine_g(&(p->x), &(p->y), &(p->vx), &(p->vy));

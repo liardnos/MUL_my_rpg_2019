@@ -25,6 +25,16 @@ int mob_pnj_add(game_t *game, sfVector2f pos)
     lld_insert(game->entities, 0, pnj);
 }
 
+void mob_pnj_b(win_t *win, entity_t *pnj, player_t *p)
+{
+    if (sfKeyboard_isKeyPressed(sfKeyT) && win->menu == 3){
+        float dx = fabsf(pnj->x - p->x);
+        float dy = fabsf(pnj->y - p->y);
+        if (dx < 5 && dy < 5)
+            win->menu = 6;
+    }
+}
+
 void mob_pnj(win_t *win, entity_t *pnj)
 {
     player_t *p = win->game->players->next->data;
@@ -32,15 +42,10 @@ void mob_pnj(win_t *win, entity_t *pnj)
 
     if (dx < 0 && fabsf(dx) > 20.0){
         pnj->vx = 6;
-        pnj->wall_r & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED*2 : 0;
+        pnj->wall_r & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED * 2 : 0;
     } else if (fabsf(dx) > 20.0){
         pnj->vx = -6;
-        pnj->wall_l & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED*2 : 0;
+        pnj->wall_l & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED * 2 : 0;
     }
-    if (sfKeyboard_isKeyPressed(sfKeyT) && win->menu == 3){
-        float dx = fabsf(pnj->x -  p->x);
-        float dy = fabsf(pnj->y -  p->y);
-        if (dx < 5 && dy < 5)
-            win->menu = 6;
-    }
+    mob_pnj_b(win, pnj, p);
 }

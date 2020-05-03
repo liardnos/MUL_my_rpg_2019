@@ -13,8 +13,6 @@
 #include "my.h"
 #include "rpg.h"
 
-//FIXME
-
 int flr(float x)
 {
     return (x >= 0 ? (int)x : (int)x-1);
@@ -22,11 +20,11 @@ int flr(float x)
 
 void engine_g(float *x, float *y, float *vx, float *vy)
 {
-    *x += *vx/60.0;
-    *y += *vy/60.0;
+    *x += *vx / 60.0;
+    *y += *vy / 60.0;
     *vx *= 0.9999;
     *vy *= 0.9999;
-    *vy += GRAVITY/60.0;
+    *vy += GRAVITY / 60.0;
     *y > 246 ? *vy = 0, *y = 246 : 0;
     *y < 10 ? *vy = 0, *y = 10 : 0;
 }

@@ -8,8 +8,6 @@
 #include <math.h>
 #include "rpg.h"
 
-//FIXME
-
 float zombie_head(win_t *win, entity_t *entity, player_t *player)
 {
     sfVector2i vec = {player->x, player->y};
@@ -27,7 +25,7 @@ float zombie_head(win_t *win, entity_t *entity, player_t *player)
         head_angle -= PI, sfSprite_setScale(member->sprite, vec1);
     else
         sfSprite_setScale(member->sprite, vec2);
-    return (head_angle/PI*180-90);
+    return (head_angle / PI * 180 - 90);
 }
 
 void draw_entity(win_t *win)
@@ -71,7 +69,19 @@ float player_head(win_t *win, player_t *player)
         head_angle -= PI, sfSprite_setScale(member->sprite, vec1);
     else
         sfSprite_setScale(member->sprite, vec2);
-    return (head_angle/PI*180-90);
+    return (head_angle / PI * 180 - 90);
+}
+
+void animate_player_b(win_t *win, player_t *player, float h_head)
+{
+    if (sfKeyboard_isKeyPressed(sfKeyD))
+        player->vx = 6.0 * (1 + win->game->speed * 0.1);
+    else if (sfKeyboard_isKeyPressed(sfKeyQ))
+        player->vx = -6.0 * (1 + win->game->speed * 0.1);
+    if (sfKeyboard_isKeyPressed(sfKeyZ) && player->floor)
+        player->vy = -JUMP_SPEED * (1 + win->game->jumpb * 0.1),
+        animator_goto(player->anim, 15.0, ANIM_JUMP);
+    animator_draw(win->win, player->anim);
 }
 
 void animate_player(win_t *win)
@@ -87,12 +97,5 @@ void animate_player(win_t *win)
         else if (player->floor)
             animator_goto(player->anim, 5.0, ANIM_STAND);
     }
-    if (sfKeyboard_isKeyPressed(sfKeyD))
-        player->vx = 6.0 * (1+win->game->speed*0.1);
-    else if (sfKeyboard_isKeyPressed(sfKeyQ))
-        player->vx = -6.0 * (1+win->game->speed*0.1);
-    if (sfKeyboard_isKeyPressed(sfKeyZ) && player->floor)
-        player->vy = -JUMP_SPEED * (1+win->game->jumpb*0.1),
-        animator_goto(player->anim, 15.0, ANIM_JUMP);
-    animator_draw(win->win, player->anim);
+    animate_player_b(win, player, h_head);
 }
