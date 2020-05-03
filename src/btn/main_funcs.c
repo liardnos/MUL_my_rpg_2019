@@ -23,7 +23,8 @@ int btn_play_init_two(win_t *win, game_t *cpy)
     cpy->zombie = init_body("zombie");
     cpy->alien = init_body("alien");
     p->anim = init_player_animator(cpy);
-    if (!cpy->zombie || !cpy->alien || !cpy->skeleton || !p->anim)
+    if (!cpy->player || !cpy->zombie || !cpy->alien || !cpy->skeleton ||
+    !p->anim)
         return (0);
 }
 
@@ -42,7 +43,7 @@ int btn_play_init(win_t *win, int *returned, game_t *cpy)
     cpy->hud = init_texture("assets/hud/quests_hud.png");
     cpy->choose = init_texture("assets/hud/choose_hud.png");
     if (!cpy->bl || !cpy->it || !cpy->ef || !cpy->entities || !cpy->items
-    || !cpy->inv || !cpy->bar || !cpy->players || !p->anim || !cpy->choose ||
+    || !cpy->inv || !cpy->bar || !cpy->players || !cpy->choose ||
     !cpy->hud || !btn_play_init_two(win, cpy)) {
         *returned = 84;
         return (0);
@@ -54,10 +55,10 @@ void btn_play_set_value(win_t *win)
 {
     win->game->quest = 0;
     win->game->nofall = 0;
-    win->game->jumpb = 1.0;
-    win->game->attack = 1.0;
-    win->game->speed = 1.0;
-    win->game->shield = 1.0;
+    win->game->jumpb = 0;
+    win->game->attack = 0;
+    win->game->speed = 0;
+    win->game->shield = 0;
 }
 
 //FIXME

@@ -298,10 +298,10 @@ typedef struct game
     body_t *alien;
     int quest;
     int select;
-    float jumpb;
-    float shield;
-    float speed;
-    float attack;
+    int jumpb;
+    int shield;
+    int speed;
+    int attack;
     int nofall;
     sfVector2i old;
 } game_t;
@@ -342,6 +342,7 @@ typedef struct win
     int menu;
     sfVideoMode mode;
     lld_t *particles;
+    sfClock *clock;
 }win_t;
 
 typedef struct att_s

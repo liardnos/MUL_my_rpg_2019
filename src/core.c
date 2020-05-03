@@ -9,6 +9,8 @@
 #include "my.h"
 #include "rpg.h"
 
+//FIXME
+
 void main_loop(int *returned, win_t *win, button_t **buttons)
 {
     sfEvent event;
@@ -21,7 +23,10 @@ void main_loop(int *returned, win_t *win, button_t **buttons)
             if (!event_manager(win, buttons, event, returned))
                 return;
         }
+        //if (sfTime_asSeconds(sfClock_getElapsedTime(win->clock)) >= 1 / 120.0) {
         scene_manager(win, buttons, returned);
+            //sfClock_restart(win->clock);
+        //}
         player_manager(win);
         sfRenderWindow_display(win->win);
     }
