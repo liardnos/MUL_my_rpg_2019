@@ -175,11 +175,11 @@ int engine_proj(game_t *game)
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
         arrow_t *arow = mv->data;
-        sfIntRect rect = {flr(arow->x), flr(arow->y), 1, 1};
+        sfIntRect rect = {flr(arow->x), flr(arow->y-0.5), 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
         if (block[0][0]->solid){
             lld_insert(rm, 0, (void *)(u64)i);
-            engine_create_item(game, arow->x, arow->y-1, 2, ARROW, 18000, 1);
+            engine_create_item(game, arow->x, arow->y-0.5, 2, ARROW, 18000, 1);
             continue;
         }
         engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
