@@ -35,7 +35,7 @@ void fight_bow(win_t *win, player_t *p)
         if (!take_inv(p->inventory, 2, ARROW, 1))
             return;
         arrow = malloc(sizeof(arrow_t));
-        if (!arrow) return (0);
+        if (!arrow) return;
         arrow->x = p->x;
         arrow->y = p->y-0.10;
         arrow->vx = pos.x/30;

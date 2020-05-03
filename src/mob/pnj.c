@@ -25,10 +25,11 @@ int mob_pnj_add(game_t *game, sfVector2f pos)
     lld_insert(game->entities, 0, pnj);
 }
 
-void mob_pnj(game_t *game, entity_t *pnj)
+void mob_pnj(win_t *win, entity_t *pnj)
 {
-    player_t *p = game->players->next->data;
+    player_t *p = win->game->players->next->data;
     float dx = pnj->x - p->x;
+    sfVector2i pos = sfMouse_getPosition((sfWindow *)win->win);
 
     if (dx < 0 && fabsf(dx) > 20.0){
         pnj->vx = 3;
@@ -36,5 +37,15 @@ void mob_pnj(game_t *game, entity_t *pnj)
     } else if (fabsf(dx) > 20.0){
         pnj->vx = -3;
         pnj->wall_l & 1 && pnj->floor ? pnj->vy = -JUMP_SPEED : 0;
+    }
+
+    if (sfMouse_isButtonPressed(sfMouseRight) && win->menu == 3){
+        float dx = fabsf(pnj->x - (pos.x-1920/2)/60 - p->x);
+        float dy = fabsf(pnj->y - (pos.y-1080/2)/60 - p->y);
+        my_printf("oki2\n");
+        if (dx < 0.5 && dy < 2){
+            win->menu = 6;
+            my_printf("oki\n");
+        }
     }
 }

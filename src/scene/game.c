@@ -86,6 +86,8 @@ void draw_game_proj(win_t *win, player_t *p)
     sfIntRect rect = {64*ARROW, 0, 64, 64};
     sfVector2f pos = {0, 0};
     sfVector2f scale = {0.5, 0.5};
+    sfVector2f ori = {32, 32};
+    sfVector2f orio = {0, 0};
     lld_t *lld = win->game->proj;
     float angle = 0;
 
@@ -100,12 +102,14 @@ void draw_game_proj(win_t *win, player_t *p)
 
         pos.x = (item->x - p->x) * 64 + 1920/2;
         pos.y = (item->y - p->y) * 64 + 1080/2;
+        sfSprite_setTextureRect(win->game->bl->sprite, rect);
         sfSprite_setPosition(win->game->it->sprite, pos);
+        sfSprite_setOrigin(win->game->it->sprite, ori);
         sfSprite_setScale(win->game->it->sprite, scale);
         sfSprite_setRotation(win->game->it->sprite, angle/PI*180 + 135);
-        sfSprite_setTextureRect(win->game->bl->sprite, rect);
         sfRenderWindow_drawSprite(win->win, win->game->it->sprite, 0);
     }
+    sfSprite_setOrigin(win->game->it->sprite, orio);
     sfSprite_setRotation(win->game->it->sprite, 0);
 }
 

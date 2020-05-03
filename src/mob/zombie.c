@@ -73,12 +73,23 @@ void mob_skeleton(game_t *game, entity_t *skel)
 void mob(win_t *win)
 {
     lld_t *lld = win->game->entities;
+    int i = 0;
+    lld_t *rm = lld_init();
+    entity_t *entity;
 
-    for (lld_t *mv = lld->next; mv; mv = mv->next){
-        entity_t *entity = mv->data;
+    for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
+        entity = mv->data;
         entity->type == 1 ? mob_zombie(win->game, entity) :
         entity->type == 2 ? mob_skeleton(win->game, entity) :
-        entity->type == 3 ? mob_pnj(win->game, entity) :
+        entity->type == 3 ? mob_pnj(win, entity) :
         0;
+        if (entity->hp <= 0)
+            lld_insert(rm, 0, i);
     }
+    while (rm->data){
+        entity = lld_pop(lld, (u64)lld_pop(rm, 0));
+        animator_free(entity->anim);
+        free(entity);
+    }
+    lld_free(rm);
 }
