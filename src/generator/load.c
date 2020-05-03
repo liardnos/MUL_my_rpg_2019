@@ -69,6 +69,12 @@ game_t *load_gameb(void)
     if (!game || fd < 0)
         return (0);
     read(fd, &game->quest, sizeof(int)) != sizeof(int) ? (game = 0) :
+    read(fd, &game->jumpb, sizeof(int)) != sizeof(int) ? (game = 0) :
+    read(fd, &game->shield, sizeof(int)) != sizeof(int) ? (game = 0) :
+    read(fd, &game->speed, sizeof(int)) != sizeof(int) ? (game = 0) :
+    read(fd, &game->attack, sizeof(int)) != sizeof(int) ? (game = 0) :
+    read(fd, &game->nofall, sizeof(int)) != sizeof(int) ? (game = 0) :
+    read(fd, &game->skills, sizeof(int)) != sizeof(int) ? (game = 0) :
     0;
     close(fd);
     return (game);
