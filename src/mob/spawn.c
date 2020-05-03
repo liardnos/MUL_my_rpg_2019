@@ -32,7 +32,6 @@ void spawn_mobs(win_t *win, int nb, int hp)
     sfVector2f pos = {p->x + rand()%200-100, HOME_Y};
 
     for (int i = 0; i < nb; i++){
-        spawn+= win->game->quest - 2;
         while (fabsf(pos.x-p->x) < 15)
             pos.x = p->x + rand()%100-50;
         rand() % 2 ? mob_zombie_add(win->game, pos, win->game->quest*2) : 0;

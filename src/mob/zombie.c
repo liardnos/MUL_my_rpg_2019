@@ -76,7 +76,7 @@ void mob_skeleton(game_t *game, entity_t *skel)
         skel->vx = -3;
         skel->wall_l & 1 && skel->floor ? skel->vy = -JUMP_SPEED : 0;
     }
-    if (fabsf(dx) < 20 && fabsf(dy) < 20 && dmg >= 109){
+    if (fabsf(dx) < 15 && fabsf(dy) < 15 && dmg >= 109){
         arrow_t *arrow = malloc(sizeof(arrow_t));
         if (!arrow) return;
         arrow->x = skel->x;
@@ -87,7 +87,7 @@ void mob_skeleton(game_t *game, entity_t *skel)
         lld_insert(game->proj, 0, arrow);
         dmg = 0;
     }
-    fabsf(dx) < 10 && fabsf(dy) < 10 ? dmg++ : 0;
+    fabsf(dx) < 15 && fabsf(dy) < 15 ? dmg++ : 0;
 }
 
 void mob_delete(win_t *win, lld_t *rm)
