@@ -27,16 +27,17 @@ void fight_sword_diamond(win_t *win, player_t *p)
 void fight_bow(win_t *win, player_t *p)
 {
     sfVector2i pos = sfMouse_getPosition((sfWindow *)win->win);
-    pos.x -= 1920/2, pos.y -= 1080/2;
     static int s = 0;
+    arrow_t *arrow;
 
+    pos.x -= 1920/2, pos.y -= 1080/2;
     if (sfMouse_isButtonPressed(sfMouseRight) && s == 0){
-        printf("FIREEEEEE\n");
         if (!take_inv(p->inventory, 2, ARROW, 1))
             return;
-        arrow_t *arrow = malloc(sizeof(arrow_t));
+        arrow = malloc(sizeof(arrow_t));
+        if (!arrow) return (0);
         arrow->x = p->x;
-        arrow->y = p->y-1;
+        arrow->y = p->y-0.10;
         arrow->vx = pos.x/30;
         arrow->vy = pos.y/30;
         lld_insert(win->game->proj, 0, arrow);

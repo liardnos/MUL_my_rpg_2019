@@ -103,7 +103,7 @@ int engine_items(game_t *game)
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
         item_t *item = mv->data;
-        sfIntRect rect = {item->x, item->y+1, 1, 1};
+        sfIntRect rect = {flr(item->x), flr(item->y+1), 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
         (flr(item->y + item->vy/60.0) > flr(item->y)) && (block[0][0]->solid) ?
         item->vy = 0, item->y = flr(item->y)+0.99 : 0;
@@ -119,6 +119,23 @@ int engine_items(game_t *game)
     lld_free(lld_sup);
 }
 
+int engine_proj_colide(game_t *game, arrow_t *arow)
+{
+    lld_t *lld = game->entities;
+
+    for (lld_t *mv = lld->next; mv; mv = mv->next){
+        entity_t *p = mv->data;
+        float dx = fabsf(p->x -arow->x);
+        float dy = fabsf(p->y -arow->y);
+        if (dx < 0.33 && dy < 1){
+            p->hp--;
+            return (1);
+        }
+    }
+    return (0);
+}
+
+
 int engine_proj(game_t *game)
 {
     lld_t *lld = game->proj;
@@ -127,16 +144,15 @@ int engine_proj(game_t *game)
 
     for (lld_t *mv = lld->next; mv; mv = mv->next, i++){
         arrow_t *arow = mv->data;
-        sfIntRect rect = {arow->x-1, arow->y-1, 3, 3};
+        sfIntRect rect = {flr(arow->x), flr(arow->y), 1, 1};
         block_t ***block = generator_getmap(game->map, &rect);
-        //hit the ground
-        printf("%i %i\n", flr(arow->x + arow->vx) - flr(arow->x)+1, flr(arow->y + arow->vy) - flr(arow->y)+1);
-        if (block[(flr(arow->x + arow->vx) - flr(arow->x))/60+1][(flr(arow->y + arow->vy) - flr(arow->y))/60+1]->solid){
+        if (block[0][0]->solid){
             lld_insert(lld_sup, 0, (void *)(u64)i);
             engine_create_item(game, arow->x, arow->y-1, 2, ARROW, 18000, 1);
         }
         engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
         free(block-1);
+        engine_proj_colide(game, arow) ? lld_insert(lld_sup, 0, (void *)(u64)i) : 0;
     }
     while (lld_sup->data)
         free(lld_pop(lld, (u64)lld_pop(lld_sup, 0)));
