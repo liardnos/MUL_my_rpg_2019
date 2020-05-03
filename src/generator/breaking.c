@@ -38,7 +38,8 @@ void breaking(win_t *win, block_t ***block, sfVector2f pos)
     if (vec.x < 0 || vec.y < 0 || vec.x > 1920 || vec.y > 1080) return;
     block_t *b = block[(int)((vec.x+pos.x)/64)][(int)((vec.y+pos.y)/64)];
 
-    breaking_b(win, block, pos, b);
+    if (fabsf(vec.x-1920/2)/60 < 5 && fabsf(vec.y-1080/2)/60 < 5)
+        breaking_b(win, block, pos, b);
     if (sfMouse_isButtonPressed(sfMouseRight)){
         if (b->type == ICE && p->inventory[3][p->select]/10000 % 10 == 1){
             int type = p->inventory[3][p->select]/100%100;
