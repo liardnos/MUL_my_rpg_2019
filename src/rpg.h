@@ -297,6 +297,7 @@ typedef struct game
     body_t *skeleton;
     body_t *zombie;
     body_t *alien;
+    int mob_kill;
     int quest;
     int select;
     int jumpb;

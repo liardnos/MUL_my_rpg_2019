@@ -101,15 +101,14 @@ void mob(win_t *win)
         entity = mv->data;
         entity->type == 1 ? mob_zombie(win->game, entity) :
         entity->type == 2 ? mob_skeleton(win->game, entity) :
-        entity->type == 3 ? mob_pnj(win, entity) :
-        0;
+        entity->type == 3 ? mob_pnj(win, entity) : 0;
         if (entity->hp <= 0)
             lld_insert(rm, 0, (void *)(u64)i);
     }
     while (rm->data){
         entity = lld_pop(lld, (u64)lld_pop(rm, 0));
         animator_free(entity->anim);
-        win->game->skills += 0.2;
+        win->game->skills += 0.2, win->game->mob_kill++;
         free(entity);
     }
     lld_free(rm);

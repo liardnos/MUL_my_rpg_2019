@@ -64,6 +64,7 @@ int save_gameb(game_t *game)
     write(fd, &game->attack, sizeof(int));
     write(fd, &game->nofall, sizeof(int));
     write(fd, &game->skills, sizeof(int));
+    write(fd, &game->mob_kill, sizeof(int));
     close(fd);
     my_printf("[RM] game saved\n");
 }

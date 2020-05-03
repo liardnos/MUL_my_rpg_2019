@@ -62,6 +62,7 @@ void btn_play_set_value(win_t *win)
     win->game->speed = 0;
     win->game->shield = 0;
     win->game->skills = 0;
+    win->game->mob_kill = 0;
 }
 
 void btn_play(win_t *win, int *returned)
