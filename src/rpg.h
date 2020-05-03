@@ -304,7 +304,7 @@ typedef struct game
     int speed;
     int attack;
     int nofall;
-    int skills;
+    float skills;
     sfVector2i old;
 } game_t;
 

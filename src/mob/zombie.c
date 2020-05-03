@@ -59,8 +59,7 @@ void mob_zombie(game_t *game, entity_t *zomb)
         zomb->wall_l & 1 && zomb->floor ? zomb->vy = -JUMP_SPEED : 0;
     }
     if (fabsf(dx) < 0.5 && fabsf(dy) < 1)
-        dmg < 60 ? dmg++ : (dmg = 0, p->hp--);
-
+        dmg < 60*(1+0.1*game->shield) ? dmg++ : (dmg = 0, p->hp--);
 }
 
 void mob_skeleton(game_t *game, entity_t *skel)
