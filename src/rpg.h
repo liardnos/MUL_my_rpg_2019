@@ -266,6 +266,7 @@ typedef struct arrow
     float y;
     float vx;
     float vy;
+    int type;
 } arrow_t;
 
 typedef struct body

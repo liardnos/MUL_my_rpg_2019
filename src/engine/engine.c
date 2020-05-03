@@ -135,7 +135,7 @@ int engine_items(game_t *game)
     lld_free(lld_sup);
 }
 
-int engine_proj_colide(game_t *game, arrow_t *arow)
+int engine_proj_colide_e(game_t *game, arrow_t *arow)
 {
     lld_t *lld = game->entities;
 
@@ -151,6 +151,21 @@ int engine_proj_colide(game_t *game, arrow_t *arow)
     return (0);
 }
 
+int engine_proj_colide_p(game_t *game, arrow_t *arow)
+{
+    lld_t *lld = game->players;
+
+    for (lld_t *mv = lld->next; mv; mv = mv->next){
+        player_t *p = mv->data;
+        float dx = fabsf(p->x -arow->x);
+        float dy = fabsf(p->y -arow->y);
+        if (dx < 0.33 && dy < 1){
+            p->hp--;
+            return (1);
+        }
+    }
+    return (0);
+}
 
 int engine_proj(game_t *game)
 {
@@ -168,7 +183,9 @@ int engine_proj(game_t *game)
         }
         engine_g(&(arow->x), &(arow->y), &(arow->vx), &(arow->vy));
         free(block-1);
-        engine_proj_colide(game, arow) ? lld_insert(rm, 0, (void *)(u64)i) : 0;
+        arow->type == 0 ?
+        engine_proj_colide_e(game, arow) ? lld_insert(rm, 0, (void *)(u64)i) : 0 :
+        engine_proj_colide_p(game, arow) ? lld_insert(rm, 0, (void *)(u64)i) : 0;
     }
     while (rm->data)
         free(lld_pop(lld, (u64)lld_pop(rm, 0)));

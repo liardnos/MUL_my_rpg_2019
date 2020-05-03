@@ -42,9 +42,9 @@ map_t *load_map(void)
 player_t *load_player(void)
 {
     int fd = open("save/player", O_RDONLY);
-    if (fd < 0) return (0);
     player_t *p = malloc(sizeof(player_t));
-    if (!p) return (0);
+    if (fd < 0 || !p) return (0);
+
     p->floor = 0;
     p->inventory = init_inventory();
     read(fd, &p->x, sizeof(float)) != sizeof(float) ? (p = 0) :
