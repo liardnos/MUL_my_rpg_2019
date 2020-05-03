@@ -92,6 +92,10 @@ void btn_play(win_t *win, int *returned)
     engine_create_item(win->game, 2, 0, 1, 4, 100000, 32);
     engine_create_item(win->game, 1, 0, 2, BOW, 100000, 1);
     engine_create_item(win->game, 2, 0, 2, ARROW, 100000, 32);
+    engine_create_item(win->game, 2, 0, 2, PICKAXE_WOOD, 100000, 32);
+    engine_create_item(win->game, 2, 0, 2, PICKAXE_STONE, 100000, 32);
+    engine_create_item(win->game, 2, 0, 2, PICKAXE_IRON, 100000, 32);
+    engine_create_item(win->game, 2, 0, 2, PICKAXE_DIAMOND, 100000, 32);
     sfVector2f pos = {0, HOME_Y};
     mob_skeleton_add(win->game, pos);
     mob_zombie_add(win->game, pos);
