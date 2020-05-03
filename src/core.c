@@ -9,21 +9,26 @@
 #include "my.h"
 #include "rpg.h"
 
-//FIXME
-
-void main_loop(int *returned, win_t *win, button_t **buttons)
+int while_events(win_t *win, int *returned, button_t **buttons)
 {
     sfEvent event;
 
+    while (sfRenderWindow_pollEvent(win->win, &event)) {
+        if (!event_manager(win, buttons, event, returned))
+            return (0);
+    }
+    return (1);
+}
+
+void main_loop(int *returned, win_t *win, button_t **buttons)
+{
     while (sfRenderWindow_isOpen(win->win)) {
         if (*returned == 84)
             return;
         if (sfTime_asSeconds(sfClock_getElapsedTime(win->clock)) >= 1 / 60.0) {
             sfRenderWindow_clear(win->win, sfBlack);
-            while (sfRenderWindow_pollEvent(win->win, &event)) {
-                if (!event_manager(win, buttons, event, returned))
+            if (!while_events(win, returned, buttons))
                 return;
-            }
             scene_manager(win, buttons, returned);
             player_manager(win);
             sfRenderWindow_display(win->win);
