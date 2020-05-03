@@ -84,7 +84,7 @@ void mob(win_t *win)
         entity->type == 3 ? mob_pnj(win, entity) :
         0;
         if (entity->hp <= 0)
-            lld_insert(rm, 0, i);
+            lld_insert(rm, 0, (void *)(u64)i);
     }
     while (rm->data){
         entity = lld_pop(lld, (u64)lld_pop(rm, 0));

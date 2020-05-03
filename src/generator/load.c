@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 #include "rpg.h"
 #include "my.h"
 //FIXME
@@ -66,6 +67,7 @@ game_t *load_gameb(void)
     game_t *game = malloc(sizeof(game_t));
     int fd = open("save/game", O_RDONLY);
 
+    memset(game, 0, sizeof(game_t));
     if (!game || fd < 0)
         return (0);
     read(fd, &game->quest, sizeof(int)) != sizeof(int) ? (game = 0) :
