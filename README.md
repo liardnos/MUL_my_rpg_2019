@@ -3,4 +3,4 @@
 terraria like rpg
 
 demo:
-https://youtu.be/AEiEGKuzNHM
+https://www.youtube.com/watch?v=AEiEGKuzNHM
