@@ -33,7 +33,7 @@ void draw_window(sfRenderWindow *win, framebuffer_t *fb)
     }
     sfTexture_updateFromPixels(texture, fb->pixels, SCREEN_X, SCREEN_Y, 0, 0);
     sfRenderWindow_drawSprite(win, sprite, 0);
-    sfRenderWindow_display(win);
+    //sfRenderWindow_display(win);
 }
 
 world_t *create_world(int x, int y)
