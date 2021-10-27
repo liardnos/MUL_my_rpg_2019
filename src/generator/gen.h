@@ -5,6 +5,8 @@
 ** generator for my_rpg
 */
 
+#pragma once
+
 block_t blockss[61][1] = {
     {STONEBRICK     , {0, 0, 0}, 1, 20},
     {BRICKBLOCK     , {0, 0, 0}, 1, 20},
