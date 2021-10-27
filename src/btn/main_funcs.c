@@ -5,7 +5,6 @@
 ** Main funcs of btns
 */
 
-#include "menu.h"
 #include "rpg.h"
 
 void btn_quit(win_t *win, int *returned)

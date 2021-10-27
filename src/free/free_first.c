@@ -6,7 +6,6 @@
 */
 
 #include <stdlib.h>
-#include "menu.h"
 #include "rpg.h"
 
 void free_texture(texture_t *texture)
